@@ -1,6 +1,6 @@
 NAME = RanGen
 ICON = icon.png
-DESCRIPTION = "A random platformer"
+DESCRIPTION = "[alpha 0.2] A random platformer"
 
 COMPRESSED = NO
 ARCHIVED = YES

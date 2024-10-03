@@ -5,5 +5,5 @@
 
 	public ___description
 ___description:
-	db	"A random platformer", 0
+	db	"[alpha 0.2] A random platformer", 0
 ___prgm_init:
