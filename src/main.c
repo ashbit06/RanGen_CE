@@ -1,6 +1,8 @@
 #include <graphx.h>
 #include <keypadc.h>
 #include <tice.h>
+#include <stdlib.h>
+#include <math.h>
 
 #define TILE_SIZE 16
 
@@ -25,8 +27,14 @@ void drawTile(int x, int y, int type) {
     }
 }
 
-void print(String[] text)
-
+void generateMap(int spawnX, int spawnY, int caveHeight, int wsChance) {
+    for (int y = 0; y < GFX_LCD_HEIGHT; y+=TILE_SIZE) {
+        for (int x = 0; x < GFX_LCD_WIDTH; x+=TILE_SIZE) {
+            if ((((int)rand() * ((int)log(y) * 170 + 170 + abs(caveHeight-500))) + 1) > (wsChance * 6) || ((x == spawnX) && (y == spawnY - TILE_SIZE)))
+                drawTile(x, y, 0);
+        }
+    }
+}
 // tiles to fit: 24x18
 
 int main() {
@@ -34,9 +42,23 @@ int main() {
     gfx_Begin();
     gfx_SetDrawBuffer();
 
+    // initialize font
+    gfx_SetTextScale(1, 1);
+    gfx_SetTextFGColor(gfx_green);
+
+    // initialize random
+    srand(rtc_Time());
+
+    // initialize the player
     struct Player p;
     p.x = 10;
     p.y = (int)(GFX_LCD_HEIGHT / 2);
+
+    int spawnX = GFX_LCD_WIDTH/2 + TILE_SIZE/2;
+    int spawnY = GFX_LCD_HEIGHT/2 + TILE_SIZE/2;
+    int caveHeight = 0;
+    int wsChance = 60;
+
 
     // Main game loop
     while (1) {
@@ -48,13 +70,8 @@ int main() {
 
         gfx_FillScreen(gfx_white);
 
-        for (int y = 0; y < GFX_LCD_HEIGHT; y+=TILE_SIZE) {
-            for (int x = 0; x < GFX_LCD_WIDTH; x+=TILE_SIZE) {
-                drawTile(x,y,0);
-            }
-        }
-
-        
+        // generate map
+        generateMap(spawnX, spawnY, caveHeight, wsChance);
 
         // player controls
         if (kb_IsDown(kb_KeyRight)) {
@@ -63,6 +80,9 @@ int main() {
             p.x -= 2;
         }
         drawPlayer(p.x, p.y);
+
+        gfx_PrintInt(p.x, 0);
+        gfx_PrintInt(p.y, 0);
 
         // Swap buffers to show the updated screen
         gfx_SwapDraw();

@@ -2,14 +2,14 @@ Section          Base   Top    High   Length
 ---------------- ------ ------ ------ -------
 .icon            D1A882 D1A89B            19h
 .init.libs       D1A89B D1A8F3            58h
-.libs            D1A8F3 D1A930            3Dh
-.init.clock      D1A930 D1A94B            1Bh
-.init.reruncheck D1A94B D1A94B             0h
-.init            D1A94B D1A96B            20h
-.fini            D1A96B D1A99F            34h
-.text            D1A99F D1ABA3           204h
-.data            D1ABA3 D1ABA3             0h
-.rodata          D1ABA3 D1ABC5            22h
+.libs            D1A8F3 D1A93C            49h
+.init.clock      D1A93C D1A957            1Bh
+.init.reruncheck D1A957 D1A957             0h
+.init            D1A957 D1A977            20h
+.fini            D1A977 D1A9AB            34h
+.text            D1A9AB D1ADCC           421h
+.data            D1ADCC D1ADDC            10h
+.rodata          D1ADDC D1ADFE            22h
 .init_array      000000 000000             0h
 .ctors           000000 000000             0h
 .dtors           000000 000000             0h
@@ -29,30 +29,44 @@ ___ctors_count             = 000000
 ___dtors_count             = 000000
 ___fini_array_count        = 000000
 __stack                    = D1A87E
-__frameset                 = D1A99F
-__frameset0                = D1A9AD
-__lmulu                    = D1A9B8
-_atomic_load_increasing_32 = D1AA14
-_delay                     = D1AA39
-_os_DisableHomeTextBuffer  = D1AA63
-_os_EnableHomeTextBuffer   = D1AA75
-___sleep_common.3          = D1AA89
-_clock                     = D1AAA2
-.missingappvar             = D1ABA3
-.libloadname               = D1ABA8
+__frameset                 = D1A9AB
+__frameset0                = D1A9B9
+__imulu                    = D1A9C4
+__lmulu                    = D1A9F4
+__ftol                     = 00027C
+__ftoul                    = 00027C
+__ltof                     = 000284
+__setflag                  = 000218
+__ultof                    = 000280
+_atomic_load_increasing_32 = D1AA50
+_delay                     = D1AA75
+_os_DisableHomeTextBuffer  = D1AA9F
+_os_EnableHomeTextBuffer   = D1AAB1
+_random                    = D1AAC3
+__setstate                 = D1AB21
+__state                    = D1ADCC
+___sleep_common.3          = D1AB33
+_clock                     = D1AB4C
+_logf                      = 0220E4
+_log                       = 0220E4
+_rand                      = D1AB57
+_srand                     = D1AB64
+.missingappvar             = D1ADDC
+.libloadname               = D1ADE1
 .libloadnamelen            = 000007
-.webaddress                = D1ABB0
-___init_clock              = D1A930
-__start                    = D1A94B
-___exithl                  = D1A96B
-skip._exit                 = D1A96B
-skip.__Exit                = D1A96B
-skip._abort                = D1A96B
-_exit.sp                   = D1A96C
-_exit.flash_wait_states    = D1A976
-_drawPlayer                = D1AAAD
-_drawTile                  = D1AAD2
-_main                      = D1AAF6
+.webaddress                = D1ADE9
+___init_clock              = D1A93C
+__start                    = D1A957
+___exithl                  = D1A977
+skip._exit                 = D1A977
+skip.__Exit                = D1A977
+skip._abort                = D1A977
+_exit.sp                   = D1A978
+_exit.flash_wait_states    = D1A982
+_drawPlayer                = D1AB6C
+_drawTile                  = D1AB91
+_generateMap               = D1ABB5
+_main                      = D1ACD3
 lib.LibLoad                = D1A8F3
 _#gfx_Begin                = D1A906
 _#gfx_End                  = D1A90A
@@ -60,5 +74,8 @@ _#gfx_SetColor             = D1A90E
 _#gfx_FillScreen           = D1A912
 _#gfx_SetDraw              = D1A916
 _#gfx_SwapDraw             = D1A91A
-_#gfx_FillRectangle        = D1A91E
-_#kb_Scan                  = D1A92C
+_#gfx_PrintInt             = D1A91E
+_#gfx_SetTextFGColor       = D1A922
+_#gfx_FillRectangle        = D1A926
+_#gfx_SetTextScale         = D1A92A
+_#kb_Scan                  = D1A938
