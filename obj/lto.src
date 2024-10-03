@@ -25,6 +25,11 @@ _drawPlayer:
 	public	_drawTile
 _drawTile:
 	call	__frameset0
+	ld	hl, (ix + 12)
+	add	hl, bc
+	or	a, a
+	sbc	hl, bc
+	jr	nz, BB1_2
 	or	a, a
 	sbc	hl, hl
 	push	hl
@@ -38,7 +43,11 @@ _drawTile:
 	ld	hl, (ix + 6)
 	push	hl
 	call	_gfx_FillRectangle
-	ld	sp, ix
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+BB1_2:
 	pop	ix
 	ret
 	section	.text,"ax",@progbits
@@ -46,9 +55,9 @@ _drawTile:
 	section	.text,"ax",@progbits
 	public	_generateMap
 _generateMap:
-	ld	hl, -24
+	ld	hl, -33
 	call	__frameset
-	ld	bc, (ix + 12)
+	ld	bc, (ix + 15)
 	ld	de, -500
 	ld	hl, 500
 	push	bc
@@ -68,52 +77,61 @@ _generateMap:
 	jp	m, BB2_2
 	lea	hl, iy
 BB2_2:
+	ld	de, (ix + 6)
+	ld	(ix - 3), de
 	ld	de, 170
 	add	hl, de
-	ld	(ix - 9), hl
-	ld	hl, (ix + 15)
+	ld	(ix - 12), hl
+	ld	hl, (ix + 18)
 	ld	bc, 6
 	call	__imulu
-	ld	(ix - 12), hl
-	ld	hl, (ix + 9)
-	ld	bc, -16
-	add	hl, bc
-	ld	(ix - 24), hl
-	ld	bc, 240
-	ld	iy, 0
+	ld	(ix - 15), hl
+	ld	de, -16
+	ld	hl, (ix + 12)
+	add	hl, de
+	ld	(ix - 18), hl
+	ld	de, 15
+	ld	bc, 0
 BB2_3:
-	lea	hl, iy
+	push	bc
+	pop	hl
 	or	a, a
-	sbc	hl, bc
-	jp	nc, BB2_12
-	lea	hl, iy
-	ld	(ix - 3), iy
-	ld	iy, (ix - 3)
+	sbc	hl, de
+	jp	z, BB2_16
+	ld	(ix - 21), bc
+	push	bc
+	pop	hl
+	ld	c, 4
+	call	__ishl
+	push	hl
+	pop	bc
+	push	bc
+	pop	iy
 	add	iy, iy
-	ld	iy, (ix - 3)
 	sbc	hl, hl
-	lea	bc, iy
+	ld	(ix - 24), bc
 	ld	a, l
 	call	__ltof
-	ld	(ix - 15), bc
-	or	a, a
-	sbc	hl, hl
-	ld	c, a
-	ld	(ix - 18), bc
-BB2_5:
+	ld	(ix - 27), bc
+	ld	l, a
+	ld	(ix - 30), hl
+	ld	iy, 0
+	ld	hl, (ix + 9)
 	ld	(ix - 6), hl
-	ld	bc, 320
+BB2_5:
+	lea	hl, iy
+	ld	bc, 60
 	or	a, a
 	sbc	hl, bc
-	jr	nc, BB2_11
+	jp	z, BB2_15
+	ld	(ix - 9), iy
 	call	_rand
-	ld	(ix - 21), hl
-	ld	hl, (ix - 18)
+	ld	(ix - 33), hl
+	ld	hl, (ix - 30)
 	push	hl
-	ld	hl, (ix - 15)
+	ld	hl, (ix - 27)
 	push	hl
 	call	_log
-	ld	iy, (ix - 3)
 	push	hl
 	pop	bc
 	ld	a, e
@@ -126,46 +144,127 @@ BB2_5:
 	call	__imulu
 	push	hl
 	pop	de
-	ld	hl, (ix - 9)
+	ld	hl, (ix - 12)
 	add	hl, de
-	ld	bc, (ix - 21)
+	ld	bc, (ix - 33)
 	call	__imulu
-	ld	de, (ix - 12)
+	push	hl
+	pop	de
+	ld	hl, (ix - 6)
+	add	hl, bc
+	or	a, a
+	sbc	hl, bc
+	ld	a, -1
+	jr	z, BB2_8
+	ld	a, 0
+BB2_8:
+	ld	hl, (ix - 24)
+	ld	bc, (ix - 18)
+	or	a, a
+	sbc	hl, bc
+	ld	l, -1
+	jr	z, BB2_10
+	ld	l, 0
+BB2_10:
+	and	a, l
+	bit	0, a
+	ld	bc, 0
+	ld	iy, (ix - 9)
+	jr	nz, BB2_12
+	ld	bc, 15
+BB2_12:
+	ex	de, hl
+	ld	de, (ix - 15)
 	or	a, a
 	sbc	hl, de
 	call	pe, __setflag
-	jp	p, BB2_9
-	ld	hl, (ix + 6)
-	ld	de, (ix - 6)
-	or	a, a
-	sbc	hl, de
-	jr	nz, BB2_10
-	lea	hl, iy
-	ld	de, (ix - 24)
-	or	a, a
-	sbc	hl, de
-	jr	nz, BB2_10
-BB2_9:
-	push	hl
-	push	iy
-	ld	hl, (ix - 6)
-	push	hl
-	call	_drawTile
+	jp	m, BB2_14
+	ld	bc, 0
+BB2_14:
+	lea	de, iy
 	ld	iy, (ix - 3)
-	pop	hl
-	pop	hl
-	pop	hl
-BB2_10:
-	ld	de, 16
+	add	iy, de
+	ld	(iy), bc
+	ld	iy, (ix - 9)
+	ld	de, -16
 	ld	hl, (ix - 6)
 	add	hl, de
+	ld	(ix - 6), hl
+	ld	de, 3
+	add	iy, de
+	ld	de, 15
 	jp	BB2_5
-BB2_11:
-	ld	bc, 16
-	add	iy, bc
-	ld	bc, 240
+BB2_15:
+	ld	bc, (ix - 21)
+	inc	bc
+	ld	iy, (ix - 3)
+	lea	iy, iy + 72
+	ld	(ix - 3), iy
 	jp	BB2_3
-BB2_12:
+BB2_16:
+	ld	sp, ix
+	pop	ix
+	ret
+	section	.text,"ax",@progbits
+
+	section	.text,"ax",@progbits
+	public	_drawMap
+_drawMap:
+	ld	hl, -15
+	call	__frameset
+	ld	hl, (ix + 6)
+	ld	(ix - 3), hl
+	ld	bc, 0
+BB3_1:
+	push	bc
+	pop	hl
+	ld	de, 15
+	or	a, a
+	sbc	hl, de
+	jr	z, BB3_6
+	ld	(ix - 9), bc
+	push	bc
+	pop	hl
+	ld	c, 4
+	call	__ishl
+	ld	(ix - 12), hl
+	ld	hl, (ix - 3)
+	ld	(ix - 6), hl
+	or	a, a
+	sbc	hl, hl
+BB3_3:
+	push	hl
+	pop	de
+	ld	bc, 320
+	or	a, a
+	sbc	hl, bc
+	jr	z, BB3_5
+	ld	hl, (ix - 6)
+	ld	bc, (hl)
+	push	bc
+	ld	hl, (ix - 12)
+	push	hl
+	ld	(ix - 15), de
+	push	de
+	call	_drawTile
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 15)
+	ld	de, 16
+	add	hl, de
+	ld	iy, (ix - 6)
+	lea	iy, iy + 3
+	ld	(ix - 6), iy
+	jr	BB3_3
+BB3_5:
+	ld	bc, (ix - 9)
+	inc	bc
+	ld	iy, (ix - 3)
+	lea	iy, iy + 72
+	ld	(ix - 3), iy
+	jr	BB3_1
+BB3_6:
 	ld	sp, ix
 	pop	ix
 	ret
@@ -174,10 +273,21 @@ BB2_12:
 	section	.text,"ax",@progbits
 	public	_main
 _main:
-	ld	hl, -3
+	ld	hl, -1308
 	call	__frameset
 	ld	hl, 10
-	ld	(ix - 3), hl
+	ld	bc, -1305
+	lea	iy, ix
+	add	iy, bc
+	ld	(iy), hl
+	ld	bc, -1302
+	lea	hl, ix
+	add	hl, bc
+	push	ix
+	ld	bc, -1308
+	add	ix, bc
+	ld	(ix), hl
+	pop	ix
 	call	_gfx_Begin
 	ld	hl, 1
 	push	hl
@@ -197,7 +307,28 @@ _main:
 	ld	a, (-851897)
 	push	hl
 	call	_srand
-BB3_1:
+	pop	hl
+BB4_1:
+	ld	hl, 60
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, 128
+	push	hl
+	ld	hl, 168
+	push	hl
+	ld	bc, -1308
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_generateMap
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+BB4_2:
 	pop	hl
 	call	_kb_Scan
 	ld	hl, -720868
@@ -210,50 +341,62 @@ BB3_1:
 	pop	de
 	ld	a, l
 	bit	6, a
-	jp	nz, BB3_7
+	jp	nz, BB4_11
 	scf
 	sbc	hl, hl
 	push	hl
 	call	_gfx_FillScreen
 	pop	hl
-	ld	hl, 60
+	ld	bc, -1308
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
 	push	hl
-	or	a, a
-	sbc	hl, hl
-	push	hl
-	ld	hl, 128
-	push	hl
-	ld	hl, 168
-	push	hl
-	call	_generateMap
-	pop	hl
-	pop	hl
-	pop	hl
+	call	_drawMap
 	pop	hl
 	ld	iy, -720866
 	ld	l, (iy)
 	ld	h, (iy + 1)
 	ld	a, l
 	bit	2, a
-	jr	nz, BB3_5
+	jr	nz, BB4_7
 	ld	l, (iy)
 	ld	h, (iy + 1)
 	ld	a, l
-	ld	iy, (ix - 3)
-	lea	hl, iy
-	ld	de, -2
-	add	hl, de
 	bit	1, a
-	jr	z, BB3_6
-	push	hl
-	pop	iy
-	jr	BB3_6
-BB3_5:
+	jr	nz, BB4_8
+	ld	hl, -720876
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	bit	7, a
+	jp	nz, BB4_1
+	ld	bc, -1305
+	lea	hl, ix
+	add	hl, bc
+	ld	iy, (hl)
+	jr	BB4_10
+BB4_7:
 	ld	de, 2
-	ld	iy, (ix - 3)
+	jr	BB4_9
+BB4_8:
+	ld	de, -2
+BB4_9:
+	ld	bc, -1305
+	lea	hl, ix
+	add	hl, bc
+	ld	iy, (hl)
 	add	iy, de
-BB3_6:
-	ld	(ix - 3), iy
+BB4_10:
+	ld	bc, -1305
+	lea	hl, ix
+	add	hl, bc
+	ld	(hl), iy
 	ld	hl, 120
 	push	hl
 	push	iy
@@ -263,7 +406,17 @@ BB3_6:
 	or	a, a
 	sbc	hl, hl
 	push	hl
-	ld	hl, (ix - 3)
+	push	hl
+	call	_gfx_SetTextXY
+	pop	hl
+	pop	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	bc, -1305
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
 	push	hl
 	call	_gfx_PrintInt
 	pop	hl
@@ -280,8 +433,8 @@ BB3_6:
 	ld	hl, 50
 	push	hl
 	call	_delay
-	jp	BB3_1
-BB3_7:
+	jp	BB4_2
+BB4_11:
 	call	_gfx_End
 	or	a, a
 	sbc	hl, hl
@@ -291,26 +444,28 @@ BB3_7:
 	section	.text,"ax",@progbits
 
 	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
-	extern	__setflag
-	extern	_gfx_PrintInt
-	extern	_gfx_FillScreen
 	extern	__Unwind_SjLj_Register
 	extern	__frameset
 	extern	_srand
-	extern	__Unwind_SjLj_Unregister
-	extern	_gfx_FillRectangle
 	extern	_gfx_SetTextFGColor
 	extern	_log
 	extern	_gfx_Begin
-	extern	__imulu
-	extern	_gfx_SetColor
 	extern	_kb_Scan
 	extern	_rand
-	extern	_delay
+	extern	_gfx_SwapDraw
+	extern	__ishl
+	extern	__ftol
+	extern	_gfx_PrintInt
+	extern	_gfx_SetDraw
+	extern	__setflag
+	extern	_gfx_FillScreen
+	extern	__Unwind_SjLj_Unregister
+	extern	_gfx_FillRectangle
+	extern	__imulu
+	extern	_gfx_SetColor
 	extern	__ltof
+	extern	_delay
 	extern	_gfx_End
 	extern	__frameset0
-	extern	_gfx_SwapDraw
-	extern	__ftol
+	extern	_gfx_SetTextXY
 	extern	_gfx_SetTextScale
-	extern	_gfx_SetDraw

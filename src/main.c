@@ -14,28 +14,38 @@ struct Player {
 };
 
 void drawPlayer(int x,int y) {
-    gfx_SetColor(gfx_red);
+    gfx_SetColor(0xE0);
     gfx_FillRectangle(x, y, (int)(TILE_SIZE/2), (int)(TILE_SIZE/2));
 }
 
 void drawTile(int x, int y, int type) {
     switch (type) {
         case 0:
-        default:
-            gfx_SetColor(gfx_black);
+            gfx_SetColor(0x00);
             gfx_FillRectangle(x, y, TILE_SIZE, TILE_SIZE);
+            break;
+        default:
+            break;
     }
 }
 
-void generateMap(int spawnX, int spawnY, int caveHeight, int wsChance) {
-    for (int y = 0; y < GFX_LCD_HEIGHT; y+=TILE_SIZE) {
-        for (int x = 0; x < GFX_LCD_WIDTH; x+=TILE_SIZE) {
-            if ((((int)rand() * ((int)log(y) * 170 + 170 + abs(caveHeight-500))) + 1) > (wsChance * 6) || ((x == spawnX) && (y == spawnY - TILE_SIZE)))
-                drawTile(x, y, 0);
+void generateMap(int map[18][24], int spawnX, int spawnY, int caveHeight, int wsChance) {
+    for (int y = 0; y < GFX_LCD_HEIGHT / TILE_SIZE; y++) {
+        for (int x = 0; x < GFX_LCD_WIDTH / TILE_SIZE; x++) {
+            if ((((int)rand() * ((int)log(y*TILE_SIZE) * 170 + 170 + abs(caveHeight-500))) + 1) > (wsChance * 6) || ((x*TILE_SIZE == spawnX) && (y*TILE_SIZE == spawnY - TILE_SIZE)))
+                map[y][x] = 0;
+            else map[y][x] = 15;
         }
     }
 }
-// tiles to fit: 24x18
+
+void drawMap(int map[18][24]) {
+    for (int y = 0; y < GFX_LCD_HEIGHT / TILE_SIZE; y++) {
+        for (int x = 0; x < GFX_LCD_WIDTH / TILE_SIZE; x++) {
+            drawTile(x*TILE_SIZE, y*TILE_SIZE, map[y][x]);
+        }
+    }
+}
 
 int main() {
     // Initialize the graphics
@@ -44,7 +54,7 @@ int main() {
 
     // initialize font
     gfx_SetTextScale(1, 1);
-    gfx_SetTextFGColor(gfx_green);
+    gfx_SetTextFGColor(0x03);
 
     // initialize random
     srand(rtc_Time());
@@ -58,7 +68,9 @@ int main() {
     int spawnY = GFX_LCD_HEIGHT/2 + TILE_SIZE/2;
     int caveHeight = 0;
     int wsChance = 60;
-
+    int map[18][24];
+    
+    generateMap(map, spawnX, spawnY, caveHeight, wsChance);
 
     // Main game loop
     while (1) {
@@ -68,19 +80,23 @@ int main() {
             break;
         }
 
-        gfx_FillScreen(gfx_white);
+        gfx_FillScreen(0xFF);
 
         // generate map
-        generateMap(spawnX, spawnY, caveHeight, wsChance);
+        drawMap(map);
 
         // player controls
         if (kb_IsDown(kb_KeyRight)) {
             p.x += 2;
         } else if (kb_IsDown(kb_KeyLeft)) {
             p.x -= 2;
+        } else if (kb_IsDown(kb_KeyAlpha)) {
+            generateMap(map, spawnX, spawnY, caveHeight, wsChance);
+            continue;
         }
         drawPlayer(p.x, p.y);
 
+        gfx_SetTextXY(0, 0);
         gfx_PrintInt(p.x, 0);
         gfx_PrintInt(p.y, 0);
 
