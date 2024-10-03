@@ -101,6 +101,8 @@ int main() {
     // initialize random
     srand(rtc_Time());
 
+    bool debug = true;
+
     // generate level
     int spawnX = TILE_SIZE/2;
     int spawnY = GFX_LCD_HEIGHT/2 + TILE_SIZE/2;
@@ -176,11 +178,21 @@ int main() {
 
         drawPlayer(p.x, p.y);
 
-        // display coordinates
-        gfx_SetTextXY(0, 0);
-        gfx_PrintInt(p.x, 0);
-        gfx_SetTextXY(gfx_GetTextX()+8, 0);
-        gfx_PrintInt(p.y, 0);
+        if (kb_IsDown(kb_KeyMode)) debug = !debug;
+
+        if (debug) {
+            // display coordinates
+            gfx_SetTextXY(0, 0);
+            gfx_PrintInt(p.x, 0);
+            gfx_SetTextXY(gfx_GetTextX()+8, 0);
+            gfx_PrintInt(p.y, 0);
+
+            gfx_SetTextXY(0, 8);
+            for (int i = 0; i < 5; i++) {
+                gfx_PrintInt(collisions[i], 0);
+                gfx_SetTextXY(gfx_GetTextX()+8, 0);
+            }
+        }
 
         // Swap buffers to show the updated screen
         gfx_SwapDraw();
