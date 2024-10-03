@@ -1,0 +1,64 @@
+Section          Base   Top    High   Length
+---------------- ------ ------ ------ -------
+.icon            D1A882 D1A89B            19h
+.init.libs       D1A89B D1A8F3            58h
+.libs            D1A8F3 D1A930            3Dh
+.init.clock      D1A930 D1A94B            1Bh
+.init.reruncheck D1A94B D1A94B             0h
+.init            D1A94B D1A96B            20h
+.fini            D1A96B D1A99F            34h
+.text            D1A99F D1ABA3           204h
+.data            D1ABA3 D1ABA3             0h
+.rodata          D1ABA3 D1ABC5            22h
+.init_array      000000 000000             0h
+.ctors           000000 000000             0h
+.dtors           000000 000000             0h
+.fini_array      000000 000000             0h
+.bss             D052C6 D052C6 D13FD8      0h
+.header          D1A87F D1A882             3h
+
+Label                        Value
+--------------------------   ------
+___low_bss                 = D052C6
+___len_bss                 = 000000
+___heaptop                 = D13FD8
+___heapbot                 = D052C6
+___libs                    = D1A8F3
+___init_array_count        = 000000
+___ctors_count             = 000000
+___dtors_count             = 000000
+___fini_array_count        = 000000
+__stack                    = D1A87E
+__frameset                 = D1A99F
+__frameset0                = D1A9AD
+__lmulu                    = D1A9B8
+_atomic_load_increasing_32 = D1AA14
+_delay                     = D1AA39
+_os_DisableHomeTextBuffer  = D1AA63
+_os_EnableHomeTextBuffer   = D1AA75
+___sleep_common.3          = D1AA89
+_clock                     = D1AAA2
+.missingappvar             = D1ABA3
+.libloadname               = D1ABA8
+.libloadnamelen            = 000007
+.webaddress                = D1ABB0
+___init_clock              = D1A930
+__start                    = D1A94B
+___exithl                  = D1A96B
+skip._exit                 = D1A96B
+skip.__Exit                = D1A96B
+skip._abort                = D1A96B
+_exit.sp                   = D1A96C
+_exit.flash_wait_states    = D1A976
+_drawPlayer                = D1AAAD
+_drawTile                  = D1AAD2
+_main                      = D1AAF6
+lib.LibLoad                = D1A8F3
+_#gfx_Begin                = D1A906
+_#gfx_End                  = D1A90A
+_#gfx_SetColor             = D1A90E
+_#gfx_FillScreen           = D1A912
+_#gfx_SetDraw              = D1A916
+_#gfx_SwapDraw             = D1A91A
+_#gfx_FillRectangle        = D1A91E
+_#kb_Scan                  = D1A92C
