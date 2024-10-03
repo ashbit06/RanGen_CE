@@ -2,4 +2,4 @@
 
 idk what im doing, but it seems to be working rn.
 
-use the left and right arrow keys to move
+use the left and right arrow keys to move, use alpha for generating a new level.
