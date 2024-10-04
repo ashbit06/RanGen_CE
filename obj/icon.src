@@ -1,8 +1,26 @@
 	section .icon
 
 	jp	___prgm_init
-	db	$02
-
+	db	$01
+	public ___icon
+___icon:
+	db	$10, $10
+	db	$E0, $E0, $E0, $E0, $E0, $E0, $E0, $E0, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db	$FF, $E0, $E0, $E0, $E0, $E0, $E0, $E0, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db	$FF, $E0, $E0, $E0, $E0, $E0, $E0, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db	$FF, $FF, $E0, $E0, $E0, $E0, $E0, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+	db	$FF, $FF, $FF, $E0, $E0, $E0, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $00, $00
+	db	$FF, $FF, $FF, $E0, $E0, $E0, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $00, $00
+	db	$FF, $FF, $FF, $FF, $E0, $FF, $FF, $FF, $FF, $C0, $C0, $FF, $00, $00, $00, $00
+	db	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $C0, $C0, $FF, $00, $00, $00, $00
+	db	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF, $FF
+	db	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF, $FF
+	db	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF, $FF
+	db	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $00, $00, $00, $00, $FF, $FF, $FF, $FF
+	db	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+	db	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
 	public ___description
 ___description:
 	db	"[alpha 0.2] A random platformer", 0
