@@ -25,4 +25,7 @@ obj/src/main.c.bc: src/main.c /Users/ashton/CEdev/include/graphx.h \
   /Users/ashton/CEdev/include/ti/ui.h \
   /Users/ashton/CEdev/include/ti/tokens.h \
   /Users/ashton/CEdev/include/ti/vars.h \
+  /Users/ashton/CEdev/include/debug.h \
+  /Users/ashton/CEdev/include/stdio.h \
+  /Users/ashton/CEdev/include/stdarg.h \
   /Users/ashton/CEdev/include/math.h

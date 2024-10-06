@@ -1,16 +1,17 @@
 #include <graphx.h>
 #include <keypadc.h>
 #include <tice.h>
+#include <debug.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
 
 #define TILE_SIZE   16
-#define PLAYER_SIZE ((int)(TILE_SIZE/2)-1)
-#define GRAVITY     0.8
-#define SPEED       0.85
+#define PLAYER_SIZE ((TILE_SIZE - 1) / 2)
+#define GRAVITY     -0.8
 #define FRICTION    0.8
-#define JUMP        7.7
+#define JUMP        -7.7
+#define SPEED       0.85
 
 struct Player {
     float x;
@@ -30,57 +31,48 @@ bool any(bool array[], int size) {
     return res;
 }
 
-void drawPlayer(float x, float y) {
-    gfx_SetColor(0xE0); // red
-    gfx_FillRectangle((int)x, (int)y, PLAYER_SIZE, PLAYER_SIZE);
+void drawPlayer(struct Player p) {
+    gfx_SetColor(0xE0);
+    gfx_FillRectangle((int)(p.x - PLAYER_SIZE/2), (int)(p.y - PLAYER_SIZE/2), PLAYER_SIZE, PLAYER_SIZE);
 }
 
-void getPlayerTilePos(int playerTilePos[2], struct Player p) {
-    playerTilePos[0] = (int)(p.x / TILE_SIZE);
-    playerTilePos[1] = (int)(p.y / TILE_SIZE);
+bool playerTouchingColor(struct Player p, uint8_t color) {
+    return gfx_GetPixel((int)p.x, (int)(p.y + PLAYER_SIZE/2) + 1) == color;
 }
 
-bool isPlayerColliding(int map[18][24], struct Player p) {
-    // Get the player's tile positions based on its bounding box
-    int leftTile = (int)(p.x / TILE_SIZE);
-    int rightTile = (int)((p.x + PLAYER_SIZE) / TILE_SIZE);
-    int topTile = (int)(p.y / TILE_SIZE);
-    int bottomTile = (int)((p.y + PLAYER_SIZE) / TILE_SIZE);
-
-    // Check the tiles that the player's bounding box overlaps
-    // We are considering the four corners of the player's bounding box
-    return (map[topTile][leftTile] != 9 ||  // Top-left corner
-            map[topTile][rightTile] != 9 ||  // Top-right corner
-            map[bottomTile][leftTile] != 9 ||  // Bottom-left corner
-            map[bottomTile][rightTile] != 9);  // Bottom-right corner
-}
-
-void handlePlayerMovement(struct Player* p, int map[18][24]) {
+void playerMovement(struct Player* p) {
     // Apply gravity
-    p->dy += GRAVITY; // Add gravity effect to vertical speed
-    p->y += p->dy; // Update vertical position
+    p->dy += GRAVITY;
+    p->y -= p->dy;  // Move player by vertical velocity
 
-    // Check if the player is touching black
-    if (isPlayerColliding(map, *p)) {
-        // Collision detected, reset vertical position and speed
-        p->y -= p->dy; // Move the player up to the collision point
-        p->dy = 0; // Reset vertical speed
-    }
+    p->dx = FRICTION * (p->dx + (SPEED*kb_IsDown(kb_KeyRight)) - SPEED*kb_IsDown(kb_KeyLeft));
+    p->x += p->dx;
 
-    // Horizontal movement
-    p->dx = FRICTION * (p->dx + SPEED * (float)kb_IsDown(kb_KeyRight) - SPEED * (float)kb_IsDown(kb_KeyLeft));
-    p->x += p->dx; // Update horizontal position
+    // Check if the player is touching the ground
+    if (playerTouchingColor(*p, 0x00)) {
+        dbg_printf("touching black\n");
 
-    // Check if the player is touching black after horizontal movement
-    if (isPlayerColliding(map, *p)) {
-        // Collision detected, reset horizontal position and speed
-        p->x -= p->dx; // Move the player back to the collision point
-        p->dx = 0; // Reset horizontal speed
-    }
+        int safety = 0;
+        // Ensure player is moved up until not intersecting the ground
+        while (playerTouchingColor(*p, 0x00) && safety < 50) {
+            p->y += fabsf(p->dy) / p->dy;  // Move player upwards
+            safety++;
+        }
 
-    // Handle jumping
-    if (kb_IsDown(kb_KeyUp) && isPlayerColliding(map, *p)) { // If on ground (touching black)
-        p->dy = -JUMP; // Jump by applying an upward velocity
+        safety = 0;
+        while(playerTouchingColor(*p, 0x00) && safety < 20) {
+            p->x -= fabsf(p->dx) / p->dx;
+            safety++;
+        }
+
+        p->dy = 0;
+        
+        // Check for jump input
+        if (kb_IsDown(kb_KeyUp)) {
+            dbg_printf("jumping\n");
+            p->dy = -JUMP;  // Apply upward force for jump
+            p->dx = -fabsf(p->dx) / p->dx;
+        }
     }
 }
 
@@ -90,6 +82,11 @@ void debugPlayerPosition(struct Player p) {
     gfx_PrintInt((int)p.x, 0);
     gfx_PrintString(", ");
     gfx_PrintInt((int)p.y, 0);
+
+    gfx_SetTextXY(0, 8);
+    gfx_PrintString("Bottom Collide: ");
+    if (playerTouchingColor(p, 0x00)) gfx_PrintString("0");
+    else gfx_PrintString("0");
 }
 
 void drawTile(int x, int y, int type) {
@@ -124,13 +121,13 @@ int main() {
     
     srand(rtc_Time());
 
-    // generate level
     int spawnX = TILE_SIZE/2;
     int spawnY = GFX_LCD_HEIGHT/2 + TILE_SIZE/2;
     int caveHeight = 0;
     int wsChance = 60;
     int map[18][24];
     
+    // generate level
     generateMap(map, spawnX, spawnY, caveHeight, wsChance);
 
     // initialize the player
@@ -158,10 +155,10 @@ int main() {
         gfx_FillScreen(0xFF);
 
         drawMap(map);
-        drawPlayer(p.x, p.y);
-        debugPlayerPosition(p);
 
-        handlePlayerMovement(&p, map);
+        playerMovement(&p);
+        drawPlayer(p);
+        debugPlayerPosition(p);
 
         gfx_SwapDraw();
         delay(50);
