@@ -1,0 +1,4791 @@
+	section	.text,"ax",@progbits
+	assume	adl = 1
+	file	0 "/Users/ashton/Documents/RanGen_CE" "src/main.c" md5 0x1953289ab2a9ebd222380049779bbf5f
+	file	1 "/Users/ashton" "CEdev/include/graphx.h" md5 0x2fb5c40633f3fe8d7b282be31c8f34d8
+	file	2 "/Users/ashton" "CEdev/include/stdint.h" md5 0x6e1e418db59a513b9b4298147e26150f
+	file	3 "/Users/ashton" "CEdev/include/keypadc.h" md5 0x08ccc68d35ea83ac8f06307257ddf02f
+	section	.text,"ax",@progbits
+	public	_any
+_any:
+	private	func_begin0
+func_begin0:
+	loc	0 29 0
+	cfi_sections .debug_frame
+	cfi_startproc
+	call	__frameset0
+	private	tmp0
+tmp0:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	iy, (ix + 9)
+	ld	de, 0
+	private	tmp1
+tmp1:
+	loc	0 31 10 prologue_end
+	ld	bc, 1
+	lea	hl, iy
+	or	a, a
+	sbc	hl, bc
+	call	pe, __setflag
+	private	tmp2
+tmp2:
+	jp	p, BB0_2
+	private	tmp3
+tmp3:
+	loc	0 0 10 is_stmt 0
+	push	de
+	pop	iy
+	private	tmp4
+tmp4:
+BB0_2:
+	push	de
+	pop	bc
+	private	tmp5
+tmp5:
+	loc	0 31 5
+	lea	hl, iy
+	or	a, a
+	sbc	hl, bc
+	jp	z, BB0_4
+	private	tmp6
+tmp6:
+	loc	0 32 13 is_stmt 1
+	ld	hl, (ix + 6)
+	add	hl, bc
+	private	tmp7
+tmp7:
+	loc	0 31 32
+	push	bc
+	pop	de
+	inc	de
+	private	tmp8
+tmp8:
+	loc	0 32 13
+	bit	0, (hl)
+	jp	z, BB0_2
+	private	tmp9
+tmp9:
+BB0_4:
+	loc	0 37 5
+	push	bc
+	pop	hl
+	ld	de, (ix + 9)
+	or	a, a
+	sbc	hl, de
+	call	pe, __setflag
+	private	tmp10
+tmp10:
+	jp	m, BB0_6
+	private	tmp11
+tmp11:
+	loc	0 0 5 is_stmt 0
+	ld	a, 0
+	jr	BB0_7
+BB0_6:
+	ld	a, -1
+BB0_7:
+	loc	0 37 5
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp12
+tmp12:
+	section	.text,"ax",@progbits
+	private	func_end0
+func_end0:
+	cfi_endproc
+
+	section	.text,"ax",@progbits
+	public	_drawPlayer
+_drawPlayer:
+	private	func_begin1
+func_begin1:
+	loc	0 40 0 is_stmt 1
+	cfi_startproc
+	call	__frameset0
+	private	tmp13
+tmp13:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	hl, -96
+	private	tmp14
+tmp14:
+	loc	0 41 5 prologue_end
+	push	hl
+	call	_gfx_SetColor
+	private	tmp15
+tmp15:
+	pop	hl
+	loc	0 42 38
+	ld	bc, (ix + 6)
+	loc	0 42 40 is_stmt 0
+	ld	a, (ix + 9)
+	ld	hl, 4194304
+	ld	e, -64
+	call	__fadd
+	private	tmp16
+tmp16:
+	loc	0 42 30
+	call	__ftol
+	private	tmp17
+tmp17:
+	push	bc
+	pop	iy
+	loc	0 42 66
+	ld	bc, (ix + 10)
+	loc	0 42 68
+	ld	a, (ix + 13)
+	call	__fadd
+	private	tmp18
+tmp18:
+	loc	0 42 58
+	call	__ftol
+	private	tmp19
+tmp19:
+	loc	0 0 58
+	ld	hl, 6
+	loc	0 42 5
+	push	hl
+	push	hl
+	push	bc
+	push	iy
+	call	_gfx_FillRectangle_NoClip
+	private	tmp20
+tmp20:
+	loc	0 43 1 is_stmt 1
+	ld	sp, ix
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp21
+tmp21:
+	section	.text,"ax",@progbits
+	private	func_end1
+func_end1:
+	cfi_endproc
+
+	section	.text,"ax",@progbits
+	public	_playerTouchingColor
+_playerTouchingColor:
+	private	func_begin2
+func_begin2:
+	loc	0 45 0
+	cfi_startproc
+	ld	hl, -13
+	call	__frameset
+	private	tmp22
+tmp22:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	hl, 4194304
+	ld	e, -64
+	private	tmp23
+tmp23:
+	loc	0 46 34 prologue_end
+	ld	bc, (ix + 6)
+	ld	a, (ix + 9)
+	ld	(ix - 3), a
+	loc	0 46 36 is_stmt 0
+	call	__fadd
+	private	tmp24
+tmp24:
+	loc	0 46 26
+	call	__ftol
+	private	tmp25
+tmp25:
+	push	bc
+	pop	iy
+	loc	0 46 62
+	ld	bc, (ix + 10)
+	ld	a, (ix + 13)
+	ld	(ix - 12), bc
+	ld	(ix - 13), a
+	loc	0 46 64
+	call	__fadd
+	private	tmp26
+tmp26:
+	loc	0 46 54
+	call	__ftol
+	private	tmp27
+tmp27:
+	loc	0 0 54
+	ld	(ix - 6), bc
+	loc	0 46 13
+	push	bc
+	ld	(ix - 9), iy
+	push	iy
+	call	_gfx_GetPixel
+	private	tmp28
+tmp28:
+	pop	hl
+	pop	hl
+	loc	0 46 91
+	ld	l, (ix + 24)
+	private	tmp29
+tmp29:
+	cp	a, l
+	jp	z, BB2_2
+	private	tmp30
+tmp30:
+	loc	0 0 91
+	ld	e, 64
+	loc	0 47 36 is_stmt 1
+	ld	bc, (ix + 6)
+	ld	a, (ix - 3)
+	ld	hl, 4194304
+	private	tmp31
+tmp31:
+	call	__fadd
+	private	tmp32
+tmp32:
+	loc	0 47 26 is_stmt 0
+	call	__ftol
+	private	tmp33
+tmp33:
+	loc	0 47 13
+	ld	hl, (ix - 6)
+	push	hl
+	ld	(ix - 3), bc
+	push	bc
+	call	_gfx_GetPixel
+	private	tmp34
+tmp34:
+	pop	hl
+	pop	hl
+	loc	0 47 91
+	ld	l, (ix + 24)
+	cp	a, l
+	jp	nz, BB2_4
+BB2_2:
+	loc	0 0 91
+	ld	a, 1
+BB2_3:
+	loc	0 46 5 is_stmt 1
+	ld	sp, ix
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+BB2_4:
+	loc	0 48 64
+	ld	bc, (ix - 12)
+	ld	a, (ix - 13)
+	ld	hl, 4194304
+	ld	e, 64
+	call	__fadd
+	private	tmp35
+tmp35:
+	loc	0 48 54 is_stmt 0
+	call	__ftol
+	private	tmp36
+tmp36:
+	loc	0 0 54
+	ld	(ix - 6), bc
+	loc	0 48 13
+	push	bc
+	ld	hl, (ix - 9)
+	push	hl
+	call	_gfx_GetPixel
+	private	tmp37
+tmp37:
+	pop	hl
+	pop	hl
+	loc	0 48 91
+	ld	l, (ix + 24)
+	cp	a, l
+	ld	a, 1
+	jp	z, BB2_3
+	loc	0 49 13 is_stmt 1
+	ld	hl, (ix - 6)
+	push	hl
+	ld	hl, (ix - 3)
+	push	hl
+	call	_gfx_GetPixel
+	private	tmp38
+tmp38:
+	pop	hl
+	pop	hl
+	ld	l, (ix + 24)
+	cp	a, l
+	jr	z, BB2_7
+	private	tmp39
+tmp39:
+	loc	0 0 13 is_stmt 0
+	ld	a, 0
+	jp	BB2_3
+BB2_7:
+	ld	a, -1
+	jp	BB2_3
+	section	.text,"ax",@progbits
+	private	func_end2
+func_end2:
+	cfi_endproc
+
+	section	.text,"ax",@progbits
+	public	_playerMovement
+_playerMovement:
+	private	func_begin3
+func_begin3:
+	loc	0 52 0 is_stmt 1
+	cfi_startproc
+	ld	hl, -15
+	call	__frameset
+	private	tmp40
+tmp40:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	iy, (ix + 6)
+	ld	de, 2348810
+	or	a, a
+	sbc	hl, hl
+	private	tmp41
+tmp41:
+	loc	0 53 8 prologue_end
+	ld	(ix - 9), hl
+	lea	hl, iy + 12
+	loc	0 53 11 is_stmt 0
+	ld	bc, (iy + 12)
+	private	tmp42
+tmp42:
+	loc	0 0 11
+	push	hl
+	pop	iy
+	loc	0 53 11
+	lea	hl, iy + 3
+	ld	a, (hl)
+	ex	de, hl
+	ld	e, -65
+	call	__fadd
+	private	tmp43
+tmp43:
+	push	bc
+	pop	hl
+	ld	e, a
+	ld	iy, (ix + 6)
+	private	tmp44
+tmp44:
+	ld	(iy + 12), hl
+	ld	(iy + 15), e
+	loc	0 54 8 is_stmt 1
+	lea	bc, iy + 4
+	loc	0 54 10 is_stmt 0
+	ld	(ix - 6), bc
+	ld	bc, (iy + 4)
+	private	tmp45
+tmp45:
+	loc	0 0 10
+	ld	(ix - 3), bc
+	loc	0 54 10
+	ld	iy, (ix - 6)
+	lea	iy, iy + 3
+	ld	bc, (ix - 3)
+	ld	(ix - 3), iy
+	ld	a, (iy)
+	call	__fsub
+	private	tmp46
+tmp46:
+	loc	0 0 10
+	ld	iy, (ix + 6)
+	private	tmp47
+tmp47:
+	loc	0 54 10
+	ld	(iy + 4), bc
+	ld	(iy + 7), a
+	lea	hl, iy
+	private	tmp48
+tmp48:
+	loc	0 55 9 is_stmt 1
+	ld	iy, -21
+	add	iy, sp
+	ld	sp, iy
+	ld	iy, 0
+	add	iy, sp
+	ld	bc, 16
+	lea	de, iy
+	private	tmp49
+tmp49:
+	ldir
+	ld	(iy + 18), 0
+	call	_playerTouchingColor
+	private	tmp50
+tmp50:
+	loc	0 0 9 is_stmt 0
+	ld	iy, (ix + 6)
+	private	tmp51
+tmp51:
+	loc	0 55 9
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	private	tmp52
+tmp52:
+	loc	0 55 9
+	bit	0, a
+	private	tmp53
+tmp53:
+	jp	z, BB3_11
+	private	tmp54
+tmp54:
+	loc	0 0 9
+	ld	bc, 16
+	or	a, a
+	sbc	hl, hl
+	ld	(ix - 6), hl
+BB3_2:
+	private	tmp55
+tmp55:
+	loc	0 58 16 is_stmt 1
+	ld	hl, -21
+	add	hl, sp
+	ld	sp, hl
+	ld	iy, 0
+	add	iy, sp
+	lea	de, iy
+	ld	hl, (ix + 6)
+	ldir
+	ld	(iy + 18), 0
+	call	_playerTouchingColor
+	private	tmp56
+tmp56:
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	loc	0 58 9 is_stmt 0
+	bit	0, a
+	jp	z, BB3_5
+	private	tmp57
+tmp57:
+	ld	hl, (ix - 6)
+	ld	de, 50
+	or	a, a
+	sbc	hl, de
+	jp	nc, BB3_5
+	private	tmp58
+tmp58:
+	loc	0 0 9
+	ld	hl, (ix + 6)
+	push	hl
+	pop	iy
+	private	tmp59
+tmp59:
+	loc	0 59 30 is_stmt 1
+	ld	de, (iy + 12)
+	ld	(ix - 15), de
+	ld	a, (iy + 15)
+	loc	0 59 21 is_stmt 0
+	ld	(ix - 12), a
+	ld	l, a
+	push	hl
+	push	de
+	call	_fabsf
+	private	tmp60
+tmp60:
+	push	hl
+	pop	bc
+	ld	a, e
+	pop	hl
+	pop	hl
+	loc	0 59 34
+	ld	hl, (ix - 15)
+	ld	e, (ix - 12)
+	call	__fdiv
+	private	tmp61
+tmp61:
+	ld	(ix - 12), bc
+	ld	e, a
+	loc	0 59 18
+	ld	iy, (ix + 6)
+	ld	bc, (iy + 4)
+	ld	hl, (ix - 3)
+	ld	a, (hl)
+	ld	hl, (ix - 12)
+	call	__fadd
+	private	tmp62
+tmp62:
+	loc	0 0 18
+	ld	iy, (ix + 6)
+	loc	0 59 18
+	ld	(iy + 4), bc
+	ld	(iy + 7), a
+	loc	0 60 19 is_stmt 1
+	ld	hl, (ix - 6)
+	inc	hl
+	private	tmp63
+tmp63:
+	loc	0 0 19 is_stmt 0
+	ld	(ix - 6), hl
+	private	tmp64
+tmp64:
+	ld	bc, 16
+	jp	BB3_2
+	private	tmp65
+tmp65:
+BB3_5:
+	loc	0 64 26 is_stmt 1
+	ld	hl, -720866
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	loc	0 64 46 is_stmt 0
+	bit	3, a
+	ld	bc, 0
+	ld	iy, (ix + 6)
+	ld	a, b
+	jp	z, BB3_10
+	private	tmp66
+tmp66:
+	loc	0 64 58
+	ld	de, (iy + 12)
+	ld	(ix - 6), de
+	ld	a, (iy + 15)
+	loc	0 64 49
+	ld	(ix - 3), a
+	ld	l, a
+	push	hl
+	push	de
+	call	_fabsf
+	private	tmp67
+tmp67:
+	push	hl
+	pop	bc
+	ld	a, e
+	pop	hl
+	pop	hl
+	loc	0 64 61
+	ld	hl, (ix - 6)
+	ld	e, (ix - 3)
+	call	__fdiv
+	private	tmp68
+tmp68:
+	loc	0 64 68
+	push	bc
+	pop	hl
+	ld	e, a
+	ld	bc, -8388608
+	ld	a, -65
+	call	__fcmp
+	private	tmp69
+tmp69:
+	loc	0 0 68
+	jp	z, BB3_8
+	private	tmp70
+tmp70:
+	ld	bc, 0
+	jp	BB3_9
+	private	tmp71
+tmp71:
+BB3_8:
+	ld	bc, 1
+	private	tmp72
+tmp72:
+BB3_9:
+	xor	a, a
+	call	__ultof
+	private	tmp73
+tmp73:
+	ld	hl, -3858760
+	ld	e, 64
+	call	__fmul
+	private	tmp74
+tmp74:
+	ld	iy, (ix + 6)
+	private	tmp75
+tmp75:
+BB3_10:
+	loc	0 64 15
+	ld	(iy + 12), bc
+	ld	(iy + 15), a
+	private	tmp76
+tmp76:
+BB3_11:
+	loc	0 67 28 is_stmt 1
+	lea	de, iy + 8
+	ld	hl, (iy + 8)
+	loc	0 67 11 is_stmt 0
+	ld	(ix - 3), hl
+	push	de
+	pop	iy
+	lea	hl, iy + 3
+	ld	(ix - 6), hl
+	loc	0 67 28
+	ld	d, (hl)
+	ld	hl, -720866
+	loc	0 67 39
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld.sis	bc, 4
+	call	__sand
+	private	tmp77
+tmp77:
+	ld	iy, 0
+	ex	de, hl
+	ld	iyl, e
+	ld	iyh, d
+	ex	de, hl
+	xor	a, a
+	lea	bc, iy
+	call	__ultof
+	private	tmp78
+tmp78:
+	loc	0 0 39
+	ld	hl, 3019899
+	ld	e, 63
+	loc	0 67 31
+	call	__fmul
+	private	tmp79
+tmp79:
+	ld	hl, (ix - 3)
+	ld	e, d
+	call	__fadd
+	private	tmp80
+tmp80:
+	ld	(ix - 3), bc
+	ld	d, a
+	loc	0 67 70
+	ld	hl, -720866
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld.sis	bc, 2
+	call	__sand
+	private	tmp81
+tmp81:
+	ex	de, hl
+	ld	iyl, e
+	ld	iyh, d
+	ex	de, hl
+	lea	bc, iy
+	xor	a, a
+	call	__ultof
+	private	tmp82
+tmp82:
+	loc	0 67 62
+	ld	hl, 3019899
+	ld	e, -65
+	call	__fmul
+	private	tmp83
+tmp83:
+	ld	hl, (ix - 3)
+	ld	e, d
+	call	__fadd
+	private	tmp84
+tmp84:
+	loc	0 67 22
+	ld	hl, 2348810
+	ld	e, 63
+	call	__fmul
+	private	tmp85
+tmp85:
+	ld	(ix - 3), bc
+	ld	e, a
+	ld	iy, (ix + 6)
+	loc	0 67 11
+	ld	(iy + 8), bc
+	ld	(iy + 11), e
+	loc	0 68 10 is_stmt 1
+	ld	bc, (iy)
+	lea	hl, iy + 3
+	ld	(ix - 12), hl
+	ld	a, (hl)
+	ld	hl, (ix - 3)
+	call	__fadd
+	private	tmp86
+tmp86:
+	ld	(iy), bc
+	ld	(iy + 3), a
+	private	tmp87
+tmp87:
+	loc	0 69 9
+	ld	hl, -21
+	add	hl, sp
+	ld	sp, hl
+	ex	de, hl
+	ld	hl, 0
+	add	hl, sp
+	ex	de, hl
+	ld	(ix - 3), de
+	ld	bc, 16
+	lea	hl, iy
+	ldir
+	ld	iy, (ix - 3)
+	ld	(iy + 18), 0
+	call	_playerTouchingColor
+	private	tmp88
+tmp88:
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	private	tmp89
+tmp89:
+	loc	0 69 9 is_stmt 0
+	bit	0, a
+	jp	z, BB3_17
+BB3_12:
+	loc	0 0 9
+	ld	bc, 16
+	private	tmp90
+tmp90:
+	loc	0 72 16 is_stmt 1
+	ld	hl, -21
+	add	hl, sp
+	ld	sp, hl
+	ld	iy, 0
+	add	iy, sp
+	lea	de, iy
+	ld	hl, (ix + 6)
+	ldir
+	ld	(iy + 18), 0
+	call	_playerTouchingColor
+	private	tmp91
+tmp91:
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	loc	0 72 9 is_stmt 0
+	bit	0, a
+	jp	z, BB3_15
+	private	tmp92
+tmp92:
+	ld	hl, (ix - 9)
+	ld	de, 20
+	or	a, a
+	sbc	hl, de
+	jp	nc, BB3_15
+	private	tmp93
+tmp93:
+	loc	0 0 9
+	ld	hl, (ix + 6)
+	push	hl
+	pop	iy
+	private	tmp94
+tmp94:
+	loc	0 73 30 is_stmt 1
+	ld	de, (iy + 8)
+	ld	(ix - 15), de
+	ld	a, (iy + 11)
+	loc	0 73 21 is_stmt 0
+	ld	(ix - 3), a
+	ld	l, a
+	push	hl
+	push	de
+	call	_fabsf
+	private	tmp95
+tmp95:
+	push	hl
+	pop	bc
+	ld	a, e
+	pop	hl
+	pop	hl
+	loc	0 73 34
+	ld	hl, (ix - 15)
+	ld	e, (ix - 3)
+	call	__fdiv
+	private	tmp96
+tmp96:
+	push	bc
+	pop	iy
+	ld	e, a
+	loc	0 73 18
+	ld	hl, (ix + 6)
+	ld	bc, (hl)
+	ld	hl, (ix - 12)
+	ld	a, (hl)
+	lea	hl, iy
+	call	__fsub
+	private	tmp97
+tmp97:
+	loc	0 0 18
+	ld	iy, (ix + 6)
+	loc	0 73 18
+	ld	(iy), bc
+	ld	(iy + 3), a
+	loc	0 74 19 is_stmt 1
+	ld	hl, (ix - 9)
+	inc	hl
+	private	tmp98
+tmp98:
+	loc	0 72 9
+	ld	(ix - 9), hl
+	private	tmp99
+tmp99:
+	loc	0 0 9 is_stmt 0
+	jp	BB3_12
+	private	tmp100
+tmp100:
+BB3_15:
+	loc	0 78 13 is_stmt 1
+	ld	hl, -720866
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	private	tmp101
+tmp101:
+	loc	0 78 13 is_stmt 0
+	bit	3, a
+	jp	z, BB3_17
+	private	tmp102
+tmp102:
+	loc	0 0 13
+	ld	hl, (ix + 6)
+	push	hl
+	pop	iy
+	private	tmp103
+tmp103:
+	loc	0 79 19 is_stmt 1
+	ld	hl, -3858760
+	ld	(iy + 12), hl
+	ld	(iy + 15), 64
+	loc	0 80 31
+	ld	de, (iy + 8)
+	ld	(ix - 9), de
+	ld	hl, (ix - 6)
+	ld	a, (hl)
+	loc	0 80 22 is_stmt 0
+	ld	(ix - 3), a
+	ld	l, a
+	push	hl
+	push	de
+	call	_fabsf
+	private	tmp104
+tmp104:
+	push	hl
+	pop	bc
+	ld	a, e
+	pop	hl
+	pop	hl
+	loc	0 80 21
+	call	__fneg
+	private	tmp105
+tmp105:
+	loc	0 80 35
+	ld	hl, (ix - 9)
+	ld	e, (ix - 3)
+	call	__fdiv
+	private	tmp106
+tmp106:
+	loc	0 0 35
+	ld	iy, (ix + 6)
+	loc	0 80 19
+	ld	(iy + 8), bc
+	ld	(iy + 11), a
+	private	tmp107
+tmp107:
+BB3_17:
+	loc	0 83 1 is_stmt 1
+	ld	sp, ix
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp108
+tmp108:
+	section	.text,"ax",@progbits
+	private	func_end3
+func_end3:
+	cfi_endproc
+
+	section	.text,"ax",@progbits
+	public	_resetPlayer
+_resetPlayer:
+	private	func_begin4
+func_begin4:
+	loc	0 85 0
+	cfi_startproc
+	call	__frameset0
+	private	tmp109
+tmp109:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	bc, (ix + 9)
+	ld	de, -8388608
+	private	tmp110
+tmp110:
+	loc	0 86 12 prologue_end
+	push	bc
+	pop	hl
+	push	bc
+	pop	iy
+	add	iy, iy
+	sbc	hl, hl
+	ld	a, l
+	call	__ltof
+	private	tmp111
+tmp111:
+	loc	0 86 26 is_stmt 0
+	push	de
+	pop	hl
+	ld	e, -64
+	call	__fadd
+	private	tmp112
+tmp112:
+	loc	0 0 26
+	ld	iy, (ix + 6)
+	private	tmp113
+tmp113:
+	loc	0 86 10
+	ld	(iy), bc
+	ld	(iy + 3), a
+	ld	hl, (ix + 12)
+	private	tmp114
+tmp114:
+	loc	0 87 12 is_stmt 1
+	push	hl
+	pop	iy
+	push	hl
+	pop	bc
+	private	tmp115
+tmp115:
+	add	iy, iy
+	sbc	hl, hl
+	ld	a, l
+	call	__ltof
+	private	tmp116
+tmp116:
+	loc	0 87 26 is_stmt 0
+	or	a, a
+	sbc	hl, hl
+	inc	e
+	call	__fadd
+	private	tmp117
+tmp117:
+	loc	0 87 40
+	ld	hl, -8388608
+	ld	e, -65
+	call	__fadd
+	private	tmp118
+tmp118:
+	loc	0 0 40
+	ld	iy, (ix + 6)
+	private	tmp119
+tmp119:
+	loc	0 87 10
+	ld	(iy + 4), bc
+	ld	(iy + 7), a
+	loc	0 89 11 is_stmt 1
+	or	a, a
+	sbc	hl, hl
+	ld	(iy + 12), hl
+	ld	(iy + 15), d
+	loc	0 90 1
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp120
+tmp120:
+	section	.text,"ax",@progbits
+	private	func_end4
+func_end4:
+	cfi_endproc
+
+	section	.text,"ax",@progbits
+	public	_debugPlayerPosition
+_debugPlayerPosition:
+	private	func_begin5
+func_begin5:
+	loc	0 92 0
+	cfi_startproc
+	call	__frameset0
+	private	tmp121
+tmp121:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	or	a, a
+	sbc	hl, hl
+	private	tmp122
+tmp122:
+	loc	0 93 5 prologue_end
+	push	hl
+	push	hl
+	call	_gfx_SetTextXY
+	private	tmp123
+tmp123:
+	pop	hl
+	pop	hl
+	loc	0 94 5
+	ld	hl, _.str
+	push	hl
+	call	_gfx_PrintString
+	private	tmp124
+tmp124:
+	pop	hl
+	loc	0 95 25
+	ld	bc, (ix + 6)
+	loc	0 95 18 is_stmt 0
+	ld	a, (ix + 9)
+	call	__ftol
+	private	tmp125
+tmp125:
+	loc	0 95 5
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	push	bc
+	call	_gfx_PrintInt
+	private	tmp126
+tmp126:
+	pop	hl
+	pop	hl
+	loc	0 96 5 is_stmt 1
+	ld	hl, _.str.1
+	push	hl
+	call	_gfx_PrintString
+	private	tmp127
+tmp127:
+	pop	hl
+	loc	0 97 25
+	ld	bc, (ix + 10)
+	loc	0 97 18 is_stmt 0
+	ld	a, (ix + 13)
+	call	__ftol
+	private	tmp128
+tmp128:
+	loc	0 97 5
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	push	bc
+	call	_gfx_PrintInt
+	private	tmp129
+tmp129:
+	loc	0 103 1 is_stmt 1
+	ld	sp, ix
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp130
+tmp130:
+	section	.text,"ax",@progbits
+	private	func_end5
+func_end5:
+	cfi_endproc
+
+	section	.text,"ax",@progbits
+	public	_drawTile
+_drawTile:
+	private	func_begin6
+func_begin6:
+	loc	0 105 0
+	cfi_startproc
+	ld	hl, -3
+	call	__frameset
+	private	tmp131
+tmp131:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	bc, 4
+	private	tmp132
+tmp132:
+	loc	0 106 16 prologue_end
+	ld	hl, (ix + 9)
+	call	__irems
+	private	tmp133
+tmp133:
+	loc	0 0 16 is_stmt 0
+	ld	(ix - 3), hl
+	loc	0 106 16
+	ld	(ix + 9), hl
+	loc	0 107 15 is_stmt 1
+	ld	de, (ix + 6)
+	loc	0 107 5 is_stmt 0
+	dec	de
+	inc	bc
+	push	de
+	pop	hl
+	or	a, a
+	sbc	hl, bc
+	jp	nc, BB6_25
+	private	tmp134
+tmp134:
+	ld	hl, JTI6_0
+	add	hl, de
+	add	hl, de
+	add	hl, de
+	ld	hl, (hl)
+	jp	(hl)
+	private	tmp135
+tmp135:
+BB6_2:
+	loc	0 0 5
+	or	a, a
+	sbc	hl, hl
+	private	tmp136
+tmp136:
+	loc	0 109 13 is_stmt 1
+	push	hl
+	call	_gfx_SetColor
+	private	tmp137
+tmp137:
+	pop	hl
+	ld	hl, 16
+	loc	0 110 13
+	push	hl
+	push	hl
+	ld	hl, (ix + 15)
+BB6_3:
+	loc	0 0 0 is_stmt 0
+	push	hl
+	ld	hl, (ix + 12)
+	push	hl
+	jp	BB6_23
+BB6_4:
+	or	a, a
+	sbc	hl, hl
+	loc	0 113 13 is_stmt 1
+	push	hl
+	call	_gfx_SetColor
+	private	tmp138
+tmp138:
+	loc	0 0 13 is_stmt 0
+	ld	bc, (ix + 12)
+	loc	0 113 13
+	pop	hl
+	loc	0 114 17 is_stmt 1
+	ld	de, 4
+	ld	hl, (ix - 3)
+	or	a, a
+	sbc	hl, de
+	jp	nc, BB6_25
+	ld	hl, JTI6_2
+	ld	de, (ix - 3)
+	add	hl, de
+	add	hl, de
+	add	hl, de
+	ld	hl, (hl)
+	jp	(hl)
+BB6_6:
+	loc	0 0 17 is_stmt 0
+	ld	hl, (ix + 15)
+	ld	de, 8
+	private	tmp139
+tmp139:
+	loc	0 115 40 is_stmt 1
+	add	hl, de
+	loc	0 115 17 is_stmt 0
+	push	de
+	ld	de, 16
+	push	de
+	push	hl
+	push	bc
+	call	_gfx_FillRectangle
+	private	tmp140
+tmp140:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	de, 8
+	ld	iy, (ix + 12)
+	loc	0 116 37 is_stmt 1
+	add	iy, de
+	loc	0 116 17 is_stmt 0
+	push	de
+	jp	BB6_18
+	private	tmp141
+tmp141:
+BB6_7:
+	loc	0 0 17
+	or	a, a
+	sbc	hl, hl
+	loc	0 129 13 is_stmt 1
+	push	hl
+	call	_gfx_SetColor
+	private	tmp142
+tmp142:
+	loc	0 0 13 is_stmt 0
+	ld	iy, (ix + 12)
+	loc	0 129 13
+	pop	hl
+	loc	0 130 17 is_stmt 1
+	ld	de, 4
+	ld	hl, (ix - 3)
+	or	a, a
+	sbc	hl, de
+	jp	nc, BB6_25
+	ld	hl, JTI6_1
+	ld	de, (ix - 3)
+	add	hl, de
+	add	hl, de
+	add	hl, de
+	ld	hl, (hl)
+	jp	(hl)
+BB6_9:
+	loc	0 0 17 is_stmt 0
+	ld	hl, (ix + 15)
+	ld	de, 8
+	private	tmp143
+tmp143:
+	loc	0 130 57
+	add	hl, de
+	loc	0 130 34
+	push	de
+	ld	de, 16
+	jr	BB6_15
+	private	tmp144
+tmp144:
+BB6_10:
+	loc	0 0 34
+	ld	hl, -32
+	loc	0 138 13 is_stmt 1
+	push	hl
+	call	_gfx_SetColor
+	private	tmp145
+tmp145:
+	loc	0 0 13 is_stmt 0
+	jp	BB6_24
+BB6_11:
+	private	tmp146
+tmp146:
+	loc	0 118 17 is_stmt 1
+	ld	hl, 16
+	push	hl
+	ld	hl, 8
+	jr	BB6_14
+	private	tmp147
+tmp147:
+BB6_12:
+	loc	0 0 17 is_stmt 0
+	ld	hl, 8
+	private	tmp148
+tmp148:
+	loc	0 121 17 is_stmt 1
+	push	hl
+	ld	hl, 16
+	push	hl
+	ld	hl, (ix + 15)
+	push	hl
+	push	bc
+	call	_gfx_FillRectangle
+	private	tmp149
+tmp149:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	de, 8
+	ld	hl, (ix + 15)
+	loc	0 122 40
+	add	hl, de
+	loc	0 122 17 is_stmt 0
+	push	de
+	push	de
+	jp	BB6_3
+	private	tmp150
+tmp150:
+BB6_13:
+	loc	0 0 17
+	ld	hl, 8
+	private	tmp151
+tmp151:
+	loc	0 124 17 is_stmt 1
+	push	hl
+	ld	hl, 16
+	private	tmp152
+tmp152:
+BB6_14:
+	loc	0 0 0 is_stmt 0
+	push	hl
+	ld	hl, (ix + 15)
+	push	hl
+	push	bc
+	call	_gfx_FillRectangle
+	private	tmp153
+tmp153:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	de, 8
+	ld	iy, (ix + 12)
+	add	iy, de
+	ld	hl, (ix + 15)
+	add	hl, de
+	push	de
+	private	tmp154
+tmp154:
+BB6_15:
+	push	de
+	jr	BB6_22
+BB6_16:
+	private	tmp155
+tmp155:
+	loc	0 132 39 is_stmt 1
+	ld	hl, 8
+	push	hl
+	ld	hl, 16
+	jr	BB6_20
+BB6_17:
+	loc	0 0 39 is_stmt 0
+	ld	hl, 8
+	ex	de, hl
+	private	tmp156
+tmp156:
+	loc	0 133 59 is_stmt 1
+	add	iy, de
+	loc	0 133 39 is_stmt 0
+	ld	hl, 16
+	push	hl
+	private	tmp157
+tmp157:
+BB6_18:
+	loc	0 0 0
+	push	de
+	jr	BB6_21
+BB6_19:
+	private	tmp158
+tmp158:
+	loc	0 131 39 is_stmt 1
+	ld	hl, 16
+	push	hl
+	ld	hl, 8
+BB6_20:
+	loc	0 0 0 is_stmt 0
+	push	hl
+	private	tmp159
+tmp159:
+BB6_21:
+	ld	hl, (ix + 15)
+BB6_22:
+	push	hl
+	push	iy
+BB6_23:
+	call	_gfx_FillRectangle
+	private	tmp160
+tmp160:
+	pop	hl
+	pop	hl
+	pop	hl
+BB6_24:
+	pop	hl
+	private	tmp161
+tmp161:
+BB6_25:
+	loc	0 148 1 is_stmt 1
+	pop	hl
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp162
+tmp162:
+	section	.text,"ax",@progbits
+	private	func_end6
+func_end6:
+	cfi_endproc
+	section	.rodata,"a",@progbits
+	private	JTI6_0
+JTI6_0:
+	dl	BB6_2
+	dl	BB6_4
+	dl	BB6_7
+	dl	BB6_25
+	dl	BB6_10
+	private	JTI6_1
+JTI6_1:
+	dl	BB6_9
+	dl	BB6_19
+	dl	BB6_16
+	dl	BB6_17
+	private	JTI6_2
+JTI6_2:
+	dl	BB6_6
+	dl	BB6_11
+	dl	BB6_12
+	dl	BB6_13
+
+	section	.text,"ax",@progbits
+	public	_generateMap
+_generateMap:
+	private	func_begin7
+func_begin7:
+	loc	0 150 0
+	cfi_startproc
+	ld	hl, -33
+	call	__frameset
+	private	tmp163
+tmp163:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	bc, (ix + 15)
+	ld	de, -500
+	ld	hl, 500
+	private	tmp164
+tmp164:
+	push	bc
+	pop	iy
+	add	iy, de
+	or	a, a
+	sbc	hl, bc
+	push	hl
+	pop	de
+	push	bc
+	pop	hl
+	ld	bc, 500
+	private	tmp165
+tmp165:
+	or	a, a
+	sbc	hl, bc
+	ex	de, hl
+	call	pe, __setflag
+	private	tmp166
+tmp166:
+	jp	m, BB7_2
+	private	tmp167
+tmp167:
+	lea	hl, iy
+BB7_2:
+	ld	de, (ix + 6)
+	private	tmp168
+tmp168:
+	ld	(ix - 3), de
+	private	tmp169
+tmp169:
+	ld	de, 170
+	add	hl, de
+	ld	(ix - 12), hl
+	ld	hl, (ix + 18)
+	ld	bc, 6
+	call	__imulu
+	private	tmp170
+tmp170:
+	ld	(ix - 15), hl
+	ld	hl, (ix + 12)
+	ld	de, -16
+	add	hl, de
+	ld	(ix - 30), hl
+	ld	bc, 18
+	ld	de, 0
+	private	tmp171
+tmp171:
+BB7_3:
+	loc	0 151 5 prologue_end
+	push	de
+	pop	hl
+	or	a, a
+	sbc	hl, bc
+	jp	z, BB7_14
+	private	tmp172
+tmp172:
+	loc	0 0 5 is_stmt 0
+	ld	(ix - 18), de
+	ex	de, hl
+	private	tmp173
+tmp173:
+	ld	c, 4
+	call	__ishl
+	private	tmp174
+tmp174:
+	push	hl
+	pop	bc
+	push	bc
+	pop	iy
+	add	iy, iy
+	sbc	hl, hl
+	ld	(ix - 33), bc
+	ld	a, l
+	call	__ltof
+	private	tmp175
+tmp175:
+	ld	(ix - 21), bc
+	ld	l, a
+	ld	(ix - 24), hl
+	ld	iy, (ix - 3)
+	or	a, a
+	sbc	hl, hl
+	private	tmp176
+tmp176:
+BB7_5:
+	ld	(ix - 6), hl
+	private	tmp177
+tmp177:
+	loc	0 152 9 is_stmt 1
+	ld	bc, 384
+	or	a, a
+	sbc	hl, bc
+	jp	z, BB7_13
+	private	tmp178
+tmp178:
+	loc	0 0 9 is_stmt 0
+	ld	(ix - 9), iy
+	private	tmp179
+tmp179:
+	loc	0 153 19 is_stmt 1
+	call	_rand
+	private	tmp180
+tmp180:
+	ld	(ix - 27), hl
+	loc	0 153 34 is_stmt 0
+	ld	hl, (ix - 24)
+	push	hl
+	ld	hl, (ix - 21)
+	push	hl
+	call	_log
+	private	tmp181
+tmp181:
+	push	hl
+	pop	bc
+	ld	a, e
+	pop	hl
+	pop	hl
+	loc	0 153 29
+	call	__ftol
+	private	tmp182
+tmp182:
+	loc	0 153 51
+	push	bc
+	pop	hl
+	ld	bc, 170
+	call	__imulu
+	private	tmp183
+tmp183:
+	push	hl
+	pop	de
+	loc	0 153 63
+	ld	iy, (ix - 12)
+	add	iy, de
+	loc	0 153 26
+	ld	hl, (ix - 27)
+	lea	bc, iy
+	call	__irems
+	private	tmp184
+tmp184:
+	loc	0 153 109
+	ld	de, (ix - 15)
+	or	a, a
+	sbc	hl, de
+	call	pe, __setflag
+	private	tmp185
+tmp185:
+	jp	p, BB7_9
+	private	tmp186
+tmp186:
+	loc	0 153 137
+	ld	hl, (ix + 9)
+	ld	de, (ix - 6)
+	or	a, a
+	sbc	hl, de
+	jp	nz, BB7_11
+	private	tmp187
+tmp187:
+	ld	hl, (ix - 33)
+	ld	de, (ix - 30)
+	or	a, a
+	sbc	hl, de
+	jp	nz, BB7_11
+	private	tmp188
+tmp188:
+BB7_9:
+	loc	0 154 21 is_stmt 1
+	call	_rand
+	private	tmp189
+tmp189:
+	loc	0 154 28 is_stmt 0
+	ld	bc, 100
+	call	__irems
+	private	tmp190
+tmp190:
+	loc	0 154 34
+	inc	hl
+	private	tmp191
+tmp191:
+	loc	0 154 21
+	ld	de, (ix + 21)
+	or	a, a
+	sbc	hl, de
+	call	pe, __setflag
+	private	tmp192
+tmp192:
+	loc	0 0 21
+	ld	iy, (ix - 9)
+	loc	0 154 21
+	jp	p, BB7_12
+	private	tmp193
+tmp193:
+	loc	0 155 38 is_stmt 1
+	call	_rand
+	private	tmp194
+tmp194:
+	loc	0 155 45 is_stmt 0
+	ld	bc, 3
+	call	__irems
+	private	tmp195
+tmp195:
+	loc	0 155 36
+	ld	iy, (ix - 9)
+	ld	(iy), hl
+	private	tmp196
+tmp196:
+	loc	0 156 45 is_stmt 1
+	ld	de, 2
+	or	a, a
+	sbc	hl, de
+	loc	0 157 46
+	call	z, _rand
+	private	tmp197
+tmp197:
+	loc	0 0 46 is_stmt 0
+	ld	iy, (ix - 9)
+	jp	BB7_12
+	private	tmp198
+tmp198:
+BB7_11:
+	loc	0 187 32 is_stmt 1
+	or	a, a
+	sbc	hl, hl
+	ld	iy, (ix - 9)
+	ld	(iy), hl
+	private	tmp199
+tmp199:
+BB7_12:
+	loc	0 189 32
+	or	a, a
+	sbc	hl, hl
+	ld	(iy + 3), hl
+	private	tmp200
+tmp200:
+	loc	0 152 9
+	ld	de, 16
+	ld	hl, (ix - 6)
+	private	tmp201
+tmp201:
+	add	hl, de
+	private	tmp202
+tmp202:
+	lea	iy, iy + 6
+	jp	BB7_5
+	private	tmp203
+tmp203:
+BB7_13:
+	loc	0 0 9 is_stmt 0
+	ld	de, (ix - 18)
+	loc	0 151 30 is_stmt 1
+	inc	de
+	private	tmp204
+tmp204:
+	loc	0 151 5 is_stmt 0
+	ld	hl, (ix - 3)
+	ld	bc, 144
+	add	hl, bc
+	ld	(ix - 3), hl
+	ld	bc, 18
+	jp	BB7_3
+	private	tmp205
+tmp205:
+BB7_14:
+	loc	0 192 1 is_stmt 1
+	ld	sp, ix
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp206
+tmp206:
+	section	.text,"ax",@progbits
+	private	func_end7
+func_end7:
+	cfi_endproc
+	file	4 "/Users/ashton" "CEdev/include/stdlib.h" md5 0x82c071ccef2b848dfbdc5ed5c6d49b74
+
+	section	.text,"ax",@progbits
+	public	_drawMap
+_drawMap:
+	private	func_begin8
+func_begin8:
+	loc	0 194 0
+	cfi_startproc
+	ld	hl, -18
+	call	__frameset
+	private	tmp207
+tmp207:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	hl, (ix + 6)
+	ld	(ix - 3), hl
+	ld	bc, 0
+	private	tmp208
+tmp208:
+BB8_1:
+	loc	0 195 5 prologue_end
+	push	bc
+	pop	hl
+	ld	de, 18
+	or	a, a
+	sbc	hl, de
+	jp	z, BB8_6
+	private	tmp209
+tmp209:
+	loc	0 0 5 is_stmt 0
+	ld	(ix - 9), bc
+	push	bc
+	pop	hl
+	ld	c, 4
+	private	tmp210
+tmp210:
+	call	__ishl
+	private	tmp211
+tmp211:
+	ld	(ix - 12), hl
+	ld	hl, (ix - 3)
+	ld	(ix - 6), hl
+	or	a, a
+	sbc	hl, hl
+	private	tmp212
+tmp212:
+BB8_3:
+	push	hl
+	pop	iy
+	private	tmp213
+tmp213:
+	loc	0 196 9 is_stmt 1
+	ld	bc, 384
+	or	a, a
+	sbc	hl, bc
+	jp	z, BB8_5
+	private	tmp214
+tmp214:
+	loc	0 197 13
+	push	hl
+	push	hl
+	push	hl
+	push	hl
+	ex	de, hl
+	ld	hl, 0
+	add	hl, sp
+	ex	de, hl
+	ld	(ix - 18), de
+	ld	hl, (ix - 6)
+	ld	bc, 6
+	ldir
+	lea	hl, iy
+	ld	(ix - 15), hl
+	ld	iy, (ix - 18)
+	private	tmp215
+tmp215:
+	ld	(iy + 6), hl
+	ld	hl, (ix - 12)
+	ld	(iy + 9), hl
+	call	_drawTile
+	private	tmp216
+tmp216:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	private	tmp217
+tmp217:
+	loc	0 0 13 is_stmt 0
+	ld	hl, (ix - 15)
+	private	tmp218
+tmp218:
+	loc	0 196 9 is_stmt 1
+	ld	de, 16
+	add	hl, de
+	private	tmp219
+tmp219:
+	ld	iy, (ix - 6)
+	lea	iy, iy + 6
+	ld	(ix - 6), iy
+	jp	BB8_3
+	private	tmp220
+tmp220:
+BB8_5:
+	loc	0 0 9 is_stmt 0
+	ld	de, (ix - 9)
+	loc	0 195 30 is_stmt 1
+	inc	de
+	private	tmp221
+tmp221:
+	loc	0 195 5 is_stmt 0
+	ld	bc, 144
+	ld	hl, (ix - 3)
+	add	hl, bc
+	ld	(ix - 3), hl
+	push	de
+	pop	bc
+	private	tmp222
+tmp222:
+	loc	0 0 5
+	jp	BB8_1
+	private	tmp223
+tmp223:
+BB8_6:
+	loc	0 200 1 is_stmt 1
+	ld	sp, ix
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp224
+tmp224:
+	section	.text,"ax",@progbits
+	private	func_end8
+func_end8:
+	cfi_endproc
+
+	section	.text,"ax",@progbits
+	public	_main
+_main:
+	private	func_begin9
+func_begin9:
+	loc	0 202 0
+	cfi_startproc
+	ld	hl, -2626
+	call	__frameset
+	private	tmp225
+tmp225:
+	cfi_def_cfa ix, 6
+	cfi_offset ix, -6
+	ld	bc, -2614
+	lea	iy, ix
+	add	iy, bc
+	ld	bc, -2620
+	lea	hl, ix
+	add	hl, bc
+	ld	(hl), iy
+	lea	hl, iy + 16
+	push	ix
+	ld	bc, -2617
+	add	ix, bc
+	ld	(ix), hl
+	pop	ix
+	lea	hl, iy
+	private	tmp226
+tmp226:
+	loc	0 203 5 prologue_end
+	ld	bc, -2623
+	lea	iy, ix
+	add	iy, bc
+	ld	(iy), hl
+	call	_gfx_Begin
+	private	tmp227
+tmp227:
+	loc	0 0 5 is_stmt 0
+	ld	hl, 1
+	loc	0 204 5 is_stmt 1
+	push	hl
+	call	_gfx_SetDraw
+	private	tmp228
+tmp228:
+	pop	hl
+	ld	hl, 3
+	loc	0 205 5
+	push	hl
+	call	_gfx_SetTextFGColor
+	private	tmp229
+tmp229:
+	pop	hl
+	loc	0 207 11
+	ld	hl, (-851900)
+	ld	a, (-851897)
+	loc	0 207 5 is_stmt 0
+	push	hl
+	call	_srand
+	private	tmp230
+tmp230:
+	pop	hl
+	private	tmp231
+tmp231:
+	loc	0 220 5 is_stmt 1
+	ld	hl, 75
+	push	hl
+	ld	hl, 60
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, 128
+	push	hl
+	ld	hl, 11
+	push	hl
+	ld	bc, -2617
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_generateMap
+	private	tmp232
+tmp232:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	bc, -2620
+	lea	hl, ix
+	add	hl, bc
+	ld	iy, (hl)
+	private	tmp233
+tmp233:
+	loc	0 86 10
+	ld	hl, -2097152
+	private	tmp234
+tmp234:
+	ld	(iy), hl
+	ld	(iy + 3), 64
+	loc	0 87 10
+	ld	hl, -1179648
+	ld	(iy + 4), hl
+	ld	(iy + 7), 66
+	or	a, a
+	sbc	hl, hl
+	loc	0 89 11
+	ld	(iy + 12), hl
+	ld	(iy + 15), h
+	private	tmp235
+tmp235:
+BB9_1:
+	loc	0 0 11 is_stmt 0
+	ld	bc, -2626
+	lea	iy, ix
+	add	iy, bc
+	ld	(iy), hl
+	private	tmp236
+tmp236:
+BB9_2:
+	loc	0 227 9 is_stmt 1
+	call	_kb_Scan
+	private	tmp237
+tmp237:
+	loc	0 228 13
+	ld	hl, -720868
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	private	tmp238
+tmp238:
+	loc	0 228 13 is_stmt 0
+	bit	6, a
+	jp	nz, BB9_12
+	private	tmp239
+tmp239:
+	loc	0 0 13
+	scf
+	sbc	hl, hl
+	loc	0 232 9 is_stmt 1
+	push	hl
+	call	_gfx_FillScreen
+	private	tmp240
+tmp240:
+	pop	hl
+	loc	0 233 9
+	ld	bc, -2617
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_drawMap
+	private	tmp241
+tmp241:
+	pop	hl
+	loc	0 235 9
+	ld	bc, -2623
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_playerMovement
+	private	tmp242
+tmp242:
+	pop	hl
+	private	tmp243
+tmp243:
+	loc	0 237 13
+	ld	hl, -720876
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	private	tmp244
+tmp244:
+	loc	0 237 13 is_stmt 0
+	bit	7, a
+	jp	nz, BB9_10
+	private	tmp245
+tmp245:
+	loc	0 0 13
+	ld	de, -2620
+	lea	hl, ix
+	add	hl, de
+	ld	iy, (hl)
+	private	tmp246
+tmp246:
+	loc	0 243 15 is_stmt 1
+	ld	bc, (iy)
+	private	tmp247
+tmp247:
+	loc	0 243 13 is_stmt 0
+	ld	hl, -6291456
+	ld	e, 67
+	ld	a, (iy + 3)
+	call	__fcmp
+	private	tmp248
+tmp248:
+	jp	m, BB9_11
+	private	tmp249
+tmp249:
+	loc	0 250 15 is_stmt 1
+	ld	bc, (iy + 4)
+	loc	0 250 17 is_stmt 0
+	ld	hl, 7340032
+	ld	a, (iy + 7)
+	call	__fcmp
+	private	tmp250
+tmp250:
+	loc	0 250 34
+	jp	m, BB9_8
+	private	tmp251
+tmp251:
+	loc	0 250 37
+	ld	hl, -21
+	add	hl, sp
+	ld	sp, hl
+	ld	iy, 0
+	add	iy, sp
+	lea	de, iy
+	ld	bc, -2623
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	ld	bc, 16
+	ldir
+	ld	(iy + 18), -32
+	call	_playerTouchingColor
+	private	tmp252
+tmp252:
+	loc	0 0 37
+	ld	bc, -2620
+	lea	hl, ix
+	add	hl, bc
+	ld	iy, (hl)
+	loc	0 250 37
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	loc	0 250 66
+	bit	0, a
+	jp	nz, BB9_8
+	private	tmp253
+tmp253:
+	loc	0 250 69
+	ld	hl, -720878
+	push	de
+	ld	e, (hl)
+	inc	hl
+	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	private	tmp254
+tmp254:
+	loc	0 250 13
+	bit	5, a
+	jp	z, BB9_9
+	private	tmp255
+tmp255:
+BB9_8:
+	loc	0 86 10 is_stmt 1
+	ld	hl, -2097152
+	ld	(iy), hl
+	ld	(iy + 3), 64
+	loc	0 87 10
+	ld	hl, -1179648
+	ld	(iy + 4), hl
+	ld	(iy + 7), 66
+	loc	0 89 11
+	or	a, a
+	sbc	hl, hl
+	ld	(iy + 12), hl
+	ld	(iy + 15), h
+	private	tmp256
+tmp256:
+BB9_9:
+	loc	0 254 9
+	push	hl
+	push	hl
+	push	hl
+	push	hl
+	push	hl
+	push	hl
+	ex	de, hl
+	ld	hl, 0
+	add	hl, sp
+	ex	de, hl
+	ld	bc, -2623
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	ld	bc, 16
+	ldir
+	call	_drawPlayer
+	private	tmp257
+tmp257:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	loc	0 255 9
+	push	hl
+	push	hl
+	push	hl
+	push	hl
+	push	hl
+	push	hl
+	ex	de, hl
+	ld	hl, 0
+	add	hl, sp
+	ex	de, hl
+	ld	bc, -2623
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	ld	bc, 16
+	ldir
+	call	_debugPlayerPosition
+	private	tmp258
+tmp258:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	loc	0 257 9
+	ld	hl, 8
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	call	_gfx_SetTextXY
+	private	tmp259
+tmp259:
+	pop	hl
+	pop	hl
+	loc	0 258 9
+	ld	hl, _.str.2
+	push	hl
+	call	_gfx_PrintString
+	private	tmp260
+tmp260:
+	pop	hl
+	loc	0 259 9
+	ld	hl, 1
+	push	hl
+	ld	bc, -2626
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_gfx_PrintInt
+	private	tmp261
+tmp261:
+	pop	hl
+	pop	hl
+	loc	0 261 9
+	call	_gfx_SwapDraw
+	private	tmp262
+tmp262:
+	loc	0 262 9
+	ld	hl, 50
+	push	hl
+	call	_delay
+	private	tmp263
+tmp263:
+	pop	hl
+	jp	BB9_2
+	private	tmp264
+tmp264:
+BB9_10:
+	loc	0 238 13
+	ld	hl, 75
+	push	hl
+	ld	hl, 60
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, 128
+	push	hl
+	ld	hl, 11
+	push	hl
+	ld	bc, -2617
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_generateMap
+	private	tmp265
+tmp265:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	bc, -2620
+	lea	hl, ix
+	add	hl, bc
+	ld	iy, (hl)
+	private	tmp266
+tmp266:
+	loc	0 86 10
+	ld	hl, -2097152
+	private	tmp267
+tmp267:
+	ld	(iy), hl
+	ld	(iy + 3), 64
+	loc	0 87 10
+	ld	hl, -1179648
+	ld	(iy + 4), hl
+	ld	(iy + 7), 66
+	loc	0 89 11
+	or	a, a
+	sbc	hl, hl
+	ld	(iy + 12), hl
+	ld	(iy + 15), h
+	jp	BB9_2
+	private	tmp268
+tmp268:
+BB9_11:
+	loc	0 244 13
+	ld	hl, 75
+	push	hl
+	ld	hl, 60
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	ld	hl, 128
+	push	hl
+	ld	hl, 11
+	push	hl
+	ld	bc, -2617
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_generateMap
+	private	tmp269
+tmp269:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+	private	tmp270
+tmp270:
+	loc	0 86 10
+	ld	hl, -2097152
+	ld	bc, -2620
+	lea	iy, ix
+	add	iy, bc
+	ld	iy, (iy)
+	private	tmp271
+tmp271:
+	ld	(iy), hl
+	ld	(iy + 3), 64
+	loc	0 87 10
+	ld	hl, -1179648
+	ld	(iy + 4), hl
+	ld	(iy + 7), 66
+	loc	0 89 11
+	or	a, a
+	sbc	hl, hl
+	ld	(iy + 12), hl
+	ld	(iy + 15), h
+	private	tmp272
+tmp272:
+	loc	0 246 28
+	ld	bc, -2626
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	inc	hl
+	private	tmp273
+tmp273:
+	loc	0 0 28 is_stmt 0
+	jp	BB9_1
+	private	tmp274
+tmp274:
+BB9_12:
+	loc	0 265 5 is_stmt 1
+	call	_gfx_End
+	private	tmp275
+tmp275:
+	loc	0 266 5
+	or	a, a
+	sbc	hl, hl
+	ld	sp, ix
+	pop	ix
+	cfi_def_cfa sp, 3
+	cfi_restore ix
+	ret
+	private	tmp276
+tmp276:
+	section	.text,"ax",@progbits
+	private	func_end9
+func_end9:
+	cfi_endproc
+	file	5 "/Users/ashton" "CEdev/include/sys/timers.h" md5 0xac0e21d7da7dc0b5c15e8925be2a0616
+
+	section	.rodata,"a",@progbits
+	private	_.str
+_.str:
+	db	"Player Pos: ", 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.1
+_.str.1:
+	db	", ", 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.2
+_.str.2:
+	db	"Levels Completed: ", 0
+
+	section	.debug_loclists,"",@progbits
+	dd	debug_list_header_end0-debug_list_header_start0
+	private	debug_list_header_start0
+debug_list_header_start0:
+	dw	5
+	db	3
+	db	0
+	dd	32
+	private	loclists_table_base0
+loclists_table_base0:
+	dd	debug_loc0-loclists_table_base0
+	dd	debug_loc1-loclists_table_base0
+	dd	debug_loc2-loclists_table_base0
+	dd	debug_loc3-loclists_table_base0
+	dd	debug_loc4-loclists_table_base0
+	dd	debug_loc5-loclists_table_base0
+	dd	debug_loc6-loclists_table_base0
+	dd	debug_loc7-loclists_table_base0
+	dd	debug_loc8-loclists_table_base0
+	dd	debug_loc9-loclists_table_base0
+	dd	debug_loc10-loclists_table_base0
+	dd	debug_loc11-loclists_table_base0
+	dd	debug_loc12-loclists_table_base0
+	dd	debug_loc13-loclists_table_base0
+	dd	debug_loc14-loclists_table_base0
+	dd	debug_loc15-loclists_table_base0
+	dd	debug_loc16-loclists_table_base0
+	dd	debug_loc17-loclists_table_base0
+	dd	debug_loc18-loclists_table_base0
+	dd	debug_loc19-loclists_table_base0
+	dd	debug_loc20-loclists_table_base0
+	dd	debug_loc21-loclists_table_base0
+	dd	debug_loc22-loclists_table_base0
+	dd	debug_loc23-loclists_table_base0
+	dd	debug_loc24-loclists_table_base0
+	dd	debug_loc25-loclists_table_base0
+	dd	debug_loc26-loclists_table_base0
+	dd	debug_loc27-loclists_table_base0
+	dd	debug_loc28-loclists_table_base0
+	dd	debug_loc29-loclists_table_base0
+	dd	debug_loc30-loclists_table_base0
+	dd	debug_loc31-loclists_table_base0
+	private	debug_loc0
+debug_loc0:
+	db	4
+	uleb128	tmp1-func_begin0
+	uleb128	tmp4-func_begin0
+	db	3
+	db	17
+	db	0
+	db	159
+	db	4
+	uleb128	tmp5-func_begin0
+	uleb128	tmp8-func_begin0
+	db	1
+	db	80
+	db	4
+	uleb128	tmp8-func_begin0
+	uleb128	tmp9-func_begin0
+	db	1
+	db	81
+	db	0
+	private	debug_loc1
+debug_loc1:
+	db	4
+	uleb128	tmp1-func_begin0
+	uleb128	tmp9-func_begin0
+	db	2
+	db	48
+	db	159
+	db	0
+	private	debug_loc2
+debug_loc2:
+	db	4
+	uleb128	tmp1-func_begin0
+	uleb128	tmp2-func_begin0
+	db	1
+	db	85
+	db	0
+	private	debug_loc3
+debug_loc3:
+	db	4
+	uleb128	tmp29-func_begin0
+	uleb128	tmp31-func_begin0
+	db	1
+	db	82
+	db	0
+	private	debug_loc4
+debug_loc4:
+	db	4
+	uleb128	tmp41-func_begin0
+	uleb128	tmp42-func_begin0
+	db	1
+	db	85
+	db	4
+	uleb128	tmp44-func_begin0
+	uleb128	tmp45-func_begin0
+	db	1
+	db	85
+	db	4
+	uleb128	tmp47-func_begin0
+	uleb128	tmp48-func_begin0
+	db	1
+	db	85
+	db	4
+	uleb128	tmp48-func_begin0
+	uleb128	tmp49-func_begin0
+	db	1
+	db	82
+	db	4
+	uleb128	tmp51-func_begin0
+	uleb128	tmp53-func_begin0
+	db	1
+	db	85
+	db	0
+	private	debug_loc5
+debug_loc5:
+	db	4
+	uleb128	tmp55-func_begin0
+	uleb128	tmp63-func_begin0
+	db	2
+	db	116
+	db	9
+	db	4
+	uleb128	tmp63-func_begin0
+	uleb128	tmp64-func_begin0
+	db	1
+	db	82
+	db	4
+	uleb128	tmp64-func_begin0
+	uleb128	tmp76-func_begin0
+	db	2
+	db	116
+	db	9
+	db	0
+	private	debug_loc6
+debug_loc6:
+	db	4
+	uleb128	tmp90-func_begin0
+	uleb128	tmp98-func_begin0
+	db	2
+	db	116
+	db	6
+	db	4
+	uleb128	tmp98-func_begin0
+	uleb128	tmp99-func_begin0
+	db	1
+	db	82
+	db	4
+	uleb128	tmp99-func_begin0
+	uleb128	tmp107-func_begin0
+	db	2
+	db	116
+	db	6
+	db	0
+	private	debug_loc7
+debug_loc7:
+	db	4
+	uleb128	tmp114-func_begin0
+	uleb128	tmp115-func_begin0
+	db	1
+	db	82
+	db	4
+	uleb128	tmp115-func_begin0
+	uleb128	tmp116-func_begin0
+	db	1
+	db	80
+	db	0
+	private	debug_loc8
+debug_loc8:
+	db	4
+	uleb128	tmp110-func_begin0
+	uleb128	tmp111-func_begin0
+	db	1
+	db	80
+	db	0
+	private	debug_loc9
+debug_loc9:
+	db	4
+	uleb128	tmp113-func_begin0
+	uleb128	tmp114-func_begin0
+	db	1
+	db	85
+	db	4
+	uleb128	tmp119-func_begin0
+	uleb128	func_end4-func_begin0
+	db	1
+	db	85
+	db	0
+	private	debug_loc10
+debug_loc10:
+	db	4
+	uleb128	tmp171-func_begin0
+	uleb128	tmp173-func_begin0
+	db	1
+	db	81
+	db	4
+	uleb128	tmp204-func_begin0
+	uleb128	tmp205-func_begin0
+	db	1
+	db	81
+	db	0
+	private	debug_loc11
+debug_loc11:
+	db	4
+	uleb128	tmp164-func_begin0
+	uleb128	tmp165-func_begin0
+	db	1
+	db	80
+	db	0
+	private	debug_loc12
+debug_loc12:
+	db	4
+	uleb128	tmp169-func_begin0
+	uleb128	func_end7-func_begin0
+	db	2
+	db	116
+	db	30
+	db	0
+	private	debug_loc13
+debug_loc13:
+	db	4
+	uleb128	tmp177-func_begin0
+	uleb128	tmp200-func_begin0
+	db	8
+	db	116
+	db	27
+	db	148
+	db	3
+	db	17
+	db	16
+	db	27
+	db	159
+	db	4
+	uleb128	tmp200-func_begin0
+	uleb128	tmp201-func_begin0
+	db	11
+	db	116
+	db	27
+	db	148
+	db	3
+	db	17
+	db	16
+	db	27
+	db	17
+	db	1
+	db	34
+	db	159
+	db	4
+	uleb128	tmp201-func_begin0
+	uleb128	tmp202-func_begin0
+	db	9
+	db	114
+	db	0
+	db	17
+	db	16
+	db	27
+	db	17
+	db	1
+	db	34
+	db	159
+	db	0
+	private	debug_loc14
+debug_loc14:
+	db	4
+	uleb128	tmp208-func_begin0
+	uleb128	tmp210-func_begin0
+	db	1
+	db	80
+	db	4
+	uleb128	tmp221-func_begin0
+	uleb128	tmp222-func_begin0
+	db	1
+	db	81
+	db	4
+	uleb128	tmp222-func_begin0
+	uleb128	tmp223-func_begin0
+	db	1
+	db	80
+	db	0
+	private	debug_loc15
+debug_loc15:
+	db	4
+	uleb128	tmp213-func_begin0
+	uleb128	tmp215-func_begin0
+	db	6
+	db	117
+	db	0
+	db	17
+	db	16
+	db	27
+	db	159
+	db	4
+	uleb128	tmp217-func_begin0
+	uleb128	tmp218-func_begin0
+	db	11
+	db	116
+	db	3
+	db	148
+	db	3
+	db	17
+	db	16
+	db	27
+	db	17
+	db	1
+	db	34
+	db	159
+	db	4
+	uleb128	tmp218-func_begin0
+	uleb128	tmp219-func_begin0
+	db	9
+	db	114
+	db	0
+	db	17
+	db	16
+	db	27
+	db	17
+	db	1
+	db	34
+	db	159
+	db	0
+	private	debug_loc16
+debug_loc16:
+	db	4
+	uleb128	tmp231-func_begin0
+	uleb128	tmp235-func_begin0
+	db	3
+	db	17
+	db	0
+	db	159
+	db	4
+	uleb128	tmp236-func_begin0
+	uleb128	tmp273-func_begin0
+	db	2
+	db	116
+	db	0
+	db	4
+	uleb128	tmp273-func_begin0
+	uleb128	tmp274-func_begin0
+	db	1
+	db	82
+	db	4
+	uleb128	tmp274-func_begin0
+	uleb128	func_end9-func_begin0
+	db	2
+	db	116
+	db	0
+	db	0
+	private	debug_loc17
+debug_loc17:
+	db	4
+	uleb128	tmp231-func_begin0
+	uleb128	func_end9-func_begin0
+	db	2
+	db	49
+	db	159
+	db	0
+	private	debug_loc18
+debug_loc18:
+	db	4
+	uleb128	tmp231-func_begin0
+	uleb128	func_end9-func_begin0
+	db	4
+	db	17
+	db	203
+	db	0
+	db	159
+	db	0
+	private	debug_loc19
+debug_loc19:
+	db	4
+	uleb128	tmp231-func_begin0
+	uleb128	func_end9-func_begin0
+	db	3
+	db	17
+	db	60
+	db	159
+	db	0
+	private	debug_loc20
+debug_loc20:
+	db	4
+	uleb128	tmp231-func_begin0
+	uleb128	func_end9-func_begin0
+	db	3
+	db	17
+	db	0
+	db	159
+	db	0
+	private	debug_loc21
+debug_loc21:
+	db	4
+	uleb128	tmp231-func_begin0
+	uleb128	func_end9-func_begin0
+	db	4
+	db	17
+	db	128
+	db	1
+	db	159
+	db	0
+	private	debug_loc22
+debug_loc22:
+	db	4
+	uleb128	tmp231-func_begin0
+	uleb128	func_end9-func_begin0
+	db	3
+	db	17
+	db	11
+	db	159
+	db	0
+	private	debug_loc23
+debug_loc23:
+	db	4
+	uleb128	tmp234-func_begin0
+	uleb128	tmp235-func_begin0
+	db	4
+	db	17
+	db	128
+	db	1
+	db	159
+	db	0
+	private	debug_loc24
+debug_loc24:
+	db	4
+	uleb128	tmp234-func_begin0
+	uleb128	tmp235-func_begin0
+	db	3
+	db	17
+	db	11
+	db	159
+	db	0
+	private	debug_loc25
+debug_loc25:
+	db	4
+	uleb128	tmp234-func_begin0
+	uleb128	tmp235-func_begin0
+	db	2
+	db	116
+	db	3
+	db	0
+	private	debug_loc26
+debug_loc26:
+	db	4
+	uleb128	tmp267-func_begin0
+	uleb128	tmp268-func_begin0
+	db	4
+	db	17
+	db	128
+	db	1
+	db	159
+	db	0
+	private	debug_loc27
+debug_loc27:
+	db	4
+	uleb128	tmp267-func_begin0
+	uleb128	tmp268-func_begin0
+	db	3
+	db	17
+	db	11
+	db	159
+	db	0
+	private	debug_loc28
+debug_loc28:
+	db	4
+	uleb128	tmp267-func_begin0
+	uleb128	tmp268-func_begin0
+	db	2
+	db	116
+	db	3
+	db	0
+	private	debug_loc29
+debug_loc29:
+	db	4
+	uleb128	tmp271-func_begin0
+	uleb128	tmp274-func_begin0
+	db	4
+	db	17
+	db	128
+	db	1
+	db	159
+	db	0
+	private	debug_loc30
+debug_loc30:
+	db	4
+	uleb128	tmp271-func_begin0
+	uleb128	tmp274-func_begin0
+	db	3
+	db	17
+	db	11
+	db	159
+	db	0
+	private	debug_loc31
+debug_loc31:
+	db	4
+	uleb128	tmp271-func_begin0
+	uleb128	tmp274-func_begin0
+	db	2
+	db	116
+	db	3
+	db	0
+	private	debug_list_header_end0
+debug_list_header_end0:
+	section	.debug_abbrev,"",@progbits
+	private	abbrev_start0
+abbrev_start0:
+	db	1
+	db	17
+	db	1
+	db	37
+	db	37
+	db	19
+	db	5
+	db	3
+	db	37
+	db	114
+	db	23
+	db	16
+	db	23
+	db	27
+	db	37
+	db	17
+	db	27
+	db	18
+	db	6
+	db	115
+	db	23
+	db	"Œ"
+	db	23
+	db	0
+	db	0
+	db	2
+	db	52
+	db	0
+	db	73
+	db	19
+	db	58
+	db	11
+	db	59
+	db	11
+	db	2
+	db	24
+	db	0
+	db	0
+	db	3
+	db	1
+	db	1
+	db	73
+	db	19
+	db	0
+	db	0
+	db	4
+	db	33
+	db	0
+	db	73
+	db	19
+	db	55
+	db	11
+	db	0
+	db	0
+	db	5
+	db	36
+	db	0
+	db	3
+	db	37
+	db	62
+	db	11
+	db	11
+	db	11
+	db	0
+	db	0
+	db	6
+	db	36
+	db	0
+	db	3
+	db	37
+	db	11
+	db	11
+	db	62
+	db	11
+	db	0
+	db	0
+	db	7
+	db	52
+	db	0
+	db	73
+	db	19
+	db	58
+	db	11
+	db	59
+	db	5
+	db	2
+	db	24
+	db	0
+	db	0
+	db	8
+	db	4
+	db	1
+	db	73
+	db	19
+	db	11
+	db	11
+	db	58
+	db	11
+	db	59
+	db	11
+	db	0
+	db	0
+	db	9
+	db	40
+	db	0
+	db	3
+	db	37
+	db	28
+	db	15
+	db	0
+	db	0
+	db	10
+	db	22
+	db	0
+	db	73
+	db	19
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	0
+	db	0
+	db	11
+	db	15
+	db	0
+	db	73
+	db	19
+	db	0
+	db	0
+	db	12
+	db	53
+	db	0
+	db	73
+	db	19
+	db	0
+	db	0
+	db	13
+	db	46
+	db	1
+	db	17
+	db	27
+	db	18
+	db	6
+	db	64
+	db	24
+	db	122
+	db	25
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	39
+	db	25
+	db	73
+	db	19
+	db	63
+	db	25
+	db	0
+	db	0
+	db	14
+	db	5
+	db	0
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	73
+	db	19
+	db	0
+	db	0
+	db	15
+	db	5
+	db	0
+	db	2
+	db	34
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	73
+	db	19
+	db	0
+	db	0
+	db	16
+	db	52
+	db	0
+	db	2
+	db	34
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	73
+	db	19
+	db	0
+	db	0
+	db	17
+	db	11
+	db	1
+	db	17
+	db	27
+	db	18
+	db	6
+	db	0
+	db	0
+	db	18
+	db	46
+	db	1
+	db	17
+	db	27
+	db	18
+	db	6
+	db	64
+	db	24
+	db	122
+	db	25
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	39
+	db	25
+	db	63
+	db	25
+	db	0
+	db	0
+	db	19
+	db	72
+	db	0
+	db	127
+	db	19
+	db	125
+	db	27
+	db	0
+	db	0
+	db	20
+	db	46
+	db	1
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	5
+	db	39
+	db	25
+	db	73
+	db	19
+	db	60
+	db	25
+	db	63
+	db	25
+	db	0
+	db	0
+	db	21
+	db	5
+	db	0
+	db	73
+	db	19
+	db	0
+	db	0
+	db	22
+	db	46
+	db	1
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	5
+	db	39
+	db	25
+	db	60
+	db	25
+	db	63
+	db	25
+	db	0
+	db	0
+	db	23
+	db	46
+	db	1
+	db	17
+	db	27
+	db	18
+	db	6
+	db	64
+	db	24
+	db	122
+	db	25
+	db	49
+	db	19
+	db	0
+	db	0
+	db	24
+	db	5
+	db	0
+	db	2
+	db	34
+	db	49
+	db	19
+	db	0
+	db	0
+	db	25
+	db	38
+	db	0
+	db	73
+	db	19
+	db	0
+	db	0
+	db	26
+	db	46
+	db	0
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	39
+	db	25
+	db	73
+	db	19
+	db	60
+	db	25
+	db	63
+	db	25
+	db	0
+	db	0
+	db	27
+	db	5
+	db	0
+	db	2
+	db	24
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	73
+	db	19
+	db	0
+	db	0
+	db	28
+	db	46
+	db	1
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	39
+	db	25
+	db	63
+	db	25
+	db	32
+	db	33
+	db	1
+	db	0
+	db	0
+	db	29
+	db	19
+	db	1
+	db	3
+	db	37
+	db	11
+	db	11
+	db	58
+	db	11
+	db	59
+	db	11
+	db	0
+	db	0
+	db	30
+	db	13
+	db	0
+	db	3
+	db	37
+	db	73
+	db	19
+	db	58
+	db	11
+	db	59
+	db	11
+	db	56
+	db	11
+	db	0
+	db	0
+	db	31
+	db	46
+	db	1
+	db	17
+	db	27
+	db	18
+	db	6
+	db	64
+	db	24
+	db	122
+	db	25
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	73
+	db	19
+	db	63
+	db	25
+	db	0
+	db	0
+	db	32
+	db	52
+	db	0
+	db	2
+	db	24
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	73
+	db	19
+	db	0
+	db	0
+	db	33
+	db	29
+	db	1
+	db	49
+	db	19
+	db	17
+	db	27
+	db	18
+	db	6
+	db	88
+	db	11
+	db	89
+	db	11
+	db	87
+	db	11
+	db	0
+	db	0
+	db	34
+	db	5
+	db	0
+	db	2
+	db	24
+	db	49
+	db	19
+	db	0
+	db	0
+	db	35
+	db	5
+	db	0
+	db	28
+	db	13
+	db	49
+	db	19
+	db	0
+	db	0
+	db	36
+	db	46
+	db	1
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	39
+	db	25
+	db	60
+	db	25
+	db	63
+	db	25
+	db	0
+	db	0
+	db	37
+	db	46
+	db	0
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	11
+	db	39
+	db	25
+	db	60
+	db	25
+	db	63
+	db	25
+	db	0
+	db	0
+	db	38
+	db	46
+	db	0
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	5
+	db	39
+	db	25
+	db	60
+	db	25
+	db	63
+	db	25
+	db	0
+	db	0
+	db	0
+	section	.debug_info,"",@progbits
+	private	cu_begin0
+cu_begin0:
+	dd	debug_info_end0-debug_info_start0
+	private	debug_info_start0
+debug_info_start0:
+	dw	5
+	db	1
+	db	3
+	dd	abbrev_start0
+	db	1
+	db	0
+	dw	12
+	db	1
+	dd	str_offsets_base0
+	dd	line_table_start0
+	db	2
+	db	3
+	dd	func_end9-func_begin0
+	dd	addr_table_base0
+	dd	loclists_table_base0
+	db	2
+	dd	49
+	db	0
+	db	94
+	db	2
+	db	161
+	db	0
+	db	3
+	dd	61
+	db	4
+	dd	65
+	db	13
+	db	0
+	db	5
+	db	3
+	db	6
+	db	1
+	db	6
+	db	4
+	db	8
+	db	7
+	db	2
+	dd	79
+	db	0
+	db	96
+	db	2
+	db	161
+	db	1
+	db	3
+	dd	61
+	db	4
+	dd	65
+	db	3
+	db	0
+	db	7
+	dd	102
+	db	0
+	dw	258
+	db	2
+	db	161
+	db	2
+	db	3
+	dd	61
+	db	4
+	dd	65
+	db	19
+	db	0
+	db	8
+	dd	129
+	db	3
+	db	1
+	db	168
+	db	9
+	db	6
+	db	0
+	db	9
+	db	7
+	db	1
+	db	0
+	db	5
+	db	5
+	db	7
+	db	3
+	db	5
+	db	8
+	db	5
+	db	3
+	db	10
+	dd	145
+	db	10
+	db	2
+	db	11
+	db	5
+	db	9
+	db	8
+	db	1
+	db	11
+	dd	154
+	db	12
+	dd	159
+	db	10
+	dd	167
+	db	12
+	db	2
+	db	35
+	db	5
+	db	11
+	db	7
+	db	2
+	db	10
+	dd	159
+	db	13
+	db	3
+	db	20
+	db	5
+	db	14
+	db	4
+	db	4
+	db	11
+	dd	188
+	db	12
+	dd	193
+	db	10
+	dd	201
+	db	16
+	db	2
+	db	71
+	db	5
+	db	15
+	db	7
+	db	4
+	db	13
+	db	3
+	dd	func_end0-func_begin0
+	db	1
+	db	84
+
+	db	43
+	db	0
+	db	29
+
+	dd	1422
+
+	db	14
+	db	56
+	db	0
+	db	29
+	dd	1426
+	db	15
+	db	2
+	db	55
+	db	0
+	db	29
+	dd	133
+	db	16
+	db	1
+	db	54
+	db	0
+	db	30
+	dd	1422
+	db	17
+	db	4
+	dd	tmp9-tmp1
+	db	16
+	db	0
+	db	53
+	db	0
+	db	31
+	dd	133
+	db	0
+	db	0
+	db	18
+	db	5
+	dd	func_end1-func_begin1
+	db	1
+	db	84
+
+	db	45
+	db	0
+	db	40
+
+
+	db	14
+	db	27
+	db	0
+	db	40
+	dd	963
+	db	19
+	dd	295
+	db	6
+	db	19
+	dd	310
+	db	7
+	db	0
+	db	20
+	db	17
+	db	1
+	dw	707
+
+	dd	137
+
+
+	db	21
+	dd	137
+	db	0
+	db	22
+	db	18
+	db	1
+	dw	890
+
+
+
+	db	21
+	dd	336
+	db	21
+	dd	137
+	db	21
+	dd	336
+	db	21
+	dd	137
+	db	0
+	db	10
+	dd	129
+	db	19
+	db	2
+	db	60
+	db	13
+	db	8
+	dd	func_end2-func_begin2
+	db	1
+	db	84
+
+	db	46
+	db	0
+	db	45
+
+	dd	1422
+
+	db	14
+	db	27
+	db	0
+	db	45
+	dd	963
+	db	15
+	db	3
+	db	57
+	db	0
+	db	45
+	dd	137
+	db	19
+	dd	401
+	db	9
+	db	19
+	dd	401
+	db	10
+	db	19
+	dd	401
+	db	11
+	db	19
+	dd	401
+	db	12
+	db	0
+	db	20
+	db	20
+	db	1
+	dw	767
+
+	dd	137
+
+
+	db	21
+	dd	336
+	db	21
+	dd	137
+	db	0
+	db	18
+	db	13
+	dd	func_end3-func_begin3
+	db	1
+	db	84
+
+	db	47
+	db	0
+	db	52
+
+
+	db	15
+	db	4
+	db	27
+	db	0
+	db	52
+	dd	958
+	db	17
+	db	14
+	dd	tmp76-tmp55
+	db	16
+	db	5
+	db	58
+	db	0
+	db	57
+	dd	133
+	db	0
+	db	17
+	db	15
+	dd	tmp107-tmp90
+	db	16
+	db	6
+	db	58
+	db	0
+	db	71
+	dd	133
+	db	0
+	db	19
+	dd	344
+	db	16
+	db	19
+	dd	344
+	db	17
+	db	19
+	dd	344
+	db	18
+	db	19
+	dd	344
+	db	19
+	db	0
+	db	23
+	db	20
+	dd	func_end4-func_begin4
+	db	1
+	db	84
+
+	dd	929
+	db	24
+	db	9
+	dd	933
+	db	24
+	db	8
+	dd	941
+	db	24
+	db	7
+	dd	949
+	db	0
+	db	18
+	db	21
+	dd	func_end5-func_begin5
+	db	1
+	db	84
+
+	db	48
+	db	0
+	db	92
+
+
+	db	14
+	db	27
+	db	0
+	db	92
+	dd	963
+	db	19
+	dd	579
+	db	22
+	db	19
+	dd	595
+	db	23
+	db	19
+	dd	616
+	db	24
+	db	19
+	dd	595
+	db	25
+	db	19
+	dd	616
+	db	26
+	db	0
+	db	22
+	db	21
+	db	1
+	dw	1232
+
+
+
+	db	21
+	dd	133
+	db	21
+	dd	133
+	db	0
+	db	22
+	db	22
+	db	1
+	dw	1199
+
+
+
+	db	21
+	dd	606
+	db	0
+	db	11
+	dd	611
+	db	25
+	dd	61
+	db	22
+	db	23
+	db	1
+	dw	1176
+
+
+
+	db	21
+	dd	133
+	db	21
+	dd	137
+	db	0
+	db	18
+	db	27
+	dd	func_end6-func_begin6
+	db	1
+	db	84
+
+	db	49
+	db	0
+	db	105
+
+
+	db	14
+	db	59
+	db	0
+	db	105
+	dd	1431
+	db	14
+	db	28
+	db	0
+	db	105
+	dd	133
+	db	14
+	db	29
+	db	0
+	db	105
+	dd	133
+	db	19
+	dd	295
+	db	28
+	db	19
+	dd	295
+	db	29
+	db	19
+	dd	716
+	db	30
+	db	19
+	dd	295
+	db	31
+	db	19
+	dd	295
+	db	32
+	db	19
+	dd	716
+	db	33
+	db	19
+	dd	716
+	db	34
+	db	19
+	dd	716
+	db	35
+	db	0
+	db	22
+	db	24
+	db	1
+	dw	877
+
+
+
+	db	21
+	dd	133
+	db	21
+	dd	133
+	db	21
+	dd	133
+	db	21
+	dd	133
+	db	0
+	db	18
+	db	36
+	dd	func_end7-func_begin7
+	db	1
+	db	84
+
+	db	50
+	db	0
+	db	150
+
+
+	db	15
+	db	12
+	db	64
+	db	0
+	db	150
+	dd	1455
+	db	14
+	db	33
+	db	0
+	db	150
+	dd	133
+	db	14
+	db	34
+	db	0
+	db	150
+	dd	133
+	db	15
+	db	11
+	db	63
+	db	0
+	db	150
+	dd	133
+	db	14
+	db	65
+	db	0
+	db	150
+	dd	133
+	db	14
+	db	66
+	db	0
+	db	150
+	dd	133
+	db	17
+	db	37
+	dd	tmp205-tmp171
+	db	16
+	db	10
+	db	29
+	db	0
+	db	151
+	dd	133
+	db	17
+	db	38
+	dd	tmp203-tmp177
+	db	16
+	db	13
+	db	28
+	db	0
+	db	152
+	dd	133
+	db	0
+	db	0
+	db	19
+	dd	860
+	db	39
+	db	19
+	dd	860
+	db	40
+	db	19
+	dd	860
+	db	41
+	db	19
+	dd	860
+	db	42
+	db	0
+	db	26
+	db	25
+	db	4
+	db	81
+
+	dd	133
+
+
+	db	18
+	db	43
+	dd	func_end8-func_begin8
+	db	1
+	db	84
+
+	db	51
+	db	0
+	db	194
+
+
+	db	27
+	db	2
+	db	145
+	db	15
+	db	64
+	db	0
+	db	194
+	dd	1455
+	db	17
+	db	44
+	dd	tmp223-tmp208
+	db	16
+	db	14
+	db	29
+	db	0
+	db	195
+	dd	133
+	db	17
+	db	45
+	dd	tmp220-tmp213
+	db	16
+	db	15
+	db	28
+	db	0
+	db	196
+	dd	133
+	db	0
+	db	0
+	db	19
+	dd	632
+	db	46
+	db	0
+	db	28
+	db	26
+	db	0
+	db	85
+
+
+
+	db	14
+	db	27
+	db	0
+	db	85
+	dd	958
+	db	14
+	db	33
+	db	0
+	db	85
+	dd	133
+	db	14
+	db	34
+	db	0
+	db	85
+	dd	133
+	db	0
+	db	11
+	dd	963
+	db	29
+	db	32
+	db	16
+	db	0
+	db	17
+	db	30
+	db	28
+	dd	179
+	db	0
+	db	18
+	db	0
+	db	30
+	db	29
+	dd	179
+	db	0
+	db	19
+	db	4
+	db	30
+	db	30
+	dd	179
+	db	0
+	db	20
+	db	8
+	db	30
+	db	31
+	dd	179
+	db	0
+	db	21
+	db	12
+	db	0
+	db	31
+	db	47
+	dd	func_end9-func_begin9
+	db	1
+	db	84
+
+	db	52
+	db	0
+	db	202
+	dd	133
+
+	db	32
+	db	2
+	db	145
+	db	28
+	db	64
+	db	0
+	db	216
+	dd	1472
+	db	32
+	db	2
+	db	145
+	db	12
+	db	27
+	db	0
+	db	223
+	dd	963
+	db	16
+	db	16
+	db	67
+	db	0
+	db	217
+	dd	133
+	db	16
+	db	17
+	db	68
+	db	0
+	db	214
+	dd	1422
+	db	16
+	db	18
+	db	66
+	db	0
+	db	213
+	dd	133
+	db	16
+	db	19
+	db	65
+	db	0
+	db	212
+	dd	133
+	db	16
+	db	20
+	db	63
+	db	0
+	db	211
+	dd	133
+	db	16
+	db	21
+	db	34
+	db	0
+	db	210
+	dd	133
+	db	16
+	db	22
+	db	33
+	db	0
+	db	209
+	dd	133
+	db	33
+	dd	929
+	db	48
+	dd	tmp235-tmp233
+	db	0
+	db	224
+	db	5
+	db	24
+	db	25
+	dd	933
+	db	24
+	db	24
+	dd	941
+	db	24
+	db	23
+	dd	949
+	db	0
+	db	33
+	dd	929
+	db	49
+	dd	tmp268-tmp266
+	db	0
+	db	239
+	db	13
+	db	24
+	db	28
+	dd	933
+	db	24
+	db	27
+	dd	941
+	db	24
+	db	26
+	dd	949
+	db	0
+	db	33
+	dd	929
+	db	50
+	dd	tmp272-tmp270
+	db	0
+	db	245
+	db	13
+	db	24
+	db	31
+	dd	933
+	db	24
+	db	30
+	dd	941
+	db	24
+	db	29
+	dd	949
+	db	0
+	db	33
+	dd	929
+	db	51
+	dd	tmp256-tmp255
+	db	0
+	db	251
+	db	13
+	db	34
+	db	2
+	db	145
+	db	3
+	dd	933
+	db	35
+	db	11
+	dd	941
+	db	35
+	db	"€"
+	dd	949
+	db	0
+	db	19
+	dd	1351
+	db	52
+	db	19
+	dd	1362
+	db	53
+	db	19
+	dd	1377
+	db	54
+	db	19
+	dd	742
+	db	55
+	db	19
+	dd	1387
+	db	56
+	db	19
+	dd	1391
+	db	57
+	db	19
+	dd	868
+	db	58
+	db	19
+	dd	421
+	db	59
+	db	19
+	dd	344
+	db	60
+	db	19
+	dd	263
+	db	61
+	db	19
+	dd	529
+	db	62
+	db	19
+	dd	579
+	db	63
+	db	19
+	dd	595
+	db	64
+	db	19
+	dd	616
+	db	65
+	db	19
+	dd	1402
+	db	66
+	db	19
+	dd	1407
+	db	67
+	db	19
+	dd	742
+	db	68
+	db	19
+	dd	742
+	db	69
+	db	19
+	dd	1417
+	db	70
+	db	0
+	db	22
+	db	35
+	db	1
+	dw	1043
+
+
+
+	db	21
+	dd	137
+	db	0
+	db	20
+	db	36
+	db	1
+	dw	1252
+
+	dd	137
+
+
+	db	21
+	dd	137
+	db	0
+	db	36
+	db	37
+	db	4
+	db	79
+
+
+
+	db	21
+	dd	129
+	db	0
+	db	37
+	db	38
+	db	3
+	db	26
+
+
+
+	db	22
+	db	39
+	db	1
+	dw	741
+
+
+
+	db	21
+	dd	137
+	db	0
+	db	38
+	db	40
+	db	1
+	dw	1071
+
+
+
+	db	36
+	db	41
+	db	5
+	db	25
+
+
+
+	db	21
+	dd	159
+	db	0
+	db	38
+	db	42
+	db	1
+	dw	602
+
+
+
+	db	5
+	db	44
+	db	2
+	db	1
+	db	11
+	dd	1422
+	db	29
+	db	62
+	db	6
+	db	0
+	db	24
+	db	30
+	db	60
+	dd	133
+	db	0
+	db	25
+	db	0
+	db	30
+	db	61
+	dd	133
+	db	0
+	db	26
+	db	3
+	db	0
+	db	11
+	dd	1460
+	db	3
+	dd	1431
+	db	4
+	dd	65
+	db	24
+	db	0
+	db	3
+	dd	1431
+	db	4
+	dd	65
+	db	18
+	db	4
+	dd	65
+	db	24
+	db	0
+	db	0
+	private	debug_info_end0
+debug_info_end0:
+	section	.debug_str_offsets,"",@progbits
+	dd	280
+	dw	5
+	dw	0
+	private	str_offsets_base0
+str_offsets_base0:
+	section	.debug_str,"MS",@progbits,1
+	private	info_string0
+info_string0:
+	db	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)", 0
+	private	info_string1
+info_string1:
+	db	"src/main.c", 0
+	private	info_string2
+info_string2:
+	db	"/Users/ashton/Documents/RanGen_CE", 0
+	private	info_string3
+info_string3:
+	db	"char", 0
+	private	info_string4
+info_string4:
+	db	"__ARRAY_SIZE_TYPE__", 0
+	private	info_string5
+info_string5:
+	db	"unsigned int", 0
+	private	info_string6
+info_string6:
+	db	"gfx_screen", 0
+	private	info_string7
+info_string7:
+	db	"gfx_buffer", 0
+	private	info_string8
+info_string8:
+	db	"int", 0
+	private	info_string9
+info_string9:
+	db	"unsigned char", 0
+	private	info_string10
+info_string10:
+	db	"uint8_t", 0
+	private	info_string11
+info_string11:
+	db	"unsigned short", 0
+	private	info_string12
+info_string12:
+	db	"uint16_t", 0
+	private	info_string13
+info_string13:
+	db	"kb_lkey_t", 0
+	private	info_string14
+info_string14:
+	db	"float", 0
+	private	info_string15
+info_string15:
+	db	"unsigned long", 0
+	private	info_string16
+info_string16:
+	db	"uint32_t", 0
+	private	info_string17
+info_string17:
+	db	"gfx_SetColor", 0
+	private	info_string18
+info_string18:
+	db	"gfx_FillRectangle_NoClip", 0
+	private	info_string19
+info_string19:
+	db	"uint24_t", 0
+	private	info_string20
+info_string20:
+	db	"gfx_GetPixel", 0
+	private	info_string21
+info_string21:
+	db	"gfx_SetTextXY", 0
+	private	info_string22
+info_string22:
+	db	"gfx_PrintString", 0
+	private	info_string23
+info_string23:
+	db	"gfx_PrintInt", 0
+	private	info_string24
+info_string24:
+	db	"gfx_FillRectangle", 0
+	private	info_string25
+info_string25:
+	db	"rand", 0
+	private	info_string26
+info_string26:
+	db	"resetPlayer", 0
+	private	info_string27
+info_string27:
+	db	"p", 0
+	private	info_string28
+info_string28:
+	db	"x", 0
+	private	info_string29
+info_string29:
+	db	"y", 0
+	private	info_string30
+info_string30:
+	db	"dx", 0
+	private	info_string31
+info_string31:
+	db	"dy", 0
+	private	info_string32
+info_string32:
+	db	"Player", 0
+	private	info_string33
+info_string33:
+	db	"spawnX", 0
+	private	info_string34
+info_string34:
+	db	"spawnY", 0
+	private	info_string35
+info_string35:
+	db	"gfx_SetDraw", 0
+	private	info_string36
+info_string36:
+	db	"gfx_SetTextFGColor", 0
+	private	info_string37
+info_string37:
+	db	"srand", 0
+	private	info_string38
+info_string38:
+	db	"kb_Scan", 0
+	private	info_string39
+info_string39:
+	db	"gfx_FillScreen", 0
+	private	info_string40
+info_string40:
+	db	"gfx_SwapDraw", 0
+	private	info_string41
+info_string41:
+	db	"delay", 0
+	private	info_string42
+info_string42:
+	db	"gfx_End", 0
+	private	info_string43
+info_string43:
+	db	"any", 0
+	private	info_string44
+info_string44:
+	db	"_Bool", 0
+	private	info_string45
+info_string45:
+	db	"drawPlayer", 0
+	private	info_string46
+info_string46:
+	db	"playerTouchingColor", 0
+	private	info_string47
+info_string47:
+	db	"playerMovement", 0
+	private	info_string48
+info_string48:
+	db	"debugPlayerPosition", 0
+	private	info_string49
+info_string49:
+	db	"drawTile", 0
+	private	info_string50
+info_string50:
+	db	"generateMap", 0
+	private	info_string51
+info_string51:
+	db	"drawMap", 0
+	private	info_string52
+info_string52:
+	db	"main", 0
+	private	info_string53
+info_string53:
+	db	"i", 0
+	private	info_string54
+info_string54:
+	db	"res", 0
+	private	info_string55
+info_string55:
+	db	"size", 0
+	private	info_string56
+info_string56:
+	db	"array", 0
+	private	info_string57
+info_string57:
+	db	"color", 0
+	private	info_string58
+info_string58:
+	db	"safety", 0
+	private	info_string59
+info_string59:
+	db	"t", 0
+	private	info_string60
+info_string60:
+	db	"type", 0
+	private	info_string61
+info_string61:
+	db	"rotation", 0
+	private	info_string62
+info_string62:
+	db	"Tile", 0
+	private	info_string63
+info_string63:
+	db	"caveHeight", 0
+	private	info_string64
+info_string64:
+	db	"map", 0
+	private	info_string65
+info_string65:
+	db	"wsChance", 0
+	private	info_string66
+info_string66:
+	db	"blockVariety", 0
+	private	info_string67
+info_string67:
+	db	"levelsCompleted", 0
+	private	info_string68
+info_string68:
+	db	"spawnBlock", 0
+	section	.debug_str_offsets,"",@progbits
+	dd	info_string0
+	dd	info_string1
+	dd	info_string2
+	dd	info_string3
+	dd	info_string4
+	dd	info_string5
+	dd	info_string6
+	dd	info_string7
+	dd	info_string8
+	dd	info_string9
+	dd	info_string10
+	dd	info_string11
+	dd	info_string12
+	dd	info_string13
+	dd	info_string14
+	dd	info_string15
+	dd	info_string16
+	dd	info_string17
+	dd	info_string18
+	dd	info_string19
+	dd	info_string20
+	dd	info_string21
+	dd	info_string22
+	dd	info_string23
+	dd	info_string24
+	dd	info_string25
+	dd	info_string26
+	dd	info_string27
+	dd	info_string28
+	dd	info_string29
+	dd	info_string30
+	dd	info_string31
+	dd	info_string32
+	dd	info_string33
+	dd	info_string34
+	dd	info_string35
+	dd	info_string36
+	dd	info_string37
+	dd	info_string38
+	dd	info_string39
+	dd	info_string40
+	dd	info_string41
+	dd	info_string42
+	dd	info_string43
+	dd	info_string44
+	dd	info_string45
+	dd	info_string46
+	dd	info_string47
+	dd	info_string48
+	dd	info_string49
+	dd	info_string50
+	dd	info_string51
+	dd	info_string52
+	dd	info_string53
+	dd	info_string54
+	dd	info_string55
+	dd	info_string56
+	dd	info_string57
+	dd	info_string58
+	dd	info_string59
+	dd	info_string60
+	dd	info_string61
+	dd	info_string62
+	dd	info_string63
+	dd	info_string64
+	dd	info_string65
+	dd	info_string66
+	dd	info_string67
+	dd	info_string68
+	section	.debug_addr,"",@progbits
+	dd	debug_addr_end0-debug_addr_start0
+	private	debug_addr_start0
+debug_addr_start0:
+	dw	5
+	db	3
+	db	0
+	private	addr_table_base0
+addr_table_base0:
+	dl	_.str
+	dl	_.str.1
+	dl	_.str.2
+	dl	func_begin0
+	dl	tmp1
+	dl	func_begin1
+	dl	tmp15
+	dl	tmp20
+	dl	func_begin2
+	dl	tmp28
+	dl	tmp34
+	dl	tmp37
+	dl	tmp38
+	dl	func_begin3
+	dl	tmp55
+	dl	tmp90
+	dl	tmp50
+	dl	tmp56
+	dl	tmp88
+	dl	tmp91
+	dl	func_begin4
+	dl	func_begin5
+	dl	tmp123
+	dl	tmp124
+	dl	tmp126
+	dl	tmp127
+	dl	tmp129
+	dl	func_begin6
+	dl	tmp137
+	dl	tmp138
+	dl	tmp140
+	dl	tmp142
+	dl	tmp145
+	dl	tmp149
+	dl	tmp153
+	dl	tmp160
+	dl	func_begin7
+	dl	tmp171
+	dl	tmp177
+	dl	tmp180
+	dl	tmp189
+	dl	tmp194
+	dl	tmp197
+	dl	func_begin8
+	dl	tmp208
+	dl	tmp213
+	dl	tmp216
+	dl	func_begin9
+	dl	tmp233
+	dl	tmp266
+	dl	tmp270
+	dl	tmp255
+	dl	tmp228
+	dl	tmp229
+	dl	tmp230
+	dl	tmp232
+	dl	tmp237
+	dl	tmp240
+	dl	tmp241
+	dl	tmp242
+	dl	tmp252
+	dl	tmp257
+	dl	tmp258
+	dl	tmp259
+	dl	tmp260
+	dl	tmp261
+	dl	tmp262
+	dl	tmp263
+	dl	tmp265
+	dl	tmp269
+	dl	tmp275
+	private	debug_addr_end0
+debug_addr_end0:
+	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
+	section	.debug_line,"",@progbits
+line_table_start0:
+	extern	_fabsf
+	extern	_gfx_End
+	extern	__Unwind_SjLj_Register
+	extern	__frameset
+	extern	_srand
+	extern	_log
+	extern	_gfx_FillRectangle_NoClip
+	extern	_gfx_GetPixel
+	extern	_gfx_Begin
+	extern	__fadd
+	extern	_kb_Scan
+	extern	_gfx_SetTextFGColor
+	extern	_rand
+	extern	__sand
+	extern	__ultof
+	extern	_gfx_PrintString
+	extern	__fmul
+	extern	__ftol
+	extern	__ishl
+	extern	_gfx_PrintInt
+	extern	_gfx_SetDraw
+	extern	__setflag
+	extern	_gfx_FillScreen
+	extern	__Unwind_SjLj_Unregister
+	extern	_gfx_SwapDraw
+	extern	__fneg
+	extern	__irems
+	extern	_gfx_FillRectangle
+	extern	__fdiv
+	extern	_gfx_SetColor
+	extern	__ltof
+	extern	__imulu
+	extern	_delay
+	extern	__fcmp
+	extern	__frameset0
+	extern	_gfx_SetTextXY
+	extern	__fsub

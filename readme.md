@@ -2,4 +2,6 @@
 
 idk what im doing, but it seems to be working rn.
 
-use the left and right arrow keys to move, use alpha for generating a new level.
+use the arrow keys to move
+use alpha to generate a new level
+use 2nd to reset your position

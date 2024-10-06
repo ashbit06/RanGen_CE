@@ -83,20 +83,26 @@ _drawPlayer:
 	section	.text,"ax",@progbits
 	public	_playerTouchingColor
 _playerTouchingColor:
-	call	__frameset0
+	ld	hl, -13
+	call	__frameset
 	ld	hl, 4194304
-	ld	e, 64
+	ld	e, -64
 	ld	bc, (ix + 6)
 	ld	a, (ix + 9)
+	ld	(ix - 3), a
+	call	__fadd
 	call	__ftol
 	push	bc
 	pop	iy
 	ld	bc, (ix + 10)
 	ld	a, (ix + 13)
+	ld	(ix - 12), bc
+	ld	(ix - 13), a
 	call	__fadd
 	call	__ftol
-	inc	c
+	ld	(ix - 6), bc
 	push	bc
+	ld	(ix - 9), iy
 	push	iy
 	call	_gfx_GetPixel
 	pop	hl
@@ -104,22 +110,73 @@ _playerTouchingColor:
 	ld	l, (ix + 24)
 	cp	a, l
 	jr	z, BB2_2
-	ld	a, 0
-	jr	BB2_3
+	ld	e, 64
+	ld	bc, (ix + 6)
+	ld	a, (ix - 3)
+	ld	hl, 4194304
+	call	__fadd
+	call	__ftol
+	ld	hl, (ix - 6)
+	push	hl
+	ld	(ix - 3), bc
+	push	bc
+	call	_gfx_GetPixel
+	pop	hl
+	pop	hl
+	ld	l, (ix + 24)
+	cp	a, l
+	jr	nz, BB2_4
 BB2_2:
-	ld	a, -1
+	ld	a, 1
 BB2_3:
+	ld	sp, ix
 	pop	ix
 	ret
+BB2_4:
+	ld	bc, (ix - 12)
+	ld	a, (ix - 13)
+	ld	hl, 4194304
+	ld	e, 64
+	call	__fadd
+	call	__ftol
+	ld	(ix - 6), bc
+	push	bc
+	ld	hl, (ix - 9)
+	push	hl
+	call	_gfx_GetPixel
+	pop	hl
+	pop	hl
+	ld	l, (ix + 24)
+	cp	a, l
+	ld	a, 1
+	jr	z, BB2_3
+	ld	hl, (ix - 6)
+	push	hl
+	ld	hl, (ix - 3)
+	push	hl
+	call	_gfx_GetPixel
+	pop	hl
+	pop	hl
+	ld	l, (ix + 24)
+	cp	a, l
+	jr	z, BB2_7
+	ld	a, 0
+	jr	BB2_3
+BB2_7:
+	ld	a, -1
+	jr	BB2_3
 	section	.text,"ax",@progbits
 
 	section	.text,"ax",@progbits
 	public	_playerMovement
 _playerMovement:
-	ld	hl, -18
+	ld	hl, -15
 	call	__frameset
 	ld	iy, (ix + 6)
-	ld	de, 5033165
+	ld	de, 2348810
+	or	a, a
+	sbc	hl, hl
+	ld	(ix - 12), hl
 	lea	hl, iy + 12
 	ld	bc, (iy + 12)
 	push	hl
@@ -142,20 +199,148 @@ _playerMovement:
 	ld	iy, (ix - 6)
 	lea	iy, iy + 3
 	ld	bc, (ix - 3)
-	ld	(ix - 9), iy
+	ld	(ix - 3), iy
 	ld	a, (iy)
 	call	__fsub
 	ld	iy, (ix + 6)
 	ld	(iy + 4), bc
 	ld	(iy + 7), a
-	lea	de, iy + 8
-	ld	hl, (iy + 8)
-	ld	(ix - 3), hl
-	push	de
-	pop	iy
-	lea	hl, iy + 3
+	lea	hl, iy
+	ld	iy, -21
+	add	iy, sp
+	ld	sp, iy
+	ld	iy, 0
+	add	iy, sp
+	ld	bc, 16
+	lea	de, iy
+	ldir
+	ld	(iy + 18), 0
+	call	_playerTouchingColor
+	ld	iy, (ix + 6)
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	bit	0, a
+	jp	z, BB3_11
+	ld	bc, 16
+	or	a, a
+	sbc	hl, hl
 	ld	(ix - 6), hl
+BB3_2:
+	ld	hl, -21
+	add	hl, sp
+	ld	sp, hl
+	ld	iy, 0
+	add	iy, sp
+	lea	de, iy
+	ld	hl, (ix + 6)
+	ldir
+	ld	(iy + 18), 0
+	call	_playerTouchingColor
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	bit	0, a
+	jr	z, BB3_5
+	ld	hl, (ix - 6)
+	ld	de, 50
+	or	a, a
+	sbc	hl, de
+	jr	nc, BB3_5
+	ld	hl, (ix + 6)
+	push	hl
+	pop	iy
+	ld	de, (iy + 12)
+	ld	(ix - 15), de
+	ld	a, (iy + 15)
+	ld	(ix - 9), a
+	ld	l, a
+	push	hl
+	push	de
+	call	_fabsf
+	push	hl
+	pop	bc
+	ld	a, e
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 15)
+	ld	e, (ix - 9)
+	call	__fdiv
+	ld	(ix - 9), bc
+	ld	e, a
+	ld	iy, (ix + 6)
+	ld	bc, (iy + 4)
+	ld	hl, (ix - 3)
+	ld	a, (hl)
+	ld	hl, (ix - 9)
+	call	__fadd
+	ld	iy, (ix + 6)
+	ld	(iy + 4), bc
+	ld	(iy + 7), a
+	ld	hl, (ix - 6)
+	inc	hl
+	ld	(ix - 6), hl
+	ld	bc, 16
+	jp	BB3_2
+BB3_5:
+	ld	hl, -720866
+	push	de
+	ld	e, (hl)
+	inc	hl
 	ld	d, (hl)
+	ld	l, e
+	ld	h, d
+	pop	de
+	ld	a, l
+	bit	3, a
+	ld	bc, 0
+	ld	iy, (ix + 6)
+	ld	a, b
+	jr	z, BB3_10
+	ld	de, (iy + 12)
+	ld	(ix - 6), de
+	ld	a, (iy + 15)
+	ld	(ix - 3), a
+	ld	l, a
+	push	hl
+	push	de
+	call	_fabsf
+	push	hl
+	pop	bc
+	ld	a, e
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 6)
+	ld	e, (ix - 3)
+	call	__fdiv
+	push	bc
+	pop	hl
+	ld	e, a
+	ld	bc, -8388608
+	ld	a, -65
+	call	__fcmp
+	jr	z, BB3_8
+	ld	bc, 0
+	jr	BB3_9
+BB3_8:
+	ld	bc, 1
+BB3_9:
+	xor	a, a
+	call	__ultof
+	ld	hl, -3858760
+	ld	e, 64
+	call	__fmul
+	ld	iy, (ix + 6)
+BB3_10:
+	ld	(iy + 12), bc
+	ld	(iy + 15), a
+BB3_11:
+	ld	hl, (iy)
+	ld	(ix - 3), hl
+	lea	hl, iy + 3
+	ld	(ix - 15), hl
+	ld	d, (hl)
+	ld	(ix - 6), d
 	ld	hl, -720866
 	push	de
 	ld	e, (hl)
@@ -171,16 +356,16 @@ _playerMovement:
 	ld	iyl, e
 	ld	iyh, d
 	ex	de, hl
-	lea	bc, iy
 	xor	a, a
+	lea	bc, iy
 	call	__ultof
-	ld	hl, 5872026
+	ld	hl, 3019899
 	ld	e, 63
 	call	__fmul
 	ld	hl, (ix - 3)
 	ld	e, d
 	call	__fadd
-	ld	(ix - 3), bc
+	ld	(ix - 9), bc
 	ld	d, a
 	ld	hl, -720866
 	push	de
@@ -199,118 +384,51 @@ _playerMovement:
 	lea	bc, iy
 	xor	a, a
 	call	__ultof
-	ld	hl, 5872026
+	ld	hl, 3019899
 	ld	e, -65
 	call	__fmul
-	ld	hl, (ix - 3)
+	ld	hl, (ix - 9)
 	ld	e, d
 	call	__fadd
-	ld	hl, 5033165
+	ld	hl, 2348810
 	ld	e, 63
 	call	__fmul
-	ld	(ix - 3), bc
+	push	bc
+	pop	hl
 	ld	e, a
 	ld	iy, (ix + 6)
-	ld	(iy + 8), bc
+	ld	(iy + 8), hl
 	ld	(iy + 11), e
-	ld	bc, (iy)
-	lea	hl, iy + 3
-	ld	(ix - 12), hl
-	ld	a, (hl)
-	ld	hl, (ix - 3)
-	call	__fadd
-	ld	(iy), bc
-	ld	(iy + 3), a
-	ld	hl, -21
-	add	hl, sp
-	ld	sp, hl
-	ld	iy, 0
-	add	iy, sp
-	ld	bc, 16
-	lea	de, iy
-	ld	hl, (ix + 6)
-	ldir
-	ld	(iy + 18), 0
-	call	_playerTouchingColor
-	ld	hl, 21
-	add	hl, sp
-	ld	sp, hl
-	bit	0, a
-	jp	z, BB3_11
-	ld	bc, 16
-	or	a, a
-	sbc	hl, hl
-	ld	(ix - 3), hl
-BB3_2:
-	ld	hl, -21
-	add	hl, sp
-	ld	sp, hl
-	ld	iy, 0
-	add	iy, sp
-	lea	de, iy
-	ld	hl, (ix + 6)
-	ldir
-	ld	(iy + 18), 0
-	call	_playerTouchingColor
-	ld	hl, 21
-	add	hl, sp
-	ld	sp, hl
-	bit	0, a
-	jr	z, BB3_5
 	ld	bc, (ix - 3)
-	push	bc
-	pop	hl
-	ld	de, 50
-	or	a, a
-	sbc	hl, de
-	jr	nc, BB3_5
-	ld	hl, (ix + 6)
-	push	hl
-	pop	iy
-	ld	de, (iy + 12)
-	ld	(ix - 18), de
-	ld	a, (iy + 15)
-	ld	(ix - 15), a
-	ld	l, a
-	push	hl
-	push	de
-	ld	(ix - 3), bc
-	call	_fabsf
-	push	hl
-	pop	bc
-	ld	a, e
-	pop	hl
-	pop	hl
-	ld	hl, (ix - 18)
-	ld	e, (ix - 15)
-	call	__fdiv
-	ld	(ix - 15), bc
-	ld	e, a
-	ld	iy, (ix + 6)
-	ld	bc, (iy + 4)
-	ld	hl, (ix - 9)
-	ld	a, (hl)
-	ld	hl, (ix - 15)
+	ld	a, (ix - 6)
 	call	__fadd
-	ld	iy, (ix + 6)
-	ld	(iy + 4), bc
-	ld	(iy + 7), a
-	ld	hl, (ix - 3)
-	inc	hl
-	ld	(ix - 3), hl
-	ld	bc, 16
-	jp	BB3_2
-BB3_5:
-	or	a, a
-	sbc	hl, hl
-BB3_6:
-	ld	(ix - 3), hl
+	ld	(iy), bc
+	ld	(iy + 3), a
+	lea	bc, iy
 	ld	hl, -21
 	add	hl, sp
 	ld	sp, hl
 	ld	iy, 0
 	add	iy, sp
+	lea	de, iy
+	push	bc
+	pop	hl
 	ld	bc, 16
+	ldir
+	ld	(iy + 18), 0
+	call	_playerTouchingColor
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	bit	0, a
+	jp	z, BB3_15
+BB3_12:
+	ld	bc, 16
+	ld	hl, -21
+	add	hl, sp
+	ld	sp, hl
+	ld	iy, 0
+	add	iy, sp
 	lea	de, iy
 	ld	hl, (ix + 6)
 	ldir
@@ -320,70 +438,18 @@ BB3_6:
 	add	hl, sp
 	ld	sp, hl
 	bit	0, a
-	jr	z, BB3_9
+	jr	z, BB3_15
+	ld	hl, (ix - 12)
 	ld	de, 20
-	ld	hl, (ix - 3)
 	or	a, a
 	sbc	hl, de
-	jr	nc, BB3_9
+	jr	nc, BB3_15
 	ld	hl, (ix + 6)
 	push	hl
 	pop	iy
 	ld	de, (iy + 8)
-	ld	(ix - 15), de
+	ld	(ix - 6), de
 	ld	a, (iy + 11)
-	ld	(ix - 9), a
-	ld	l, a
-	push	hl
-	push	de
-	call	_fabsf
-	push	hl
-	pop	bc
-	ld	a, e
-	pop	hl
-	pop	hl
-	ld	hl, (ix - 15)
-	ld	e, (ix - 9)
-	call	__fdiv
-	push	bc
-	pop	iy
-	ld	e, a
-	ld	hl, (ix + 6)
-	ld	bc, (hl)
-	ld	hl, (ix - 12)
-	ld	a, (hl)
-	lea	hl, iy
-	call	__fsub
-	ld	iy, (ix + 6)
-	ld	(iy), bc
-	ld	(iy + 3), a
-	ld	hl, (ix - 3)
-	inc	hl
-	jp	BB3_6
-BB3_9:
-	or	a, a
-	sbc	hl, hl
-	ld	iy, (ix + 6)
-	ld	(iy + 12), hl
-	ld	(iy + 15), h
-	ld	hl, -720866
-	push	de
-	ld	e, (hl)
-	inc	hl
-	ld	d, (hl)
-	ld	l, e
-	ld	h, d
-	pop	de
-	ld	a, l
-	bit	3, a
-	jr	z, BB3_11
-	ld	hl, -629146
-	ld	(iy + 12), hl
-	ld	(iy + 15), 64
-	ld	de, (iy + 8)
-	ld	(ix - 9), de
-	ld	hl, (ix - 6)
-	ld	a, (hl)
 	ld	(ix - 3), a
 	ld	l, a
 	push	hl
@@ -394,14 +460,26 @@ BB3_9:
 	ld	a, e
 	pop	hl
 	pop	hl
-	call	__fneg
-	ld	hl, (ix - 9)
+	ld	hl, (ix - 6)
 	ld	e, (ix - 3)
 	call	__fdiv
+	push	bc
+	pop	iy
+	ld	e, a
+	ld	hl, (ix + 6)
+	ld	bc, (hl)
+	ld	hl, (ix - 15)
+	ld	a, (hl)
+	lea	hl, iy
+	call	__fsub
 	ld	iy, (ix + 6)
-	ld	(iy + 8), bc
-	ld	(iy + 11), a
-BB3_11:
+	ld	(iy), bc
+	ld	(iy + 3), a
+	ld	hl, (ix - 12)
+	inc	hl
+	ld	(ix - 12), hl
+	jp	BB3_12
+BB3_15:
 	ld	sp, ix
 	pop	ix
 	ret
@@ -1074,22 +1152,21 @@ _.str.2:
 	extern	_kb_Scan
 	extern	_rand
 	extern	__sand
-	extern	_gfx_PrintString
 	extern	__ultof
-	extern	__ishl
+	extern	_gfx_PrintString
 	extern	__fmul
 	extern	__ftol
+	extern	__ishl
 	extern	_gfx_PrintInt
 	extern	_gfx_SetDraw
 	extern	_gfx_SwapDraw
 	extern	__setflag
 	extern	_gfx_FillScreen
 	extern	__Unwind_SjLj_Unregister
-	extern	__fneg
 	extern	_gfx_FillRectangle
 	extern	__fdiv
-	extern	_gfx_SetColor
 	extern	__imulu
+	extern	_gfx_SetColor
 	extern	__ltof
 	extern	_delay
 	extern	_gfx_End
