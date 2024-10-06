@@ -7,9 +7,9 @@ Section          Base   Top    High   Length
 .init.reruncheck D1AA6D D1AA6D             0h
 .init            D1AA6D D1AA8D            20h
 .fini            D1AA8D D1AAC1            34h
-.text            D1AAC1 D1B453           992h
-.data            D1B453 D1B463            10h
-.rodata          D1B463 D1B4A8            45h
+.text            D1AAC1 D1B4DD           A1Ch
+.data            D1B4DD D1B4ED            10h
+.rodata          D1B4ED D1B532            45h
 .init_array      000000 000000             0h
 .ctors           000000 000000             0h
 .dtors           000000 000000             0h
@@ -36,6 +36,7 @@ __imulu                    = D1AAE7
 __ishl                     = D1AB17
 __lmulu                    = D1AB3D
 __fadd                     = 000270
+__fcmp                     = 000274
 __fdiv                     = 000278
 __fmul                     = 000288
 __fsub                     = 000290
@@ -51,7 +52,7 @@ _os_DisableHomeTextBuffer  = D1ABF1
 _os_EnableHomeTextBuffer   = D1AC03
 _random                    = D1AC15
 __setstate                 = D1AC73
-__state                    = D1B453
+__state                    = D1B4DD
 ___sleep_common.3          = D1AC85
 _clock                     = D1AC9E
 _fabsf                     = 0220F0
@@ -59,10 +60,10 @@ _logf                      = 0220E4
 _log                       = 0220E4
 _rand                      = D1ACA9
 _srand                     = D1ACB6
-.missingappvar             = D1B463
-.libloadname               = D1B468
+.missingappvar             = D1B4ED
+.libloadname               = D1B4F2
 .libloadnamelen            = 000007
-.webaddress                = D1B470
+.webaddress                = D1B4FA
 ___init_clock              = D1AA52
 __start                    = D1AA6D
 ___exithl                  = D1AA8D
@@ -75,14 +76,13 @@ _drawPlayer                = D1ACBE
 _playerTouchingColor       = D1AD03
 _playerMovement            = D1AD41
 _debugPlayerPosition       = D1AFF2
-_drawTile                  = D1B097
-_generateMap               = D1B0C6
-_drawMap                   = D1B220
-_main                      = D1B29B
-_.str                      = D1B485
-_.str.1                    = D1B492
-_.str.2                    = D1B495
-_.str.3                    = D1B4A6
+_drawTile                  = D1B042
+_generateMap               = D1B071
+_drawMap                   = D1B1CB
+_main                      = D1B246
+_.str                      = D1B50F
+_.str.1                    = D1B51C
+_.str.2                    = D1B51F
 lib.LibLoad                = D1AA01
 _#gfx_Begin                = D1AA14
 _#gfx_End                  = D1AA18

@@ -76,6 +76,13 @@ void playerMovement(struct Player* p) {
     }
 }
 
+void resetPlayer(struct Player* p, int spawnX, int spawnY) {
+    p->x = (float)spawnX - TILE_SIZE/4;
+    p->y = (float)spawnY - TILE_SIZE/2 - 1;
+    p->dy = 0;
+    p->dy = 0;
+}
+
 void debugPlayerPosition(struct Player p) {
     gfx_SetTextXY(0, 0);
     gfx_PrintString("Player Pos: ");
@@ -83,10 +90,10 @@ void debugPlayerPosition(struct Player p) {
     gfx_PrintString(", ");
     gfx_PrintInt((int)p.y, 0);
 
-    gfx_SetTextXY(0, 8);
-    gfx_PrintString("Bottom Collide: ");
-    if (playerTouchingColor(p, 0x00)) gfx_PrintString("0");
-    else gfx_PrintString("0");
+    // gfx_SetTextXY(0, 8);
+    // gfx_PrintString("Bottom Collide: ");
+    // if (playerTouchingColor(p, 0x00)) gfx_PrintString("0");
+    // else gfx_PrintString("0");
 }
 
 void drawTile(int x, int y, int type) {
@@ -125,15 +132,16 @@ int main() {
     int spawnY = GFX_LCD_HEIGHT/2 + TILE_SIZE/2;
     int caveHeight = 0;
     int wsChance = 60;
+
     int map[18][24];
+    int levelsCompleted = 0;
     
     // generate level
     generateMap(map, spawnX, spawnY, caveHeight, wsChance);
 
     // initialize the player
     struct Player p;
-    p.x = (float)spawnX - TILE_SIZE/4;
-    p.y = (float)spawnY - TILE_SIZE/2 - 1;
+    resetPlayer(&p, spawnX, spawnY);
 
     while (1) {
         kb_Scan();
@@ -141,24 +149,31 @@ int main() {
             break;
         }
 
-        if (kb_IsDown(kb_KeyAlpha)) {
-            generateMap(map, spawnX, spawnY, caveHeight, wsChance);
-
-            p.x = (float)spawnX - TILE_SIZE/4;
-            p.y = (float)spawnY - TILE_SIZE/2 - 1;
-            p.dy = 0;
-            p.dy = 0;
-
-            continue;
-        }
-
         gfx_FillScreen(0xFF);
-
         drawMap(map);
 
         playerMovement(&p);
+
+        if (kb_IsDown(kb_KeyAlpha) || p.y > GFX_LCD_HEIGHT) {
+            generateMap(map, spawnX, spawnY, caveHeight, wsChance);
+            resetPlayer(&p, spawnX, spawnY);
+            continue;
+        }
+
+        if (p.x > GFX_LCD_WIDTH) {
+            generateMap(map, spawnX, spawnY, caveHeight, wsChance);
+            resetPlayer(&p, spawnX, spawnY);
+            levelsCompleted++;
+            continue;            
+        }
+
         drawPlayer(p);
+
         debugPlayerPosition(p);
+        
+        gfx_SetTextXY(0, 8);
+        gfx_PrintString("Levels Completed: ");
+        gfx_PrintInt(levelsCompleted, 1);
 
         gfx_SwapDraw();
         delay(50);
