@@ -1,52 +1,21 @@
-Section                Base   Top    High   Length
----------------------- ------ ------ ------ -------
-.comment               000000 002A3F          2A3Fh
-.debug_abbrev          000000 00020F           20Fh
-.debug_addr            000000 0000DD            DDh
-.debug_aranges         000000 000000             0h
-.debug_frame           000000 000121           121h
-.debug_info            000000 0005D3           5D3h
-.debug_line            000000 00060D           60Dh
-.debug_line_str        000000 000000             0h
-.debug_loc             000000 000000             0h
-.debug_loclists        000000 000277           277h
-.debug_macinfo         000000 000000             0h
-.debug_macro           000000 000000             0h
-.debug_names           000000 000000             0h
-.debug_pubnames        000000 000000             0h
-.debug_pubtypes        000000 000000             0h
-.debug_ranges          000000 000000             0h
-.debug_rnglists        000000 000000             0h
-.debug_str             000000 00030E           30Eh
-.debug_str_offsets     000000 00011C           11Ch
-.debug_sup             000000 000000             0h
-.debug_types           000000 000000             0h
-.debug_abbrev.dwo      000000 000000             0h
-.debug_info.dwo        000000 000000             0h
-.debug_line.dwo        000000 000000             0h
-.debug_loclists.dwo    000000 000000             0h
-.debug_macro.dwo       000000 000000             0h
-.debug_rnglists.dwo    000000 000000             0h
-.debug_str.dwo         000000 000000             0h
-.debug_str_offsets.dwo 000000 000000             0h
-.debug_cu_index        000000 000000             0h
-.debug_tu_index        000000 000000             0h
-.icon                  D1A882 D1A9AB           129h
-.init.libs             D1A9AB D1AA03            58h
-.libs                  D1AA03 D1AA58            55h
-.init.clock            D1AA58 D1AA73            1Bh
-.init.reruncheck       D1AA73 D1AA73             0h
-.init                  D1AA73 D1AA93            20h
-.fini                  D1AA93 D1AAC7            34h
-.text                  D1AAC7 D1B922           E5Bh
-.data                  D1B922 D1B932            10h
-.rodata                D1B932 D1B99E            6Ch
-.init_array            000000 000000             0h
-.ctors                 000000 000000             0h
-.dtors                 000000 000000             0h
-.fini_array            000000 000000             0h
-.bss                   D052C6 D052C6 D13FD8      0h
-.header                D1A87F D1A882             3h
+Section          Base   Top    High   Length
+---------------- ------ ------ ------ -------
+.icon            D1A882 D1A9AB           129h
+.init.libs       D1A9AB D1AA03            58h
+.libs            D1AA03 D1AA54            51h
+.init.clock      D1AA54 D1AA6F            1Bh
+.init.reruncheck D1AA6F D1AA6F             0h
+.init            D1AA6F D1AA8F            20h
+.fini            D1AA8F D1AAC3            34h
+.text            D1AAC3 D1BAF3          1030h
+.data            D1BAF3 D1BB03            10h
+.rodata          D1BB03 D1BB9F            9Ch
+.init_array      000000 000000             0h
+.ctors           000000 000000             0h
+.dtors           000000 000000             0h
+.fini_array      000000 000000             0h
+.bss             D052C6 D052C6 D13FD8      0h
+.header          D1A87F D1A882             3h
 
 Label                        Value
 --------------------------   ------
@@ -60,16 +29,16 @@ ___ctors_count             = 000000
 ___dtors_count             = 000000
 ___fini_array_count        = 000000
 __stack                    = D1A87E
-__fneg                     = D1AAC7
-__frameset                 = D1AAD4
-__frameset0                = D1AAE2
-__idvrms                   = D1AAED
-__idvrmu                   = D1AB1B
-__imulu                    = D1AB33
-__ineg                     = D1AB63
-__irems                    = D1AB6C
-__ishl                     = D1AB74
-__lmulu                    = D1AB9A
+__frameset                 = D1AAC3
+__frameset0                = D1AAD1
+__iand                     = D1AADC
+__idvrms                   = D1AAF5
+__idvrmu                   = D1AB23
+__imulu                    = D1AB3B
+__ineg                     = D1AB6B
+__irems                    = D1AB74
+__ishl                     = D1AB7C
+__lmulu                    = D1ABA2
 __fadd                     = 000270
 __fcmp                     = 000274
 __fdiv                     = 000278
@@ -80,295 +49,50 @@ __ftoul                    = 00027C
 __ltof                     = 000284
 __setflag                  = 000218
 __ultof                    = 000280
-__sand                     = D1ABF6
-_atomic_load_increasing_32 = D1ABFF
-_delay                     = D1AC24
-_os_DisableHomeTextBuffer  = D1AC4E
-_os_EnableHomeTextBuffer   = D1AC60
-_random                    = D1AC72
-__setstate                 = D1ACD0
-__state                    = D1B922
-___sleep_common.3          = D1ACE2
-_clock                     = D1ACFB
+__sand                     = D1ABFE
+_atomic_load_increasing_32 = D1AC07
+_delay                     = D1AC2C
+_os_DisableHomeTextBuffer  = D1AC56
+_os_EnableHomeTextBuffer   = D1AC68
+_random                    = D1AC7A
+__setstate                 = D1ACD8
+__state                    = D1BAF3
+___sleep_common.3          = D1ACEA
+_clock                     = D1AD03
 _fabsf                     = 0220F0
 _logf                      = 0220E4
 _log                       = 0220E4
-_rand                      = D1AD06
-_srand                     = D1AD13
-.missingappvar             = D1B932
-.libloadname               = D1B937
+_rand                      = D1AD0E
+_srand                     = D1AD1B
+.missingappvar             = D1BB03
+.libloadname               = D1BB08
 .libloadnamelen            = 000007
-.webaddress                = D1B93F
-___init_clock              = D1AA58
-__start                    = D1AA73
-___exithl                  = D1AA93
-skip._exit                 = D1AA93
-skip.__Exit                = D1AA93
-skip._abort                = D1AA93
-_exit.sp                   = D1AA94
-_exit.flash_wait_states    = D1AA9E
-func_begin0                = D1AD1B
-tmp1                       = D1AD26
-tmp2                       = D1AD34
-tmp4                       = D1AD3B
-tmp5                       = D1AD3D
-tmp8                       = D1AD4E
-tmp9                       = D1AD54
-func_end0                  = D1AD6D
-_drawPlayer                = D1AD6D
-func_begin1                = D1AD6D
-tmp15                      = D1AD7A
-tmp20                      = D1ADAD
-func_end1                  = D1ADB2
-_playerTouchingColor       = D1ADB2
-func_begin2                = D1ADB2
-tmp28                      = D1ADF5
-tmp29                      = D1ADFA
-tmp31                      = D1AE0B
-tmp34                      = D1AE1F
-tmp37                      = D1AE50
-tmp38                      = D1AE68
-func_end2                  = D1AE7C
-_playerMovement            = D1AE7C
-func_begin3                = D1AE7C
-tmp41                      = D1AE8E
-tmp42                      = D1AE97
-tmp44                      = D1AEAB
-tmp45                      = D1AEBA
-tmp47                      = D1AED3
-tmp48                      = D1AEDC
-tmp49                      = D1AEF3
-tmp50                      = D1AEFD
-tmp51                      = D1AF00
-tmp53                      = D1AF08
-tmp55                      = D1AF16
-tmp56                      = D1AF33
-tmp63                      = D1AF97
-tmp64                      = D1AF9A
-tmp76                      = D1B013
-tmp88                      = D1B0E7
-tmp90                      = D1B0F7
-tmp91                      = D1B114
-tmp98                      = D1B177
-tmp99                      = D1B17A
-tmp107                     = D1B1D1
-func_end3                  = D1B1D6
-func_begin4                = D1B1D6
-tmp110                     = D1B1E1
-tmp111                     = D1B1EF
-tmp113                     = D1B1FA
-tmp114                     = D1B203
-tmp115                     = D1B208
-tmp116                     = D1B211
-tmp119                     = D1B226
-func_end4                  = D1B238
-_debugPlayerPosition       = D1B238
-func_begin5                = D1B238
-tmp123                     = D1B245
-tmp124                     = D1B250
-tmp126                     = D1B264
-tmp127                     = D1B26F
-tmp129                     = D1B283
-func_end5                  = D1B288
-_drawTile                  = D1B288
-func_begin6                = D1B288
-tmp137                     = D1B2C1
-tmp138                     = D1B2DC
-tmp140                     = D1B30F
-tmp142                     = D1B329
-tmp145                     = D1B360
-tmp149                     = D1B382
-tmp153                     = D1B3A7
-tmp160                     = D1B3EA
-func_end6                  = D1B3F2
-JTI6_0                     = D1B954
-JTI6_1                     = D1B963
-JTI6_2                     = D1B96F
-_generateMap               = D1B3F2
-func_begin7                = D1B3F2
-tmp164                     = D1B405
-tmp165                     = D1B415
-tmp169                     = D1B42A
-tmp171                     = D1B453
-tmp173                     = D1B460
-tmp177                     = D1B487
-tmp180                     = D1B499
-tmp189                     = D1B4F8
-tmp194                     = D1B516
-tmp197                     = D1B52F
-tmp200                     = D1B545
-tmp201                     = D1B54C
-tmp202                     = D1B54D
-tmp203                     = D1B554
-tmp204                     = D1B558
-tmp205                     = D1B56B
-func_end7                  = D1B570
-_drawMap                   = D1B570
-func_begin8                = D1B570
-tmp208                     = D1B582
-tmp210                     = D1B596
-tmp213                     = D1B5A9
-tmp215                     = D1B5D4
-tmp216                     = D1B5E1
-tmp217                     = D1B5E5
-tmp218                     = D1B5E8
-tmp219                     = D1B5ED
-tmp220                     = D1B5FA
-tmp221                     = D1B5FE
-tmp222                     = D1B60B
-tmp223                     = D1B60F
-func_end8                  = D1B614
-_main                      = D1B614
-func_begin9                = D1B614
-tmp228                     = D1B65B
-tmp229                     = D1B665
-tmp230                     = D1B673
-tmp231                     = D1B674
-tmp232                     = D1B69B
-tmp233                     = D1B6AB
-tmp234                     = D1B6AF
-tmp235                     = D1B6CA
-tmp236                     = D1B6D6
-tmp237                     = D1B6DA
-tmp240                     = D1B6F4
-tmp241                     = D1B704
-tmp242                     = D1B714
-tmp252                     = D1B77F
-tmp255                     = D1B7A7
-tmp256                     = D1B7C6
-tmp257                     = D1B7E7
-tmp258                     = D1B80E
-tmp259                     = D1B821
-tmp260                     = D1B82C
-tmp261                     = D1B841
-tmp262                     = D1B847
-tmp263                     = D1B850
-tmp265                     = D1B87C
-tmp266                     = D1B88C
-tmp267                     = D1B890
-tmp268                     = D1B8AF
-tmp269                     = D1B8D6
-tmp270                     = D1B8DC
-tmp271                     = D1B8EC
-tmp272                     = D1B907
-tmp273                     = D1B912
-tmp274                     = D1B916
-tmp275                     = D1B91A
-func_end9                  = D1B922
-_.str                      = D1B97B
-_.str.1                    = D1B988
-_.str.2                    = D1B98B
-debug_list_header_start0   = 000004
-loclists_table_base0       = 00000C
-debug_loc0                 = 00008C
-debug_loc1                 = 00009E
-debug_loc2                 = 0000A5
-debug_loc3                 = 0000AB
-debug_loc4                 = 0000B3
-debug_loc5                 = 0000D7
-debug_loc6                 = 0000EF
-debug_loc7                 = 000107
-debug_loc8                 = 000116
-debug_loc9                 = 00011E
-debug_loc10                = 00012D
-debug_loc11                = 00013C
-debug_loc12                = 000144
-debug_loc13                = 00014D
-debug_loc14                = 00017C
-debug_loc15                = 000192
-debug_loc16                = 0001BF
-debug_loc17                = 0001E0
-debug_loc18                = 0001E9
-debug_loc19                = 0001F4
-debug_loc20                = 0001FE
-debug_loc21                = 000208
-debug_loc22                = 000213
-debug_loc23                = 00021D
-debug_loc24                = 000228
-debug_loc25                = 000232
-debug_loc26                = 00023B
-debug_loc27                = 000246
-debug_loc28                = 000250
-debug_loc29                = 000259
-debug_loc30                = 000264
-debug_loc31                = 00026E
-debug_list_header_end0     = 000277
-abbrev_start0              = 000000
-debug_info_start0          = 000004
-debug_info_end0            = 0005D3
-str_offsets_base0          = 000008
-info_string0               = 000000
-info_string1               = 000069
-info_string2               = 000074
-info_string3               = 000096
-info_string4               = 00009B
-info_string5               = 0000AF
-info_string6               = 0000BC
-info_string7               = 0000C7
-info_string8               = 0000D2
-info_string9               = 0000D6
-info_string10              = 0000E4
-info_string11              = 0000EC
-info_string12              = 0000FB
-info_string13              = 000104
-info_string14              = 00010E
-info_string15              = 000114
-info_string16              = 000122
-info_string17              = 00012B
-info_string18              = 000138
-info_string19              = 000151
-info_string20              = 00015A
-info_string21              = 000167
-info_string22              = 000175
-info_string23              = 000185
-info_string24              = 000192
-info_string25              = 0001A4
-info_string26              = 0001A9
-info_string27              = 0001B5
-info_string28              = 0001B7
-info_string29              = 0001B9
-info_string30              = 0001BB
-info_string31              = 0001BE
-info_string32              = 0001C1
-info_string33              = 0001C8
-info_string34              = 0001CF
-info_string35              = 0001D6
-info_string36              = 0001E2
-info_string37              = 0001F5
-info_string38              = 0001FB
-info_string39              = 000203
-info_string40              = 000212
-info_string41              = 00021F
-info_string42              = 000225
-info_string43              = 00022D
-info_string44              = 000231
-info_string45              = 000237
-info_string46              = 000242
-info_string47              = 000256
-info_string48              = 000265
-info_string49              = 000279
-info_string50              = 000282
-info_string51              = 00028E
-info_string52              = 000296
-info_string53              = 00029B
-info_string54              = 00029D
-info_string55              = 0002A1
-info_string56              = 0002A6
-info_string57              = 0002AC
-info_string58              = 0002B2
-info_string59              = 0002B9
-info_string60              = 0002BB
-info_string61              = 0002C0
-info_string62              = 0002C9
-info_string63              = 0002CE
-info_string64              = 0002D9
-info_string65              = 0002DD
-info_string66              = 0002E6
-info_string67              = 0002F3
-info_string68              = 000303
-debug_addr_start0          = 000004
-addr_table_base0           = 000008
-debug_addr_end0            = 0000DD
+.webaddress                = D1BB10
+___init_clock              = D1AA54
+__start                    = D1AA6F
+___exithl                  = D1AA8F
+skip._exit                 = D1AA8F
+skip.__Exit                = D1AA8F
+skip._abort                = D1AA8F
+_exit.sp                   = D1AA90
+_exit.flash_wait_states    = D1AA9A
+_drawPlayer                = D1AD23
+_playerTouchingColor       = D1AD68
+_playerMovement            = D1AF1E
+_debugPlayerPosition       = D1B26E
+_drawTile                  = D1B2BE
+JTI7_0                     = D1BB25
+JTI7_1                     = D1BB3A
+JTI7_2                     = D1BB46
+JTI7_3                     = D1BB52
+_generateMap               = D1B4B4
+JTI8_0                     = D1BB5E
+JTI8_1                     = D1BB70
+_drawMap                   = D1B73C
+_main                      = D1B7DA
+_.str                      = D1BB7C
+_.str.1                    = D1BB89
+_.str.2                    = D1BB8C
 lib.LibLoad                = D1AA03
 _#gfx_Begin                = D1AA16
 _#gfx_End                  = D1AA1A
@@ -382,5 +106,4 @@ _#gfx_PrintString          = D1AA36
 _#gfx_SetTextXY            = D1AA3A
 _#gfx_SetTextFGColor       = D1AA3E
 _#gfx_FillRectangle        = D1AA42
-_#gfx_FillRectangle_NoClip = D1AA46
-_#kb_Scan                  = D1AA54
+_#kb_Scan                  = D1AA50

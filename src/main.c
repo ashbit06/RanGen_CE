@@ -39,17 +39,30 @@ bool any(bool array[], int size) {
 
 void drawPlayer(struct Player p) {
     gfx_SetColor(0xA0);
-    gfx_FillRectangle_NoClip((int)(p.x - PLAYER_SIZE/2), (int)(p.y - PLAYER_SIZE/2), PLAYER_SIZE, PLAYER_SIZE);
+    gfx_FillRectangle((int)(p.x - PLAYER_SIZE/2), (int)(p.y - PLAYER_SIZE/2), PLAYER_SIZE, PLAYER_SIZE);
+}
+
+void getPlayerTilePos(struct Player p, int tilePos[2]) {
+    tilePos[0] = (int)(p.x / TILE_SIZE); // x
+    tilePos[1] = (int)(p.y / TILE_SIZE); // y
 }
 
 bool playerTouchingColor(struct Player p, uint8_t color) {
-    return (gfx_GetPixel((int)(p.x - PLAYER_SIZE/2), (int)(p.y - PLAYER_SIZE/2)) == color || // top left
-            gfx_GetPixel((int)(p.x + PLAYER_SIZE/2), (int)(p.y - PLAYER_SIZE/2)) == color || // top right
-            gfx_GetPixel((int)(p.x - PLAYER_SIZE/2), (int)(p.y + PLAYER_SIZE/2)) == color || // bottom left
-            gfx_GetPixel((int)(p.x + PLAYER_SIZE/2), (int)(p.y + PLAYER_SIZE/2)) == color);  // bottom right
+    uint8_t tl = gfx_GetPixel((int)(p.x - PLAYER_SIZE/2), (int)(p.y - PLAYER_SIZE/2)); // top left
+    uint8_t tr = gfx_GetPixel((int)(p.x + PLAYER_SIZE/2), (int)(p.y - PLAYER_SIZE/2)); // top right
+    uint8_t bl = gfx_GetPixel((int)(p.x - PLAYER_SIZE/2), (int)(p.y + PLAYER_SIZE/2)); // bottom left
+    uint8_t br = gfx_GetPixel((int)(p.x + PLAYER_SIZE/2), (int)(p.y + PLAYER_SIZE/2)); // bottom right
+
+    if (p.y < 0) { tl = 0xFF; tr = 0xFF; }
+    if (p.y > GFX_LCD_HEIGHT) { bl = 0xFF; br = 0xFF; }
+    if (p.x < 0) { tl = 0xFF; bl = 0xFF; }
+    if (p.x > GFX_LCD_WIDTH) { tr = 0xFF; br = 0xFF; }
+
+    return (tl == color || tr == color || bl == color || br == color);
 }
 
 void playerMovement(struct Player* p) {
+    // handle vertical movement
     p->dy += GRAVITY;
     p->y -= p->dy;
     if (playerTouchingColor(*p, 0x00)) {
@@ -64,6 +77,7 @@ void playerMovement(struct Player* p) {
         p->dy = -JUMP * (kb_IsDown(kb_KeyUp) && fabsf(p->dy)/p->dy == -1);
     }
 
+    // handle horizontal movement
     p->dx = FRICTION * (p->dx + SPEED*kb_IsDown(kb_KeyRight) - SPEED*kb_IsDown(kb_KeyLeft));
     p->x += p->dx;
     if (playerTouchingColor(*p, 0x00)) {
@@ -77,7 +91,7 @@ void playerMovement(struct Player* p) {
         // wall jump
         if (kb_IsDown(kb_KeyUp)) {
             p->dy = -JUMP;
-            p->dx = -fabsf(p->dx) / p->dx;
+            p->dx = fabsf(p->dx) / p->dx * -6;
         }
     }
 }
@@ -105,10 +119,6 @@ void debugPlayerPosition(struct Player p) {
 void drawTile(struct Tile t, int x, int y) {
     t.rotation %= 4;
     switch (t.type) {
-        case 1: // full block
-            gfx_SetColor(0x00); // black
-            gfx_FillRectangle(x, y, TILE_SIZE, TILE_SIZE);
-            break;
         case 2: // stair
             gfx_SetColor(0x00);
             if (t.rotation == 0) { // 0
@@ -132,14 +142,31 @@ void drawTile(struct Tile t, int x, int y) {
             else if (t.rotation == 2) gfx_FillRectangle(x, y, TILE_SIZE, TILE_SIZE/2);
             else if (t.rotation == 3) gfx_FillRectangle(x + TILE_SIZE/2, y, TILE_SIZE/2, TILE_SIZE);
             break;
-        case 4: // slope
-            break;
-        case 5: // spike
-            gfx_SetColor(0xE0);
-            break;
         case 6: // quarter block
+            gfx_SetColor(0x00);
+            if (t.rotation == 0) gfx_FillRectangle(x + TILE_SIZE/2, y, TILE_SIZE/2, TILE_SIZE/2);
+            else if (t.rotation == 1) gfx_FillRectangle(x + TILE_SIZE/2, y + TILE_SIZE/2, TILE_SIZE/2, TILE_SIZE/2);
+            else if (t.rotation == 2) gfx_FillRectangle(x, y + TILE_SIZE/2, TILE_SIZE/2, TILE_SIZE/2);
+            else if (t.rotation == 3) gfx_FillRectangle(x, y, TILE_SIZE/2, TILE_SIZE/2); 
             break;
         case 7: // diagonal slab
+            gfx_SetColor(0x00);
+            if (t.rotation % 2 == 0) {
+                gfx_FillRectangle(x, y, TILE_SIZE/2, TILE_SIZE/2);
+                gfx_FillRectangle(x + TILE_SIZE/2, y + TILE_SIZE/2, TILE_SIZE/2, TILE_SIZE/2);
+            } else {
+                gfx_FillRectangle(x + TILE_SIZE/2, y, TILE_SIZE/2, TILE_SIZE/2);
+                gfx_FillRectangle(x, y + TILE_SIZE/2, TILE_SIZE/2, TILE_SIZE/2);
+            }
+            break;
+        case 4: // slope
+            // break;
+        case 5: // spike
+            // gfx_SetColor(0xE0);
+            // break;
+        case 1: // full block
+            gfx_SetColor(0x00); // black
+            gfx_FillRectangle(x, y, TILE_SIZE, TILE_SIZE);
             break;
         case 0:
         default:
@@ -147,12 +174,13 @@ void drawTile(struct Tile t, int x, int y) {
     }
 }
 
-void generateMap(struct Tile map[18][24], int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety) {
-    for (int y = 0; y < 18; y++) {
-        for (int x = 0; x < 24; x++) {
+void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, bool spawnBlock) {
+    for (int y = 0; y < 15; y++) {
+        for (int x = 0; x < 20; x++) {
+            map[y][x].rotation = 0;
             if (((rand() % ((int)log(y*TILE_SIZE) * 170 + 170 + abs(caveHeight-500))) + 1) > (wsChance * 6) || ((x*TILE_SIZE == spawnX) && (y*TILE_SIZE == spawnY - TILE_SIZE))) {
                 if (rand() % 100 + 1 < blockVariety ) {
-                    map[y][x].type = rand() % 3;
+                    map[y][x].type = rand() % 7 + 1;
                     if (map[y][x].type == 2 || map[y][x].type == 3 || map[y][x].type == 4 || map[y][x].type == 6) // stairs, slabs, slopes, quater blocks
                         map[y][x].rotation = rand() % 4;
                     else if (map[y][x].type == 7) // diagonal slabs
@@ -181,17 +209,23 @@ void generateMap(struct Tile map[18][24], int spawnX, int spawnY, int caveHeight
                             if (pixel == 0x00) break;
                         }
                         map[y][x].rotation = direction;
-                    } else map[y][x].rotation = 0;
+                    }
                 }
             } else {
                 map[y][x].type = 0;  // Empty tile
             }
-            map[y][x].rotation = 0;  // Initialize rotation to 0
+
+            dbg_printf("coords: (%d, %d) \ttype: %d \trotation: %d\n", x, y, map[y][x].type, map[y][x].rotation);
         }
+    }
+
+    if (spawnBlock) {
+        map[6][0].type = 0;
+        map[7][0].type = 1;
     }
 }
 
-void drawMap(struct Tile map[18][24]) {
+void drawMap(struct Tile map[15][20]) {
     for (int y = 0; y < 18; y++) {
         for (int x = 0; x < 24; x++) {
             drawTile(map[y][x], x * TILE_SIZE, y * TILE_SIZE);
@@ -202,22 +236,22 @@ void drawMap(struct Tile map[18][24]) {
 int main() {
     gfx_Begin();
     gfx_SetDrawBuffer();
-    gfx_SetTextFGColor(0x03);
+    gfx_SetTextFGColor(0x05);
     
     srand(rtc_Time());
 
     int spawnX = TILE_SIZE/2 + PLAYER_SIZE/2;
-    int spawnY = GFX_LCD_HEIGHT/2 + TILE_SIZE/2;
+    int spawnY = GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2;
     int caveHeight = 0;
     int wsChance = 60;
     int blockVariety = 75;
     bool spawnBlock = true;
 
-    struct Tile map[18][24];
+    struct Tile map[15][20];
     int levelsCompleted = 0;
     
     // generate level
-    generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety);
+    generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
 
     // initialize the player
     struct Player p;
@@ -235,13 +269,13 @@ int main() {
         playerMovement(&p);
 
         if (kb_IsDown(kb_KeyAlpha)) {
-            generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety);
+            generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
             resetPlayer(&p, spawnX, spawnY);
             continue;
         }
 
         if (p.x > GFX_LCD_WIDTH) {
-            generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety);
+            generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
             resetPlayer(&p, spawnX, spawnY);
             levelsCompleted++;
             continue;            
