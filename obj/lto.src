@@ -1326,12 +1326,16 @@ BB8_31:
 BB8_32:
 	bit	0, (ix + 24)
 	jr	z, BB8_34
+	ld	bc, 0
 	ld	de, 720
 	ld	iy, (ix + 6)
 	lea	hl, iy
 	add	hl, de
-	ld	de, 0
-	ld	(hl), de
+	ld	(hl), bc
+	ld	de, 726
+	lea	hl, iy
+	add	hl, de
+	ld	(hl), bc
 	ld	de, 840
 	add	iy, de
 	ld	hl, 1
@@ -1436,7 +1440,7 @@ BB9_6:
 	section	.text,"ax",@progbits
 	public	_main
 _main:
-	ld	hl, -1834
+	ld	hl, -1837
 	call	__frameset
 	ld	bc, -1822
 	lea	iy, ix
@@ -1457,11 +1461,19 @@ _main:
 	add	iy, bc
 	ld	(iy), hl
 	call	_gfx_Begin
+	ld.sis	hl, 28539
+	ld	iy, -1900030
+	ld	(iy), l
+	ld	(iy + 1), h
+	ld.sis	hl, -33
+	ld	iy, -1900028
+	ld	(iy), l
+	ld	(iy + 1), h
 	ld	hl, 1
 	push	hl
 	call	_gfx_SetDraw
 	pop	hl
-	ld	hl, 5
+	ld	hl, 2
 	push	hl
 	call	_gfx_SetTextFGColor
 	pop	hl
@@ -1474,7 +1486,7 @@ _main:
 	push	hl
 	ld	hl, 75
 	push	hl
-	ld	hl, 60
+	ld	hl, 65
 	push	hl
 	or	a, a
 	sbc	hl, hl
@@ -1524,10 +1536,78 @@ BB10_2:
 	ld	a, l
 	bit	6, a
 	jp	nz, BB10_12
-	scf
-	sbc	hl, hl
+	ld	hl, 1
 	push	hl
 	call	_gfx_FillScreen
+	pop	hl
+	ld	hl, 120
+	push	hl
+	ld	hl, 32
+	push	hl
+	call	_gfx_SetTextXY
+	pop	hl
+	pop	hl
+	ld	hl, 2
+	push	hl
+	push	hl
+	call	_gfx_SetTextScale
+	pop	hl
+	pop	hl
+	ld	hl, _.str.2
+	push	hl
+	call	_gfx_PrintString
+	pop	hl
+	call	_gfx_GetTextX
+	push	hl
+	pop	de
+	ld	bc, -1837
+	lea	iy, ix
+	add	iy, bc
+	ld	(iy), de
+	ld	hl, 104
+	push	hl
+	push	de
+	call	_gfx_SetTextXY
+	pop	hl
+	pop	hl
+	ld	hl, 4
+	push	hl
+	push	hl
+	call	_gfx_SetTextScale
+	pop	hl
+	pop	hl
+	ld	hl, 1
+	push	hl
+	ld	bc, -1834
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_gfx_PrintInt
+	pop	hl
+	pop	hl
+	ld	hl, 1
+	push	hl
+	push	hl
+	call	_gfx_SetTextScale
+	pop	hl
+	pop	hl
+	ld	hl, 136
+	push	hl
+	ld	bc, -1837
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_gfx_SetTextXY
+	pop	hl
+	pop	hl
+	ld	hl, 1
+	push	hl
+	dec	hl
+	push	hl
+	call	_gfx_PrintInt
+	pop	hl
 	pop	hl
 	ld	bc, -1825
 	lea	hl, ix
@@ -1661,28 +1741,6 @@ BB10_9:
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	hl, 8
-	push	hl
-	or	a, a
-	sbc	hl, hl
-	push	hl
-	call	_gfx_SetTextXY
-	pop	hl
-	pop	hl
-	ld	hl, _.str.2
-	push	hl
-	call	_gfx_PrintString
-	pop	hl
-	ld	hl, 1
-	push	hl
-	ld	bc, -1834
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	push	hl
-	call	_gfx_PrintInt
-	pop	hl
-	pop	hl
 	call	_gfx_SwapDraw
 	ld	hl, 50
 	push	hl
@@ -1694,7 +1752,7 @@ BB10_10:
 	push	hl
 	ld	hl, 75
 	push	hl
-	ld	hl, 60
+	ld	hl, 65
 	push	hl
 	or	a, a
 	sbc	hl, hl
@@ -1732,7 +1790,7 @@ BB10_11:
 	push	hl
 	ld	hl, 75
 	push	hl
-	ld	hl, 60
+	ld	hl, 65
 	push	hl
 	or	a, a
 	sbc	hl, hl
@@ -1792,7 +1850,7 @@ _.str.1:
 	section	.rodata,"a",@progbits
 	private	_.str.2
 _.str.2:
-	db	"Levels Completed: ", 0
+	db	"LEVEL", 0
 
 	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
 	extern	_fabsf
@@ -1821,6 +1879,7 @@ _.str.2:
 	extern	_gfx_SwapDraw
 	extern	__fmul
 	extern	_gfx_SetDraw
+	extern	_gfx_GetTextX
 	extern	_gfx_FillScreen
 	extern	__Unwind_SjLj_Unregister
 	extern	__irems
@@ -1831,3 +1890,4 @@ _.str.2:
 	extern	__fcmp
 	extern	__frameset0
 	extern	_gfx_SetTextXY
+	extern	_gfx_SetTextScale

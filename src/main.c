@@ -7,7 +7,7 @@
 #include <math.h>
 
 #define TILE_SIZE   16
-// #define BG_COLOR    0xFF
+#define BG_COLOR    1
 #define PLAYER_SIZE 6
 #define GRAVITY     -0.64
 #define FRICTION    0.64
@@ -221,6 +221,7 @@ void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight
 
     if (spawnBlock) {
         map[6][0].type = 0;
+        map[6][1].type = 0;
         map[7][0].type = 1;
     }
 }
@@ -235,27 +236,31 @@ void drawMap(struct Tile map[15][20]) {
 
 int main() {
     gfx_Begin();
+    gfx_palette[1] = gfx_RGBTo1555(0xDE, 0xDE, 0xDE); // light gray
+    gfx_palette[2] = 0xffdf; // almost white
+
     gfx_SetDrawBuffer();
-    gfx_SetTextFGColor(0x05);
+    gfx_SetTextFGColor(2);
     
     srand(rtc_Time());
 
     int spawnX = TILE_SIZE/2 + PLAYER_SIZE/2;
     int spawnY = GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2;
     int caveHeight = 0;
-    int wsChance = 60;
+    int wsChance = 65;
     int blockVariety = 75;
     bool spawnBlock = true;
 
     struct Tile map[15][20];
     int levelsCompleted = 0;
+    int allTimeCompleted = 0;
     
     // generate level
     generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
 
     // initialize the player
-    struct Player p;
-    resetPlayer(&p, spawnX, spawnY);
+    struct Player player;
+    resetPlayer(&player, spawnX, spawnY);
 
     while (1) {
         kb_Scan();
@@ -263,34 +268,47 @@ int main() {
             break;
         }
 
-        gfx_FillScreen(0xFF);
+        gfx_FillScreen(1); // the classic gray background :)
+
+        // display level information behind the level
+        gfx_SetTextXY(32, 120);
+        gfx_SetTextScale(2, 2);
+        gfx_PrintString("LEVEL");
+        int textX = gfx_GetTextX();
+        gfx_SetTextXY(textX, 104);
+        gfx_SetTextScale(4, 4);
+        gfx_PrintInt(levelsCompleted, 1);
+        gfx_SetTextScale(1, 1);
+        gfx_SetTextXY(textX, 136);
+        gfx_PrintInt(allTimeCompleted, 1);
+
         drawMap(map);
 
-        playerMovement(&p);
+        playerMovement(&player);
 
         if (kb_IsDown(kb_KeyAlpha)) {
             generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
-            resetPlayer(&p, spawnX, spawnY);
+            resetPlayer(&player, spawnX, spawnY);
             continue;
         }
 
-        if (p.x > GFX_LCD_WIDTH) {
+        if (player.x > GFX_LCD_WIDTH) {
             generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
-            resetPlayer(&p, spawnX, spawnY);
+            resetPlayer(&player, spawnX, spawnY);
             levelsCompleted++;
             continue;            
         }
 
-        if (p.y > GFX_LCD_HEIGHT || playerTouchingColor(p, 0xE0) || kb_IsDown(kb_Key2nd)) {
-            resetPlayer(&p, spawnX, spawnY);
+        if (player.y > GFX_LCD_HEIGHT || playerTouchingColor(player, 0xE0) || kb_IsDown(kb_Key2nd)) {
+            resetPlayer(&player, spawnX, spawnY);
         }
 
-        drawPlayer(p);
-        debugPlayerPosition(p);
+        drawPlayer(player);
+        debugPlayerPosition(player);
         
-        gfx_SetTextXY(0, 8);
-        gfx_PrintString("Levels Completed: ");
-        gfx_PrintInt(levelsCompleted, 1);
+        // gfx_SetTextXY(0, 8);
+        // gfx_PrintString("Levels Completed: ");
+        // gfx_PrintInt(levelsCompleted, 1);
 
         gfx_SwapDraw();
         delay(50);
