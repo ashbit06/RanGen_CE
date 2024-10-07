@@ -1,5 +1,6 @@
 #include <graphx.h>
 #include <keypadc.h>
+#include <fileioc.h>
 #include <tice.h>
 #include <debug.h>
 #include <stdlib.h>
@@ -109,11 +110,6 @@ void debugPlayerPosition(struct Player p) {
     gfx_PrintInt((int)p.x, 0);
     gfx_PrintString(", ");
     gfx_PrintInt((int)p.y, 0);
-
-    // gfx_SetTextXY(0, 8);
-    // gfx_PrintString("Bottom Collide: ");
-    // if (playerTouchingColor(p, 0x00)) gfx_PrintString("0");
-    // else gfx_PrintString("0");
 }
 
 void drawTile(struct Tile t, int x, int y) {
@@ -215,7 +211,7 @@ void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight
                 map[y][x].type = 0;  // Empty tile
             }
 
-            dbg_printf("coords: (%d, %d) \ttype: %d \trotation: %d\n", x, y, map[y][x].type, map[y][x].rotation);
+            // dbg_printf("coords: (%d, %d) \ttype: %d \trotation: %d\n", x, y, map[y][x].type, map[y][x].rotation);
         }
     }
 
@@ -253,9 +249,24 @@ int main() {
 
     struct Tile map[15][20];
     int levelsCompleted = 0;
+
+    // get file somehow
     int allTimeCompleted = 0;
-    
-    // generate level
+
+    ti_var_t file = ti_Open("RanGen", "r");
+    if (file) {
+        ti_Read(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
+        ti_Close(file);
+    } else {
+        file = ti_Open("RanGen", "w");
+        if (file) {
+            ti_Write(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
+            ti_Close(file);
+        }
+    }
+    dbg_printf("all-time completed: %d\n", allTimeCompleted);
+
+    // generate level first level
     generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
 
     // initialize the player
@@ -296,6 +307,7 @@ int main() {
             generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
             resetPlayer(&player, spawnX, spawnY);
             levelsCompleted++;
+            allTimeCompleted++;
             continue;            
         }
 
@@ -312,6 +324,13 @@ int main() {
 
         gfx_SwapDraw();
         delay(50);
+    }
+
+    // save all-time completed
+    file = ti_Open("RanGen", "w");
+    if (file) {
+        ti_Write(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
+        ti_Close(file);
     }
 
     gfx_End();
