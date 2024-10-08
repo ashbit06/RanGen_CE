@@ -1,4 +1,6 @@
 # RanGen CE
+**requires [clibs](tiny.cc/clibs)**
+
 idk what im doing, but it seems to be working rn.
 - use the arrow keys to move
 - use alpha to generate a new level
