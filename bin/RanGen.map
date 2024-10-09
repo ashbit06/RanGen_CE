@@ -7,9 +7,9 @@ Section          Base   Top    High   Length
 .init.reruncheck D1AA8E D1AA8E             0h
 .init            D1AA8E D1AAAE            20h
 .fini            D1AAAE D1AAE2            34h
-.text            D1AAE2 D1BCBE          11DCh
-.data            D1BCBE D1BCCE            10h
-.rodata          D1BCCE D1BD68            9Ah
+.text            D1AAE2 D1BCBF          11DDh
+.data            D1BCBF D1BCCF            10h
+.rodata          D1BCCF D1BD69            9Ah
 .init_array      000000 000000             0h
 .ctors           000000 000000             0h
 .dtors           000000 000000             0h
@@ -56,7 +56,7 @@ _os_DisableHomeTextBuffer  = D1AC75
 _os_EnableHomeTextBuffer   = D1AC87
 _random                    = D1AC99
 __setstate                 = D1ACF7
-__state                    = D1BCBE
+__state                    = D1BCBF
 ___sleep_common.3          = D1AD09
 _clock                     = D1AD22
 _fabsf                     = 0220F0
@@ -64,10 +64,10 @@ _logf                      = 0220E4
 _log                       = 0220E4
 _rand                      = D1AD2D
 _srand                     = D1AD3A
-.missingappvar             = D1BCCE
-.libloadname               = D1BCD3
+.missingappvar             = D1BCCF
+.libloadname               = D1BCD4
 .libloadnamelen            = 000007
-.webaddress                = D1BCDB
+.webaddress                = D1BCDC
 ___init_clock              = D1AA73
 __start                    = D1AA8E
 ___exithl                  = D1AAAE
@@ -81,21 +81,21 @@ _playerTouchingColor       = D1AD87
 _playerMovement            = D1AF3D
 _debugPlayerPosition       = D1B28D
 _drawTile                  = D1B2DD
-JTI7_0                     = D1BCF0
-JTI7_1                     = D1BD05
-JTI7_2                     = D1BD11
-JTI7_3                     = D1BD1D
+JTI7_0                     = D1BCF1
+JTI7_1                     = D1BD06
+JTI7_2                     = D1BD12
+JTI7_3                     = D1BD1E
 _generateMap               = D1B4D3
-JTI8_0                     = D1BD29
-JTI8_1                     = D1BD3B
+JTI8_0                     = D1BD2A
+JTI8_1                     = D1BD3C
 _drawMap                   = D1B765
 _main                      = D1B803
-_.str                      = D1BD47
-_.str.1                    = D1BD54
-_.str.2                    = D1BD57
-_.str.3                    = D1BD5E
-_.str.4                    = D1BD60
-_.str.5                    = D1BD62
+_.str                      = D1BD48
+_.str.1                    = D1BD55
+_.str.2                    = D1BD58
+_.str.3                    = D1BD5F
+_.str.4                    = D1BD61
+_.str.5                    = D1BD63
 lib.LibLoad                = D1AA00
 _#ti_Open                  = D1AA14
 _#ti_Close                 = D1AA18

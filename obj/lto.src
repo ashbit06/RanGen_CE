@@ -1599,6 +1599,7 @@ BB10_5:
 	sbc	hl, hl
 	ld	(iy + 12), hl
 	ld	(iy + 15), h
+	inc	hl
 	ld	bc, -1837
 	lea	iy, ix
 	add	iy, bc

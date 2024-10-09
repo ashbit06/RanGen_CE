@@ -248,7 +248,7 @@ int main() {
     bool spawnBlock = true;
 
     struct Tile map[15][20];
-    int levelsCompleted = 0;
+    int currentLevel = 1;
 
     // get file somehow
     int allTimeCompleted = 0;
@@ -288,7 +288,7 @@ int main() {
         int textX = gfx_GetTextX();
         gfx_SetTextXY(textX, 104);
         gfx_SetTextScale(4, 4);
-        gfx_PrintInt(levelsCompleted, 1);
+        gfx_PrintInt(currentLevel, 1);
         gfx_SetTextScale(1, 1);
         gfx_SetTextXY(textX, 136);
         gfx_PrintInt(allTimeCompleted, 1);
@@ -306,7 +306,7 @@ int main() {
         if (player.x > GFX_LCD_WIDTH) {
             generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
             resetPlayer(&player, spawnX, spawnY);
-            levelsCompleted++;
+            currentLevel++;
             allTimeCompleted++;
             continue;            
         }
@@ -320,7 +320,7 @@ int main() {
         
         // gfx_SetTextXY(0, 8);
         // gfx_PrintString("Levels Completed: ");
-        // gfx_PrintInt(levelsCompleted, 1);
+        // gfx_PrintInt(currentLevel, 1);
 
         gfx_SwapDraw();
         delay(50);
