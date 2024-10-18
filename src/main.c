@@ -3,13 +3,15 @@
 #include <fileioc.h>
 #include <tice.h>
 #include <debug.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include <math.h>
 
 #define TILE_SIZE   16
 #define BG_COLOR    1
-#define PLAYER_SIZE 6
+#define PLAYER_SIZE 5
 #define GRAVITY     -0.64
 #define FRICTION    0.64
 #define JUMP        -6.16
@@ -20,12 +22,24 @@ struct Player {
     float y;
     float dx;
     float dy;
+    bool canMove;
 };
 
 struct Tile {
     int type;
     int rotation;
 };
+
+struct Menu {
+    char* title;
+
+    int infoLen;
+    char** infoList;
+
+    int optLen;
+    char** optList;
+};
+
 
 bool any(bool array[], int size) {
     bool res = false;
@@ -37,6 +51,7 @@ bool any(bool array[], int size) {
     }
     return res;
 }
+
 
 void drawPlayer(struct Player p) {
     gfx_SetColor(0xA0);
@@ -62,7 +77,7 @@ bool playerTouchingColor(struct Player p, uint8_t color) {
     return (tl == color || tr == color || bl == color || br == color);
 }
 
-void playerMovement(struct Player* p) {
+void playerMovement(struct Player *p) {
     // handle vertical movement
     p->dy += GRAVITY;
     p->y -= p->dy;
@@ -97,11 +112,12 @@ void playerMovement(struct Player* p) {
     }
 }
 
-void resetPlayer(struct Player* p, int spawnX, int spawnY) {
+void resetPlayer(struct Player *p, int spawnX, int spawnY) {
     p->x = (float)spawnX - TILE_SIZE/4;
     p->y = (float)spawnY - TILE_SIZE/2 - 1;
     p->dy = 0;
     p->dy = 0;
+    p->canMove = true;
 }
 
 void debugPlayerPosition(struct Player p) {
@@ -111,6 +127,7 @@ void debugPlayerPosition(struct Player p) {
     gfx_PrintString(", ");
     gfx_PrintInt((int)p.y, 0);
 }
+
 
 void drawTile(struct Tile t, int x, int y) {
     t.rotation %= 4;
@@ -222,6 +239,18 @@ void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight
     }
 }
 
+/*
+take the seed and an integer that is the amount of iterations it took for that specific level to generate
+*/
+void loadMap(struct Tile map[15][20], int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, bool spawnBlock) {
+    srand(seed);
+    for (int i = 0; i < iterations; i++) {
+        rand();
+    }
+
+    generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
+}
+
 void drawMap(struct Tile map[15][20]) {
     for (int y = 0; y < 18; y++) {
         for (int x = 0; x < 24; x++) {
@@ -229,6 +258,70 @@ void drawMap(struct Tile map[15][20]) {
         }
     }
 }
+
+
+void drawMenu(struct Menu *menu, char mode[], int selected) {
+    gfx_SetColor(0x00); // black
+    gfx_FillRectangle(20, 20, 280, 200);
+    gfx_SetColor(2);
+    gfx_Rectangle(21, 21, 278, 198);
+
+    // title, information, options
+    if (!strcmp(mode, "START")) {
+        menu->title = "RanGen CE beta 0.4";
+
+        menu->infoLen = 2;
+        menu->infoList = malloc(menu->infoLen * sizeof(char*));
+        menu->infoList[0] = "this is a test";
+        menu->infoList[1] = "hehehehaw";
+
+        menu->optLen = 4;
+        menu->optList = malloc(menu->optLen * sizeof(char*));
+        menu->optList[0] = "Save Level";
+        menu->optList[1] = "Load Level";
+        menu->optList[2] = "About";
+        menu->optList[3] = "Resume";
+    }
+
+    // print title with center alignment
+    gfx_SetTextScale(2, 2);
+    dbg_printf("title width: %d\n", gfx_GetStringWidth(menu->title));
+    gfx_SetTextXY(GFX_LCD_WIDTH/2 - (int)(gfx_GetStringWidth(menu->title)/2), 36);
+    gfx_PrintString(menu->title);
+
+    gfx_SetTextScale(1, 1);
+
+    // print info
+    for (int i = 0; i < menu->infoLen; i++) {
+        gfx_SetTextXY(28, i*10 + 68);
+        gfx_PrintString(menu->infoList[i]);
+    }
+
+    // print options
+    const int y = gfx_GetTextX();
+    for (int i = 0; i < menu->optLen; i++) {
+        if (selected) {
+            gfx_SetTextFGColor(0x00);
+            gfx_SetColor(2);
+            gfx_FillRectangle(28, i*10 + y+24, gfx_GetStringWidth(menu->optList[i]), 8);
+        } else { gfx_SetTextFGColor(2); }
+        gfx_SetTextXY(28, i*10 + y+24);
+        gfx_PrintString(menu->optList[i]);
+    }
+
+
+    // handle key presses
+    if (kb_IsDown(kb_KeyEnter)) {
+
+    }
+    else if (kb_IsDown(kb_KeyUp)) selected--;
+    else if (kb_IsDown(kb_KeyDown)) selected++;
+
+    // free ram
+    free(menu->infoList);
+    free(menu->optList);
+}
+
 
 int main() {
     gfx_Begin();
@@ -273,6 +366,10 @@ int main() {
     struct Player player;
     resetPlayer(&player, spawnX, spawnY);
 
+    struct Menu menu;
+    bool showMenu = false;
+    int selected = 0;
+
     while (1) {
         kb_Scan();
         if (kb_IsDown(kb_KeyClear)) {
@@ -285,7 +382,7 @@ int main() {
         gfx_SetTextXY(32, 120);
         gfx_SetTextScale(2, 2);
         gfx_PrintString("LEVEL");
-        int textX = gfx_GetTextX();
+        const int textX = gfx_GetTextX();
         gfx_SetTextXY(textX, 104);
         gfx_SetTextScale(4, 4);
         gfx_PrintInt(currentLevel, 1);
@@ -295,32 +392,44 @@ int main() {
 
         drawMap(map);
 
-        playerMovement(&player);
+        if (player.canMove) {
+            selected = 0;
+            playerMovement(&player);
 
-        if (kb_IsDown(kb_KeyAlpha)) {
-            generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
-            resetPlayer(&player, spawnX, spawnY);
-            continue;
+
+            if (kb_IsDown(kb_KeyAlpha)) {
+                generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
+                resetPlayer(&player, spawnX, spawnY);
+                continue;
+            }
+
+            if (player.x > GFX_LCD_WIDTH) {
+                generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
+                resetPlayer(&player, spawnX, spawnY);
+                currentLevel++;
+                allTimeCompleted++;
+                continue;            
+            }
+
+            if (player.y > GFX_LCD_HEIGHT || playerTouchingColor(player, 0xE0) || kb_IsDown(kb_Key2nd)) {
+                resetPlayer(&player, spawnX, spawnY);
+            }
         }
 
-        if (player.x > GFX_LCD_WIDTH) {
-            generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
-            resetPlayer(&player, spawnX, spawnY);
-            currentLevel++;
-            allTimeCompleted++;
-            continue;            
-        }
-
-        if (player.y > GFX_LCD_HEIGHT || playerTouchingColor(player, 0xE0) || kb_IsDown(kb_Key2nd)) {
-            resetPlayer(&player, spawnX, spawnY);
+        // display menu
+        if (kb_IsDown(kb_KeyMode)) {
+            // toggle menu and set canMove to the opposite of the menu toggle
+            showMenu = !showMenu;
+            player.canMove = !showMenu;
+            dbg_printf("mode key pressed, new menu toggle value is %d\n", showMenu);
         }
 
         drawPlayer(player);
         debugPlayerPosition(player);
-        
-        // gfx_SetTextXY(0, 8);
-        // gfx_PrintString("Levels Completed: ");
-        // gfx_PrintInt(currentLevel, 1);
+
+        if (showMenu) {
+            drawMenu(&menu, "START", selected);
+        }
 
         gfx_SwapDraw();
         delay(50);
