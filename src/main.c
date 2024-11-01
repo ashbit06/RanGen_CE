@@ -31,6 +31,7 @@ struct Tile {
 };
 
 struct Menu {
+    bool show;
     char* title;
 
     int infoLen;
@@ -260,20 +261,51 @@ void drawMap(struct Tile map[15][20]) {
 }
 
 
-void drawMenu(struct Menu *menu, char mode[], int selected) {
+const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected) {
+    if (!strcmp(menuMode, "START")) {
+        if (selected == 0) {
+
+        } else if (selected == 1) {
+
+        } else if (selected == 2) {
+
+        } else if (selected == 3) {
+            menu->show = false;
+        }
+    }
+
+    return menuMode;
+}
+
+void drawMenu(struct Menu *menu, const char *mode, int selected) {
+    // handle user input
+    if (kb_IsDown(kb_KeyEnter)) {
+        selected = 0;
+    }
+    if (kb_IsDown(kb_KeyUp)) selected--;
+    if (kb_IsDown(kb_KeyDown)) selected++;
+    
+    // handle rollover
+    if (selected < 0) selected = 0;
+    if (selected >= menu->optLen) selected = menu->optLen - 1;
+    
+    // draw menu window
     gfx_SetColor(0x00); // black
     gfx_FillRectangle(20, 20, 280, 200);
-    gfx_SetColor(2);
+    gfx_SetColor(2); // white border
     gfx_Rectangle(21, 21, 278, 198);
 
     // title, information, options
     if (!strcmp(mode, "START")) {
-        menu->title = "RanGen CE beta 0.4";
+        menu->title = "RanGen CE";
 
         menu->infoLen = 2;
         menu->infoList = malloc(menu->infoLen * sizeof(char*));
-        menu->infoList[0] = "this is a test";
-        menu->infoList[1] = "hehehehaw";
+        menu->infoList[0] = "version: beta 0.4";
+        menu->infoList[1] = "author: ashbit06";
+        menu->infoList[2] = "";
+        menu->infoList[3] = "A remake of a game I made on Scratch.";
+        menu->infoList[4] = "https://scratch.mit.edu/projects/579486353/";
 
         menu->optLen = 4;
         menu->optList = malloc(menu->optLen * sizeof(char*));
@@ -281,11 +313,13 @@ void drawMenu(struct Menu *menu, char mode[], int selected) {
         menu->optList[1] = "Load Level";
         menu->optList[2] = "About";
         menu->optList[3] = "Resume";
-    }
+    } else if (!strcmp(mode, ""))
+
+    
 
     // print title with center alignment
     gfx_SetTextScale(2, 2);
-    dbg_printf("title width: %d\n", gfx_GetStringWidth(menu->title));
+    // dbg_printf("title width: %d\n", gfx_GetStringWidth(menu->title));
     gfx_SetTextXY(GFX_LCD_WIDTH/2 - (int)(gfx_GetStringWidth(menu->title)/2), 36);
     gfx_PrintString(menu->title);
 
@@ -299,23 +333,19 @@ void drawMenu(struct Menu *menu, char mode[], int selected) {
 
     // print options
     const int y = gfx_GetTextX();
+    dbg_printf("selected: %d\n", selected);
     for (int i = 0; i < menu->optLen; i++) {
-        if (selected) {
-            gfx_SetTextFGColor(0x00);
+        if (i == selected) {
+            gfx_SetTextFGColor(0x00); // black
             gfx_SetColor(2);
             gfx_FillRectangle(28, i*10 + y+24, gfx_GetStringWidth(menu->optList[i]), 8);
-        } else { gfx_SetTextFGColor(2); }
+        } else {
+            gfx_SetTextFGColor(2); //white
+        }
+
         gfx_SetTextXY(28, i*10 + y+24);
         gfx_PrintString(menu->optList[i]);
     }
-
-
-    // handle key presses
-    if (kb_IsDown(kb_KeyEnter)) {
-
-    }
-    else if (kb_IsDown(kb_KeyUp)) selected--;
-    else if (kb_IsDown(kb_KeyDown)) selected++;
 
     // free ram
     free(menu->infoList);
@@ -329,10 +359,11 @@ int main() {
     gfx_palette[2] = 0xffdf; // almost white
 
     gfx_SetDrawBuffer();
-    gfx_SetTextFGColor(2);
+    gfx_SetTextFGColor(2); // white
     
     srand(rtc_Time());
 
+    // initialize map info
     int spawnX = TILE_SIZE/2 + PLAYER_SIZE/2;
     int spawnY = GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2;
     int caveHeight = 0;
@@ -367,7 +398,8 @@ int main() {
     resetPlayer(&player, spawnX, spawnY);
 
     struct Menu menu;
-    bool showMenu = false;
+    menu.show = false;
+    const char *menuMode = "START";
     int selected = 0;
 
     while (1) {
@@ -379,6 +411,7 @@ int main() {
         gfx_FillScreen(1); // the classic gray background :)
 
         // display level information behind the level
+        gfx_SetTextFGColor(2); // white
         gfx_SetTextXY(32, 120);
         gfx_SetTextScale(2, 2);
         gfx_PrintString("LEVEL");
@@ -419,16 +452,21 @@ int main() {
         // display menu
         if (kb_IsDown(kb_KeyMode)) {
             // toggle menu and set canMove to the opposite of the menu toggle
-            showMenu = !showMenu;
-            player.canMove = !showMenu;
-            dbg_printf("mode key pressed, new menu toggle value is %d\n", showMenu);
+            menu.show = !menu.show;
+            player.canMove = !menu.show;
+            dbg_printf("mode key pressed, new menu toggle value is %d\n", menu.show);
         }
 
         drawPlayer(player);
         debugPlayerPosition(player);
 
-        if (showMenu) {
-            drawMenu(&menu, "START", selected);
+        if (menu.show) {
+            // handle key presses
+            drawMenu(&menu, menuMode, selected);
+            selected += 1;
+
+            if (kb_IsDown(kb_KeyEnter))
+                menuMode = handleMenuMode(&menu, menuMode, selected);
         }
 
         gfx_SwapDraw();

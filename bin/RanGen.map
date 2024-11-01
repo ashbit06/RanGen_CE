@@ -7,9 +7,9 @@ Section          Base   Top    High   Length
 .init.reruncheck D1AA96 D1AA96             0h
 .init            D1AA96 D1AAC0            2Ah
 .fini            D1AAC0 D1AAF4            34h
-.text            D1AAF4 D1C1BF          16CBh
-.data            D1C1BF D1C1D2            13h
-.rodata          D1C1D2 D1C2C1            EFh
+.text            D1AAF4 D1C332          183Eh
+.data            D1C332 D1C345            13h
+.rodata          D1C345 D1C488           143h
 .init_array      000000 000000             0h
 .ctors           000000 000000             0h
 .dtors           000000 000000             0h
@@ -51,13 +51,14 @@ __ltof                     = 000284
 __setflag                  = 000218
 __ultof                    = 000280
 __sand                     = D1AC70
+__sshl                     = D1ABAD
 _atomic_load_increasing_32 = D1AC79
 _delay                     = D1AC9E
 _os_DisableHomeTextBuffer  = D1ACC8
 _os_EnableHomeTextBuffer   = D1ACDA
 _random                    = D1ACEC
 __setstate                 = D1AD4A
-__state                    = D1C1BF
+__state                    = D1C332
 ___sleep_common.3          = D1AD5C
 _free                      = D1AD75
 _malloc                    = D1AE32
@@ -69,12 +70,12 @@ _log                       = 0220E4
 _strcmp                    = 0000C8
 _rand                      = D1AEDC
 _sbrk                      = D1AEE9
-__sbrkbase                 = D1C1CF
+__sbrkbase                 = D1C342
 _srand                     = D1AF07
-.missingappvar             = D1C1D2
-.libloadname               = D1C1D7
+.missingappvar             = D1C345
+.libloadname               = D1C34A
 .libloadnamelen            = 000007
-.webaddress                = D1C1DF
+.webaddress                = D1C352
 ___init_clock              = D1AA7B
 __start                    = D1AA96
 ___exithl                  = D1AAC0
@@ -88,30 +89,34 @@ _playerTouchingColor       = D1AF53
 _playerMovement            = D1B106
 _debugPlayerPosition       = D1B456
 _drawTile                  = D1B4A6
-JTI7_0                     = D1C1F4
-JTI7_1                     = D1C209
-JTI7_2                     = D1C215
-JTI7_3                     = D1C221
+JTI7_0                     = D1C367
+JTI7_1                     = D1C37C
+JTI7_2                     = D1C388
+JTI7_3                     = D1C394
 _generateMap               = D1B69C
-JTI8_0                     = D1C22D
-JTI8_1                     = D1C23F
+JTI8_0                     = D1C3A0
+JTI8_1                     = D1C3B2
 _drawMap                   = D1B92E
-_drawMenu                  = D1B9CC
-_main                      = D1BC7A
-_.str                      = D1C24B
-_.str.1                    = D1C258
-_.str.2                    = D1C25B
-_.str.3                    = D1C261
-_.str.4                    = D1C274
-_.str.5                    = D1C283
-_.str.6                    = D1C28D
-_.str.7                    = D1C298
-_.str.8                    = D1C2A3
-_.str.9                    = D1C2A9
-_.str.10                   = D1C2B0
-_.str.11                   = D1C2B7
-_.str.12                   = D1C2B9
-_.str.13                   = D1C2BB
+_handleMenuMode            = D1B9CC
+_drawMenu                  = D1B9FF
+_main                      = D1BD51
+_.str                      = D1C3BE
+_.str.1                    = D1C3CB
+_.str.2                    = D1C3CE
+_.str.3                    = D1C3D4
+_.str.4                    = D1C3DE
+_.str.5                    = D1C3F0
+_.str.6                    = D1C401
+_.str.7                    = D1C402
+_.str.8                    = D1C428
+_.str.9                    = D1C454
+_.str.10                   = D1C45F
+_.str.11                   = D1C46A
+_.str.12                   = D1C470
+_.str.13                   = D1C477
+_.str.14                   = D1C47E
+_.str.15                   = D1C480
+_.str.16                   = D1C482
 lib.LibLoad                = D1AA00
 _#ti_Open                  = D1AA14
 _#ti_Close                 = D1AA18
