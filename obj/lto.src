@@ -1929,7 +1929,7 @@ BB12_18:
 	section	.text,"ax",@progbits
 	public	_main
 _main:
-	ld	hl, -1866
+	ld	hl, -1869
 	call	__frameset
 	ld	bc, -1842
 	lea	iy, ix
@@ -2054,7 +2054,7 @@ BB13_5:
 	ld	(ix), hl
 	pop	ix
 	lea	hl, iy
-	ld	bc, -1866
+	ld	bc, -1869
 	lea	iy, ix
 	add	iy, bc
 	ld	(iy), hl
@@ -2095,8 +2095,34 @@ BB13_5:
 	ld	(iy + 28), hl
 	ld	(iy + 31), h
 	ld	(iy + 32), 1
-	ld	(iy), h
-	inc	hl
+	ld	hl, _malloc
+	push	hl
+	ld	hl, -16
+	push	hl
+	ld	hl, 64
+	push	hl
+	call	_gfx_AllocSprite
+	pop	de
+	pop	de
+	pop	de
+	ld	de, 0
+	push	de
+	push	de
+	ld	bc, -1863
+	lea	iy, ix
+	add	iy, bc
+	ld	(iy), hl
+	push	hl
+	call	_gfx_GetSprite
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	bc, -1845
+	lea	hl, ix
+	add	hl, bc
+	ld	iy, (hl)
+	ld	(iy), 0
+	ld	hl, 1
 	ld	bc, -1860
 	lea	iy, ix
 	add	iy, bc
@@ -2149,7 +2175,7 @@ BB13_7:
 	call	_gfx_GetTextX
 	push	hl
 	pop	de
-	ld	bc, -1863
+	ld	bc, -1866
 	lea	iy, ix
 	add	iy, bc
 	ld	(iy), de
@@ -2183,7 +2209,7 @@ BB13_7:
 	pop	hl
 	ld	hl, 136
 	push	hl
-	ld	bc, -1863
+	ld	bc, -1866
 	lea	hl, ix
 	add	hl, bc
 	ld	hl, (hl)
@@ -2228,7 +2254,7 @@ BB13_9:
 	ld	l, (iy)
 	bit	6, a
 	jp	nz, BB13_17
-	ld	bc, -1863
+	ld	bc, -1866
 	lea	iy, ix
 	add	iy, bc
 	ld	(iy), l
@@ -2331,7 +2357,7 @@ BB13_17:
 	ld	a, l
 	xor	a, 1
 	push	ix
-	ld	bc, -1863
+	ld	bc, -1866
 	add	ix, bc
 	ld	(ix), a
 	pop	ix
@@ -2384,7 +2410,7 @@ BB13_18:
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	bc, -1863
+	ld	bc, -1866
 	lea	hl, ix
 	add	hl, bc
 	ld	a, (hl)
@@ -2397,7 +2423,7 @@ BB13_18:
 	push	hl
 	ld	hl, _.str.2
 	push	hl
-	ld	bc, -1866
+	ld	bc, -1869
 	lea	hl, ix
 	add	hl, bc
 	ld	hl, (hl)
@@ -2434,7 +2460,7 @@ BB13_18:
 	push	de
 	ld	hl, _.str.2
 	push	hl
-	ld	bc, -1866
+	ld	bc, -1869
 	lea	hl, ix
 	add	hl, bc
 	ld	hl, (hl)
@@ -2578,6 +2604,13 @@ BB13_24:
 	call	_ti_Close
 	pop	hl
 BB13_26:
+	ld	bc, -1863
+	lea	hl, ix
+	add	hl, bc
+	ld	hl, (hl)
+	push	hl
+	call	_free
+	pop	hl
 	call	_gfx_End
 	or	a, a
 	sbc	hl, hl
@@ -2692,6 +2725,7 @@ _.str.16:
 	extern	__setflag
 	extern	__iand
 	extern	_gfx_FillRectangle
+	extern	_gfx_AllocSprite
 	extern	_ti_Open
 	extern	__ltof
 	extern	_delay
@@ -2703,6 +2737,7 @@ _.str.16:
 	extern	_strcmp
 	extern	_gfx_GetStringWidth
 	extern	_ti_Write
+	extern	_gfx_GetSprite
 	extern	__ultof
 	extern	__ishru
 	extern	_gfx_SwapDraw

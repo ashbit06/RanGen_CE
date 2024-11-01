@@ -397,6 +397,9 @@ int main() {
     struct Player player;
     resetPlayer(&player, spawnX, spawnY);
 
+    gfx_sprite_t *behind_sprite = gfx_MallocSprite(GFX_LCD_WIDTH, GFX_LCD_HEIGHT);
+    gfx_GetSprite(behind_sprite, 0, 0);
+
     struct Menu menu;
     menu.show = false;
     const char *menuMode = "START";
@@ -480,6 +483,7 @@ int main() {
         ti_Close(file);
     }
 
+    free(behind_sprite);
     gfx_End();
     return 0;
 }

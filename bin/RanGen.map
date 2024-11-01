@@ -2,14 +2,14 @@ Section          Base   Top    High   Length
 ---------------- ------ ------ ------ -------
 .icon            D1A882 D1A9A8           126h
 .init.libs       D1A9A8 D1AA00            58h
-.libs            D1AA00 D1AA7B            7Bh
-.init.clock      D1AA7B D1AA96            1Bh
-.init.reruncheck D1AA96 D1AA96             0h
-.init            D1AA96 D1AAC0            2Ah
-.fini            D1AAC0 D1AAF4            34h
-.text            D1AAF4 D1C332          183Eh
-.data            D1C332 D1C345            13h
-.rodata          D1C345 D1C488           143h
+.libs            D1AA00 D1AA83            83h
+.init.clock      D1AA83 D1AA9E            1Bh
+.init.reruncheck D1AA9E D1AA9E             0h
+.init            D1AA9E D1AAC8            2Ah
+.fini            D1AAC8 D1AAFC            34h
+.text            D1AAFC D1C388          188Ch
+.data            D1C388 D1C39B            13h
+.rodata          D1C39B D1C4DE           143h
 .init_array      000000 000000             0h
 .ctors           000000 000000             0h
 .dtors           000000 000000             0h
@@ -29,17 +29,17 @@ ___ctors_count             = 000000
 ___dtors_count             = 000000
 ___fini_array_count        = 000000
 __stack                    = D1A87E
-__frameset                 = D1AAF4
-__frameset0                = D1AB02
-__iand                     = D1AB0D
-__idvrms                   = D1AB26
-__idvrmu                   = D1AB54
-__imulu                    = D1AB6C
-__ineg                     = D1AB9C
-__irems                    = D1ABA5
-__ishl                     = D1ABAD
-__ishru                    = D1ABD3
-__lmulu                    = D1AC14
+__frameset                 = D1AAFC
+__frameset0                = D1AB0A
+__iand                     = D1AB15
+__idvrms                   = D1AB2E
+__idvrmu                   = D1AB5C
+__imulu                    = D1AB74
+__ineg                     = D1ABA4
+__irems                    = D1ABAD
+__ishl                     = D1ABB5
+__ishru                    = D1ABDB
+__lmulu                    = D1AC1C
 __fadd                     = 000270
 __fcmp                     = 000274
 __fdiv                     = 000278
@@ -50,73 +50,73 @@ __ftoul                    = 00027C
 __ltof                     = 000284
 __setflag                  = 000218
 __ultof                    = 000280
-__sand                     = D1AC70
-__sshl                     = D1ABAD
-_atomic_load_increasing_32 = D1AC79
-_delay                     = D1AC9E
-_os_DisableHomeTextBuffer  = D1ACC8
-_os_EnableHomeTextBuffer   = D1ACDA
-_random                    = D1ACEC
-__setstate                 = D1AD4A
-__state                    = D1C332
-___sleep_common.3          = D1AD5C
-_free                      = D1AD75
-_malloc                    = D1AE32
+__sand                     = D1AC78
+__sshl                     = D1ABB5
+_atomic_load_increasing_32 = D1AC81
+_delay                     = D1ACA6
+_os_DisableHomeTextBuffer  = D1ACD0
+_os_EnableHomeTextBuffer   = D1ACE2
+_random                    = D1ACF4
+__setstate                 = D1AD52
+__state                    = D1C388
+___sleep_common.3          = D1AD64
+_free                      = D1AD7D
+_malloc                    = D1AE3A
 __alloc_base               = D052C6
-_clock                     = D1AED1
+_clock                     = D1AED9
 _fabsf                     = 0220F0
 _logf                      = 0220E4
 _log                       = 0220E4
 _strcmp                    = 0000C8
-_rand                      = D1AEDC
-_sbrk                      = D1AEE9
-__sbrkbase                 = D1C342
-_srand                     = D1AF07
-.missingappvar             = D1C345
-.libloadname               = D1C34A
+_rand                      = D1AEE4
+_sbrk                      = D1AEF1
+__sbrkbase                 = D1C398
+_srand                     = D1AF0F
+.missingappvar             = D1C39B
+.libloadname               = D1C3A0
 .libloadnamelen            = 000007
-.webaddress                = D1C352
-___init_clock              = D1AA7B
-__start                    = D1AA96
-___exithl                  = D1AAC0
-skip._exit                 = D1AAC0
-skip.__Exit                = D1AAC0
-skip._abort                = D1AAC0
-_exit.sp                   = D1AAC1
-_exit.flash_wait_states    = D1AACB
-_drawPlayer                = D1AF0F
-_playerTouchingColor       = D1AF53
-_playerMovement            = D1B106
-_debugPlayerPosition       = D1B456
-_drawTile                  = D1B4A6
-JTI7_0                     = D1C367
-JTI7_1                     = D1C37C
-JTI7_2                     = D1C388
-JTI7_3                     = D1C394
-_generateMap               = D1B69C
-JTI8_0                     = D1C3A0
-JTI8_1                     = D1C3B2
-_drawMap                   = D1B92E
-_handleMenuMode            = D1B9CC
-_drawMenu                  = D1B9FF
-_main                      = D1BD51
-_.str                      = D1C3BE
-_.str.1                    = D1C3CB
-_.str.2                    = D1C3CE
-_.str.3                    = D1C3D4
-_.str.4                    = D1C3DE
-_.str.5                    = D1C3F0
-_.str.6                    = D1C401
-_.str.7                    = D1C402
-_.str.8                    = D1C428
-_.str.9                    = D1C454
-_.str.10                   = D1C45F
-_.str.11                   = D1C46A
-_.str.12                   = D1C470
-_.str.13                   = D1C477
-_.str.14                   = D1C47E
-_.str.15                   = D1C480
-_.str.16                   = D1C482
+.webaddress                = D1C3A8
+___init_clock              = D1AA83
+__start                    = D1AA9E
+___exithl                  = D1AAC8
+skip._exit                 = D1AAC8
+skip.__Exit                = D1AAC8
+skip._abort                = D1AAC8
+_exit.sp                   = D1AAC9
+_exit.flash_wait_states    = D1AAD3
+_drawPlayer                = D1AF17
+_playerTouchingColor       = D1AF5B
+_playerMovement            = D1B10E
+_debugPlayerPosition       = D1B45E
+_drawTile                  = D1B4AE
+JTI7_0                     = D1C3BD
+JTI7_1                     = D1C3D2
+JTI7_2                     = D1C3DE
+JTI7_3                     = D1C3EA
+_generateMap               = D1B6A4
+JTI8_0                     = D1C3F6
+JTI8_1                     = D1C408
+_drawMap                   = D1B936
+_handleMenuMode            = D1B9D4
+_drawMenu                  = D1BA07
+_main                      = D1BD59
+_.str                      = D1C414
+_.str.1                    = D1C421
+_.str.2                    = D1C424
+_.str.3                    = D1C42A
+_.str.4                    = D1C434
+_.str.5                    = D1C446
+_.str.6                    = D1C457
+_.str.7                    = D1C458
+_.str.8                    = D1C47E
+_.str.9                    = D1C4AA
+_.str.10                   = D1C4B5
+_.str.11                   = D1C4C0
+_.str.12                   = D1C4C6
+_.str.13                   = D1C4CD
+_.str.14                   = D1C4D4
+_.str.15                   = D1C4D6
+_.str.16                   = D1C4D8
 lib.LibLoad                = D1AA00
 _#ti_Open                  = D1AA14
 _#ti_Close                 = D1AA18
@@ -137,5 +137,7 @@ _#gfx_GetStringWidth       = D1AA59
 _#gfx_GetTextX             = D1AA5D
 _#gfx_Rectangle            = D1AA61
 _#gfx_FillRectangle        = D1AA65
-_#gfx_SetTextScale         = D1AA69
-_#kb_Scan                  = D1AA77
+_#gfx_AllocSprite          = D1AA69
+_#gfx_GetSprite            = D1AA6D
+_#gfx_SetTextScale         = D1AA71
+_#kb_Scan                  = D1AA7F
