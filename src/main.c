@@ -243,7 +243,7 @@ void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight
 /*
 take the seed and an integer that is the amount of iterations it took for that specific level to generate
 */
-void loadMap(struct Tile map[15][20], int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, bool spawnBlock) {
+void loadRNGMap(struct Tile map[15][20], int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, bool spawnBlock) {
     srand(seed);
     for (int i = 0; i < iterations; i++) {
         rand();
