@@ -1,21 +1,52 @@
-Section          Base   Top    High   Length
----------------- ------ ------ ------ -------
-.icon            D1A882 D1A9A8           126h
-.init.libs       D1A9A8 D1AA00            58h
-.libs            D1AA00 D1AA7B            7Bh
-.init.clock      D1AA7B D1AA96            1Bh
-.init.reruncheck D1AA96 D1AA96             0h
-.init            D1AA96 D1AAC0            2Ah
-.fini            D1AAC0 D1AAF4            34h
-.text            D1AAF4 D1C332          183Eh
-.data            D1C332 D1C345            13h
-.rodata          D1C345 D1C488           143h
-.init_array      000000 000000             0h
-.ctors           000000 000000             0h
-.dtors           000000 000000             0h
-.fini_array      000000 000000             0h
-.bss             D052C6 D052CC D13FD8      6h
-.header          D1A87F D1A882             3h
+Section                Base   Top    High   Length
+---------------------- ------ ------ ------ -------
+.comment               000000 002A3F          2A3Fh
+.debug_abbrev          000000 0002A3           2A3h
+.debug_addr            000000 0001BE           1BEh
+.debug_aranges         000000 000000             0h
+.debug_frame           000000 000189           189h
+.debug_info            000000 000B55           B55h
+.debug_line            000000 000A1E           A1Eh
+.debug_line_str        000000 000000             0h
+.debug_loc             000000 000000             0h
+.debug_loclists        000000 00048A           48Ah
+.debug_macinfo         000000 000000             0h
+.debug_macro           000000 000000             0h
+.debug_names           000000 000000             0h
+.debug_pubnames        000000 000000             0h
+.debug_pubtypes        000000 000000             0h
+.debug_ranges          000000 000000             0h
+.debug_rnglists        000000 000000             0h
+.debug_str             000000 00043F           43Fh
+.debug_str_offsets     000000 0001B4           1B4h
+.debug_sup             000000 000000             0h
+.debug_types           000000 000000             0h
+.debug_abbrev.dwo      000000 000000             0h
+.debug_info.dwo        000000 000000             0h
+.debug_line.dwo        000000 000000             0h
+.debug_loclists.dwo    000000 000000             0h
+.debug_macro.dwo       000000 000000             0h
+.debug_rnglists.dwo    000000 000000             0h
+.debug_str.dwo         000000 000000             0h
+.debug_str_offsets.dwo 000000 000000             0h
+.debug_cu_index        000000 000000             0h
+.debug_tu_index        000000 000000             0h
+.icon                  D1A882 D1A9A8           126h
+.init.libs             D1A9A8 D1AA00            58h
+.libs                  D1AA00 D1AA7B            7Bh
+.init.clock            D1AA7B D1AA96            1Bh
+.init.reruncheck       D1AA96 D1AA96             0h
+.init                  D1AA96 D1AAC0            2Ah
+.fini                  D1AAC0 D1AAF4            34h
+.text                  D1AAF4 D1E232          373Eh
+.data                  D1E232 D1E245            13h
+.rodata                D1E245 D1E552           30Dh
+.init_array            000000 000000             0h
+.ctors                 000000 000000             0h
+.dtors                 000000 000000             0h
+.fini_array            000000 000000             0h
+.bss                   D052C6 D052CC D13FD8      6h
+.header                D1A87F D1A882             3h
 
 Label                        Value
 --------------------------   ------
@@ -35,11 +66,36 @@ __iand                     = D1AB0D
 __idvrms                   = D1AB26
 __idvrmu                   = D1AB54
 __imulu                    = D1AB6C
-__ineg                     = D1AB9C
-__irems                    = D1ABA5
-__ishl                     = D1ABAD
-__ishru                    = D1ABD3
-__lmulu                    = D1AC14
+__indcallhl                = D1AB9C
+__ineg                     = D1AB9D
+__ior                      = D1ABA6
+__irems                    = D1ABBF
+__ishl                     = D1ABC7
+__ishru                    = D1ABED
+__ixor                     = D1AC2E
+__ladd                     = D1AC47
+__land                     = D1AC4D
+__lcmpu                    = D1AC68
+__lcmpzero                 = D1AC70
+__lladd                    = D1AC78
+__lland                    = D1AC9C
+__llcmpu                   = D1ACD9
+__llcmpzero                = D1AD03
+__llctlz                   = D1AD18
+__lldivs                   = D1AD30
+__lldivu                   = D1AD80
+__lldvrmu                  = D1AD94
+__lldvrmu.hijack           = D1AD9B
+__llmulu                   = D1ADF2
+__llneg                    = D1AE47
+__llshl                    = D1AE60
+__llshrs.hijack_llshru     = D1AE8E
+__llshrs.finish            = D1AEAD
+__llshru                   = D1AEB1
+__llsub                    = D1AECB
+__lmulu                    = D1AEED
+__lshrs.hijack_lshru       = D1AF55
+__lshru                    = D1AF64
 __fadd                     = 000270
 __fcmp                     = 000274
 __fdiv                     = 000278
@@ -50,32 +106,55 @@ __ftoul                    = 00027C
 __ltof                     = 000284
 __setflag                  = 000218
 __ultof                    = 000280
-__sand                     = D1AC70
-__sshl                     = D1ABAD
-_atomic_load_increasing_32 = D1AC79
-_delay                     = D1AC9E
-_os_DisableHomeTextBuffer  = D1ACC8
-_os_EnableHomeTextBuffer   = D1ACDA
-_random                    = D1ACEC
-__setstate                 = D1AD4A
-__state                    = D1C332
-___sleep_common.3          = D1AD5C
-_free                      = D1AD75
-_malloc                    = D1AE32
+__sand                     = D1AF74
+_atomic_load_increasing_32 = D1AF7D
+_delay                     = D1AFA2
+_os_DisableHomeTextBuffer  = D1AFCC
+_os_EnableHomeTextBuffer   = D1AFDE
+_random                    = D1AFF0
+__setstate                 = D1B04E
+__state                    = D1E232
+___sleep_common.3          = D1B060
+_free                      = D1B079
+_malloc                    = D1B136
 __alloc_base               = D052C6
-_clock                     = D1AED1
+_npf_vpprintf              = D1B1D5
+JTI0_0                     = D1E245
+JTI0_1                     = D1E263
+JTI0_2                     = D1E2A8
+JTI0_3                     = D1E2C9
+JTI0_4                     = D1E2E1
+JTI0_5                     = D1E2F9
+_npf_utoa_rev              = D1C93F
+__printf_c                 = D1CA07
+__vsnprintf_c              = D1CA26
+_npf_bufputc               = D1CAAC
+_npf_bufputc_nop           = D1CAD1
+__snprintf_c               = D1CAD8
+__vsprintf_c               = D1CB00
+__vprintf_c                = D1CB1F
+_npf_putc_std              = D1CB3F
+__sprintf_c                = D1CB4F
+_.str                      = D1E311
+_.str.1                    = D1E315
+_.str.2                    = D1E319
+_clock                     = D1CB78
 _fabsf                     = 0220F0
 _logf                      = 0220E4
 _log                       = 0220E4
 _strcmp                    = 0000C8
-_rand                      = D1AEDC
-_sbrk                      = D1AEE9
-__sbrkbase                 = D1C342
-_srand                     = D1AF07
-.missingappvar             = D1C345
-.libloadname               = D1C34A
+_outchar                   = D1CB83
+_sprintf                   = D1CB4F
+_vprintf                   = D1CB1F
+_vsnprintf                 = D1CA26
+_rand                      = D1CB99
+_sbrk                      = D1CBA6
+__sbrkbase                 = D1E242
+_srand                     = D1CBC4
+.missingappvar             = D1E31D
+.libloadname               = D1E322
 .libloadnamelen            = 000007
-.webaddress                = D1C352
+.webaddress                = D1E32A
 ___init_clock              = D1AA7B
 __start                    = D1AA96
 ___exithl                  = D1AAC0
@@ -84,39 +163,477 @@ skip.__Exit                = D1AAC0
 skip._abort                = D1AAC0
 _exit.sp                   = D1AAC1
 _exit.flash_wait_states    = D1AACB
-_drawPlayer                = D1AF0F
-_playerTouchingColor       = D1AF53
-_playerMovement            = D1B106
-_debugPlayerPosition       = D1B456
-_drawTile                  = D1B4A6
-JTI7_0                     = D1C367
-JTI7_1                     = D1C37C
-JTI7_2                     = D1C388
-JTI7_3                     = D1C394
-_generateMap               = D1B69C
-JTI8_0                     = D1C3A0
-JTI8_1                     = D1C3B2
-_drawMap                   = D1B92E
-_handleMenuMode            = D1B9CC
-_drawMenu                  = D1B9FF
-_main                      = D1BD51
-_.str                      = D1C3BE
-_.str.1                    = D1C3CB
-_.str.2                    = D1C3CE
-_.str.3                    = D1C3D4
-_.str.4                    = D1C3DE
-_.str.5                    = D1C3F0
-_.str.6                    = D1C401
-_.str.7                    = D1C402
-_.str.8                    = D1C428
-_.str.9                    = D1C454
-_.str.10                   = D1C45F
-_.str.11                   = D1C46A
-_.str.12                   = D1C470
-_.str.13                   = D1C477
-_.str.14                   = D1C47E
-_.str.15                   = D1C480
-_.str.16                   = D1C482
+func_begin0                = D1CBCC
+tmp1                       = D1CBD7
+tmp2                       = D1CBE5
+tmp4                       = D1CBEC
+tmp5                       = D1CBEE
+tmp8                       = D1CBFF
+tmp9                       = D1CC05
+func_end0                  = D1CC1E
+_drawPlayer                = D1CC1E
+func_begin1                = D1CC1E
+tmp15                      = D1CC2B
+tmp20                      = D1CC5D
+func_end1                  = D1CC62
+func_begin2                = D1CC62
+func_end2                  = D1CC94
+_playerTouchingColor       = D1CC94
+func_begin3                = D1CC94
+tmp35                      = D1CCD5
+tmp36                      = D1CCDA
+tmp39                      = D1CCF9
+tmp40                      = D1CCFE
+tmp43                      = D1CD1D
+tmp44                      = D1CD22
+tmp45                      = D1CD2E
+tmp46                      = D1CD36
+tmp49                      = D1CD52
+tmp52                      = D1CD68
+tmp59                      = D1CDAF
+tmp64                      = D1CDCA
+tmp67                      = D1CDD8
+tmp71                      = D1CDF2
+tmp73                      = D1CE00
+tmp80                      = D1CE3C
+tmp83                      = D1CE4B
+func_end3                  = D1CE51
+_playerMovement            = D1CE51
+func_begin4                = D1CE51
+tmp86                      = D1CE63
+tmp87                      = D1CE6C
+tmp89                      = D1CE80
+tmp90                      = D1CE8F
+tmp92                      = D1CEA8
+tmp93                      = D1CEB1
+tmp94                      = D1CEC8
+tmp95                      = D1CED2
+tmp96                      = D1CED5
+tmp98                      = D1CEDD
+tmp100                     = D1CEEB
+tmp101                     = D1CF08
+tmp108                     = D1CF6C
+tmp109                     = D1CF6F
+tmp121                     = D1CFE8
+tmp133                     = D1D0BC
+tmp135                     = D1D0CC
+tmp136                     = D1D0E9
+tmp143                     = D1D14C
+tmp144                     = D1D14F
+tmp152                     = D1D1AC
+func_end4                  = D1D1B1
+func_begin5                = D1D1B1
+tmp155                     = D1D1BC
+tmp156                     = D1D1CA
+tmp158                     = D1D1D5
+tmp159                     = D1D1DE
+tmp160                     = D1D1E3
+tmp161                     = D1D1EC
+tmp164                     = D1D201
+func_end5                  = D1D217
+_debugPlayerPosition       = D1D217
+func_begin6                = D1D217
+tmp168                     = D1D224
+tmp169                     = D1D22F
+tmp171                     = D1D243
+tmp172                     = D1D24E
+tmp174                     = D1D262
+func_end6                  = D1D267
+_drawTile                  = D1D267
+func_begin7                = D1D267
+tmp183                     = D1D2A6
+tmp184                     = D1D2BC
+tmp186                     = D1D2EE
+tmp188                     = D1D30C
+tmp191                     = D1D340
+tmp194                     = D1D370
+tmp204                     = D1D3B8
+tmp207                     = D1D3E3
+tmp208                     = D1D3FD
+func_end7                  = D1D461
+JTI7_0                     = D1E33F
+JTI7_1                     = D1E354
+JTI7_2                     = D1E360
+JTI7_3                     = D1E36C
+_generateMap               = D1D461
+func_begin8                = D1D461
+tmp217                     = D1D474
+tmp218                     = D1D484
+tmp223                     = D1D4BC
+tmp227                     = D1D504
+tmp231                     = D1D537
+tmp233                     = D1D546
+tmp241                     = D1D5A7
+tmp246                     = D1D5C2
+tmp249                     = D1D5EC
+tmp253                     = D1D626
+tmp254                     = D1D627
+tmp256                     = D1D632
+tmp257                     = D1D636
+tmp258                     = D1D63E
+tmp259                     = D1D641
+tmp267                     = D1D682
+tmp268                     = D1D687
+tmp271                     = D1D69D
+tmp272                     = D1D6A3
+tmp273                     = D1D6A5
+tmp274                     = D1D6A9
+tmp278                     = D1D6C0
+tmp279                     = D1D6C4
+tmp280                     = D1D6C8
+tmp281                     = D1D6CC
+func_end8                  = D1D6FF
+JTI8_0                     = D1E378
+JTI8_1                     = D1E38A
+func_begin9                = D1D6FF
+tmp286                     = D1D73A
+tmp287                     = D1D73F
+tmp288                     = D1D742
+tmp289                     = D1D743
+tmp292                     = D1D758
+tmp293                     = D1D75C
+tmp295                     = D1D763
+tmp298                     = D1D771
+tmp299                     = D1D79B
+func_end9                  = D1D7A3
+_drawMap                   = D1D7A3
+func_begin10               = D1D7A3
+tmp303                     = D1D7B9
+tmp305                     = D1D7C9
+tmp308                     = D1D7DC
+tmp310                     = D1D807
+tmp311                     = D1D814
+tmp312                     = D1D818
+tmp313                     = D1D81B
+tmp314                     = D1D820
+tmp315                     = D1D831
+tmp316                     = D1D835
+tmp317                     = D1D842
+func_end10                 = D1D847
+_handleMenuMode            = D1D847
+func_begin11               = D1D847
+tmp324                     = D1D868
+tmp325                     = D1D86D
+func_end11                 = D1D8CF
+JTI11_0                    = D1E396
+_drawMenu                  = D1D8CF
+func_begin12               = D1D8CF
+tmp339                     = D1D8E2
+tmp343                     = D1D8F6
+tmp345                     = D1D915
+tmp353                     = D1D941
+tmp354                     = D1D944
+tmp355                     = D1D94C
+tmp356                     = D1D961
+tmp357                     = D1D96E
+tmp358                     = D1D983
+tmp370                     = D1DA4D
+tmp372                     = D1DA64
+tmp374                     = D1DA7E
+tmp375                     = D1DA8B
+tmp376                     = D1DA96
+tmp377                     = D1DA9F
+tmp381                     = D1DAC2
+tmp382                     = D1DAD5
+tmp384                     = D1DADA
+tmp385                     = D1DAF4
+tmp386                     = D1DAF8
+tmp387                     = D1DAFB
+tmp389                     = D1DB17
+tmp390                     = D1DB19
+tmp392                     = D1DB35
+tmp393                     = D1DB38
+tmp399                     = D1DB5E
+tmp400                     = D1DB68
+tmp402                     = D1DB89
+tmp403                     = D1DB9D
+tmp404                     = D1DBA9
+tmp405                     = D1DBB2
+tmp407                     = D1DBC1
+tmp408                     = D1DBD4
+tmp410                     = D1DBD9
+tmp411                     = D1DBF3
+func_end12                 = D1DC10
+_main                      = D1DC10
+func_begin13               = D1DC10
+tmp418                     = D1DC75
+tmp419                     = D1DC7F
+tmp420                     = D1DC8D
+tmp421                     = D1DC8E
+tmp422                     = D1DCAE
+tmp423                     = D1DCB1
+tmp425                     = D1DCC4
+tmp426                     = D1DCC7
+tmp427                     = D1DCCC
+tmp429                     = D1DCEB
+tmp430                     = D1DCEC
+tmp431                     = D1DCF0
+tmp432                     = D1DCF4
+tmp434                     = D1DD09
+tmp435                     = D1DD18
+tmp436                     = D1DD2B
+tmp438                     = D1DD59
+tmp439                     = D1DD5E
+tmp441                     = D1DD97
+tmp442                     = D1DD9D
+tmp443                     = D1DDAD
+tmp444                     = D1DDCC
+tmp445                     = D1DDCF
+tmp446                     = D1DDDC
+tmp447                     = D1DDEB
+tmp448                     = D1DDEF
+tmp451                     = D1DE0A
+tmp452                     = D1DE14
+tmp453                     = D1DE23
+tmp454                     = D1DE2F
+tmp455                     = D1DE3A
+tmp456                     = D1DE3F
+tmp457                     = D1DE4D
+tmp458                     = D1DE53
+tmp459                     = D1DE57
+tmp460                     = D1DE63
+tmp461                     = D1DE79
+tmp462                     = D1DE85
+tmp463                     = D1DE96
+tmp464                     = D1DE9B
+tmp465                     = D1DEAA
+tmp466                     = D1DEB4
+tmp467                     = D1DEC5
+tmp468                     = D1DED8
+tmp471                     = D1DEFD
+tmp472                     = D1DF0C
+tmp482                     = D1DF77
+tmp485                     = D1DFA8
+tmp486                     = D1DFB2
+tmp487                     = D1DFDD
+tmp488                     = D1DFE6
+tmp489                     = D1DFEF
+tmp491                     = D1E020
+tmp492                     = D1E041
+tmp493                     = D1E068
+tmp495                     = D1E09B
+tmp496                     = D1E0A0
+tmp497                     = D1E0A6
+tmp500                     = D1E0E0
+tmp501                     = D1E0E3
+tmp502                     = D1E0E7
+tmp503                     = D1E0F0
+tmp504                     = D1E0F5
+tmp505                     = D1E121
+tmp506                     = D1E131
+tmp507                     = D1E135
+tmp508                     = D1E158
+tmp509                     = D1E184
+tmp510                     = D1E18A
+tmp511                     = D1E19A
+tmp512                     = D1E1B9
+tmp513                     = D1E1C4
+tmp514                     = D1E1C8
+tmp515                     = D1E1CD
+tmp516                     = D1E1D0
+tmp518                     = D1E1D8
+tmp519                     = D1E1E6
+tmp520                     = D1E1E9
+tmp521                     = D1E1EE
+tmp522                     = D1E203
+tmp523                     = D1E20B
+tmp524                     = D1E212
+tmp525                     = D1E225
+tmp527                     = D1E22A
+func_end13                 = D1E232
+_.str                      = D1E3A2
+_.str.1                    = D1E3AF
+_.str.2                    = D1E3B2
+_.str.3                    = D1E3E4
+_.str.4                    = D1E3EA
+_.str.5                    = D1E401
+_.str.6                    = D1E418
+_.str.7                    = D1E430
+_.str.8                    = D1E449
+_.str.9                    = D1E453
+_.str.10                   = D1E465
+_.str.11                   = D1E476
+_.str.12                   = D1E477
+_.str.13                   = D1E49D
+_.str.14                   = D1E4C9
+_.str.15                   = D1E4D4
+_.str.16                   = D1E4DF
+_.str.17                   = D1E4E5
+_.str.18                   = D1E4EC
+_.str.19                   = D1E4FA
+_.str.20                   = D1E501
+_.str.21                   = D1E503
+_.str.22                   = D1E505
+_.str.23                   = D1E51D
+_.str.24                   = D1E523
+debug_list_header_start0   = 000004
+loclists_table_base0       = 00000C
+debug_loc0                 = 0000D8
+debug_loc1                 = 0000EA
+debug_loc2                 = 0000F1
+debug_loc3                 = 0000F7
+debug_loc4                 = 000102
+debug_loc5                 = 000113
+debug_loc6                 = 000123
+debug_loc7                 = 000136
+debug_loc8                 = 000149
+debug_loc9                 = 00016D
+debug_loc10                = 000185
+debug_loc11                = 00019D
+debug_loc12                = 0001AC
+debug_loc13                = 0001B4
+debug_loc14                = 0001C3
+debug_loc15                = 0001D2
+debug_loc16                = 0001DA
+debug_loc17                = 000201
+debug_loc18                = 000210
+debug_loc19                = 000220
+debug_loc20                = 000234
+debug_loc21                = 000244
+debug_loc22                = 00024C
+debug_loc23                = 000256
+debug_loc24                = 000265
+debug_loc25                = 000292
+debug_loc26                = 00029A
+debug_loc27                = 0002B1
+debug_loc28                = 0002C0
+debug_loc29                = 0002D0
+debug_loc30                = 0002E6
+debug_loc31                = 000330
+debug_loc32                = 000361
+debug_loc33                = 00036A
+debug_loc34                = 000375
+debug_loc35                = 000380
+debug_loc36                = 00038A
+debug_loc37                = 000395
+debug_loc38                = 00039F
+debug_loc39                = 0003BC
+debug_loc40                = 0003C7
+debug_loc41                = 0003D1
+debug_loc42                = 0003DA
+debug_loc43                = 00042E
+debug_loc44                = 000445
+debug_loc45                = 00044E
+debug_loc46                = 000459
+debug_loc47                = 000463
+debug_loc48                = 00046C
+debug_loc49                = 000477
+debug_loc50                = 000481
+debug_list_header_end0     = 00048A
+abbrev_start0              = 000000
+debug_info_start0          = 000004
+debug_info_end0            = 000B55
+str_offsets_base0          = 000008
+info_string0               = 000000
+info_string1               = 000069
+info_string2               = 000074
+info_string3               = 000096
+info_string4               = 00009B
+info_string5               = 0000AF
+info_string6               = 0000BC
+info_string7               = 0000C7
+info_string8               = 0000D2
+info_string9               = 0000D6
+info_string10              = 0000E4
+info_string11              = 0000EC
+info_string12              = 0000FB
+info_string13              = 000104
+info_string14              = 00010E
+info_string15              = 000114
+info_string16              = 000122
+info_string17              = 00012B
+info_string18              = 000138
+info_string19              = 00014A
+info_string20              = 000157
+info_string21              = 000160
+info_string22              = 00016E
+info_string23              = 00017E
+info_string24              = 00018B
+info_string25              = 000190
+info_string26              = 000196
+info_string27              = 0001A4
+info_string28              = 0001B5
+info_string29              = 0001C8
+info_string30              = 0001D5
+info_string31              = 0001E8
+info_string32              = 0001F4
+info_string33              = 0001F6
+info_string34              = 0001F8
+info_string35              = 0001FA
+info_string36              = 0001FD
+info_string37              = 000200
+info_string38              = 000208
+info_string39              = 00020E
+info_string40              = 000215
+info_string41              = 00021C
+info_string42              = 000223
+info_string43              = 00022F
+info_string44              = 000237
+info_string45              = 000240
+info_string46              = 000247
+info_string47              = 00024F
+info_string48              = 000258
+info_string49              = 000260
+info_string50              = 00026F
+info_string51              = 00027C
+info_string52              = 000282
+info_string53              = 00028A
+info_string54              = 00028E
+info_string55              = 000299
+info_string56              = 0002AA
+info_string57              = 0002BE
+info_string58              = 0002CD
+info_string59              = 0002E1
+info_string60              = 0002EA
+info_string61              = 0002F6
+info_string62              = 0002FE
+info_string63              = 000306
+info_string64              = 000315
+info_string65              = 00031E
+info_string66              = 000323
+info_string67              = 000325
+info_string68              = 000329
+info_string69              = 00032E
+info_string70              = 000334
+info_string71              = 00033C
+info_string72              = 000342
+info_string73              = 000345
+info_string74              = 000348
+info_string75              = 00034B
+info_string76              = 00034E
+info_string77              = 000355
+info_string78              = 000357
+info_string79              = 00035C
+info_string80              = 000365
+info_string81              = 00036A
+info_string82              = 000375
+info_string83              = 00037B
+info_string84              = 000385
+info_string85              = 000389
+info_string86              = 000392
+info_string87              = 00039F
+info_string88              = 0003AA
+info_string89              = 0003B5
+info_string90              = 0003BA
+info_string91              = 0003C3
+info_string92              = 0003CC
+info_string93              = 0003D1
+info_string94              = 0003D6
+info_string95              = 0003DC
+info_string96              = 0003E4
+info_string97              = 0003ED
+info_string98              = 0003F4
+info_string99              = 0003FC
+info_string100             = 000401
+info_string101             = 000406
+info_string102             = 00040D
+info_string103             = 00041E
+info_string104             = 00042B
+info_string105             = 000430
+info_string106             = 000439
+debug_addr_start0          = 000004
+addr_table_base0           = 000008
+debug_addr_end0            = 0001BE
 lib.LibLoad                = D1AA00
 _#ti_Open                  = D1AA14
 _#ti_Close                 = D1AA18

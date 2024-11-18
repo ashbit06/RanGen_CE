@@ -262,14 +262,16 @@ void drawMap(struct Tile map[15][20]) {
 
 
 const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected) {
+    dbg_printf("user selected a menu option. selected option %d.\n", selected);
     if (!strcmp(menuMode, "START")) {
-        if (selected == 0) {
-
-        } else if (selected == 1) {
-
-        } else if (selected == 2) {
-
-        } else if (selected == 3) {
+        if (selected == 0) { // save
+            dbg_printf("running option \"save\"\n");
+        } else if (selected == 1) { // load
+            dbg_printf("running option \"load\"\n");
+        } else if (selected == 2) { // about
+            dbg_printf("running option \"about\"\n");
+        } else if (selected == 3) { // resume
+            dbg_printf("running option \"resume\"\n");
             menu->show = false;
         }
     }
@@ -277,13 +279,13 @@ const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected
     return menuMode;
 }
 
-void drawMenu(struct Menu *menu, const char *mode, int selected) {
+int drawMenu(struct Menu *menu, const char *mode, int selected) {
     // handle user input
-    if (kb_IsDown(kb_KeyEnter)) {
-        selected = 0;
-    }
+    // if (kb_IsDown(kb_KeyEnter)) {
+    //     handleMenuMode(menu, mode, selected);
+    // }
     if (kb_IsDown(kb_KeyUp)) selected--;
-    if (kb_IsDown(kb_KeyDown)) selected++;
+    else if (kb_IsDown(kb_KeyDown)) selected++;
     
     // handle rollover
     if (selected < 0) selected = 0;
@@ -350,6 +352,8 @@ void drawMenu(struct Menu *menu, const char *mode, int selected) {
     // free ram
     free(menu->infoList);
     free(menu->optList);
+
+    return selected;
 }
 
 
@@ -454,6 +458,7 @@ int main() {
             // toggle menu and set canMove to the opposite of the menu toggle
             menu.show = !menu.show;
             player.canMove = !menu.show;
+            selected = 0;
             dbg_printf("mode key pressed, new menu toggle value is %d\n", menu.show);
         }
 
@@ -462,8 +467,7 @@ int main() {
 
         if (menu.show) {
             // handle key presses
-            drawMenu(&menu, menuMode, selected);
-            selected += 1;
+            selected = drawMenu(&menu, menuMode, selected);
 
             if (kb_IsDown(kb_KeyEnter))
                 menuMode = handleMenuMode(&menu, menuMode, selected);
