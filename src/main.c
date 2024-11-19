@@ -294,9 +294,6 @@ const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected
 
 int drawMenu(struct Menu *menu, const char *mode, int selected) {
     // handle user input
-    // if (kb_IsDown(kb_KeyEnter)) {
-    //     handleMenuMode(menu, mode, selected);
-    // }
     if (kb_IsDown(kb_KeyUp)) selected--;
     else if (kb_IsDown(kb_KeyDown)) selected++;
     
@@ -330,22 +327,16 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
         menu->optList[3] = "Resume";
     }
     else if (!strcmp(mode, "MAP")) {
-        char buffer[45];
         menu->title = "Map Generation";
         menu->infoLen = 6;
         menu->infoList = malloc(menu->infoLen * sizeof(char*));
 
         menu->infoList[0] = "Edit the map generation parameters.";
-        sprintf(buffer, "spawn coords: (%d, %d)", spawnX, spawnY);
-        strcpy(menu->infoList[1], buffer);
-        sprintf(buffer, "spawn block: %d", (int)spawnBlock);
-        strcpy(menu->infoList[2], buffer);
-        sprintf(buffer, "cave height: %d", caveHeight);
-        strcpy(menu->infoList[3], buffer);
-        sprintf(buffer, "whitespace chance: %d", wsChance);
-        strcpy(menu->infoList[4], buffer);
-        sprintf(buffer, "block variety: %d", blockVariety);
-        strcpy(menu->infoList[5], buffer);
+        menu->infoList[1] = "spawn coords:";
+        menu->infoList[1] = "spawn block:";
+        menu->infoList[1] = "cave height:";
+        menu->infoList[1] = "whitespace chance:";
+        menu->infoList[1] = "block variety:";
 
         menu->optLen = 7;
         menu->optList = malloc(menu->optLen * sizeof(char*));
