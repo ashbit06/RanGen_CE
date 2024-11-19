@@ -333,10 +333,10 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
 
         menu->infoList[0] = "Edit the map generation parameters.";
         menu->infoList[1] = "spawn coords:";
-        menu->infoList[1] = "spawn block:";
-        menu->infoList[1] = "cave height:";
-        menu->infoList[1] = "whitespace chance:";
-        menu->infoList[1] = "block variety:";
+        menu->infoList[2] = "spawn block:";
+        menu->infoList[3] = "cave height:";
+        menu->infoList[4] = "whitespace chance:";
+        menu->infoList[5] = "block variety:";
 
         menu->optLen = 7;
         menu->optList = malloc(menu->optLen * sizeof(char*));

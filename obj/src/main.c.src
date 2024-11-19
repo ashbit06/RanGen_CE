@@ -1,6 +1,6 @@
 	section	.text,"ax",@progbits
 	assume	adl = 1
-	file	0 "/Users/ashton/Documents/RanGen_CE" "src/main.c" md5 0xbabc4c9f0d534f603177e5e40789f1a4
+	file	0 "/Users/ashton/Documents/RanGen_CE" "src/main.c" md5 0xfde3111b10f5e27526099e826cb47334
 	file	1 "/Users/ashton" "CEdev/include/graphx.h" md5 0x2fb5c40633f3fe8d7b282be31c8f34d8
 	file	2 "/Users/ashton" "CEdev/include/stdint.h" md5 0x6e1e418db59a513b9b4298147e26150f
 	file	3 "/Users/ashton" "CEdev/include/keypadc.h" md5 0x08ccc68d35ea83ac8f06307257ddf02f
@@ -3076,9 +3076,21 @@ tmp380:
 	push	de
 	pop	iy
 	ld	(iy), hl
+	loc	0 335 27
+	ld	hl, _.str.20
+	ld	(iy + 3), hl
+	loc	0 336 27
+	ld	hl, _.str.21
+	ld	(iy + 6), hl
+	loc	0 337 27
+	ld	hl, _.str.22
+	ld	(iy + 9), hl
+	loc	0 338 27
+	ld	hl, _.str.23
+	ld	(iy + 12), hl
 	loc	0 339 27
 	ld	hl, _.str.24
-	ld	(iy + 3), hl
+	ld	(iy + 15), hl
 	loc	0 341 22
 	ld	hl, 7
 	ld	iy, (ix + 6)
@@ -4728,6 +4740,26 @@ _.str.19:
 	db	"Edit the map generation parameters.", 0
 
 	section	.rodata,"a",@progbits
+	private	_.str.20
+_.str.20:
+	db	"spawn coords:", 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.21
+_.str.21:
+	db	"spawn block:", 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.22
+_.str.22:
+	db	"cave height:", 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.23
+_.str.23:
+	db	"whitespace chance:", 0
+
+	section	.rodata,"a",@progbits
 	private	_.str.24
 _.str.24:
 	db	"block variety:", 0
@@ -5692,17 +5724,6 @@ abbrev_start0:
 	db	0
 	db	0
 	db	9
-	db	52
-	db	0
-	db	73
-	db	19
-	db	58
-	db	11
-	db	59
-	db	5
-	db	0
-	db	0
-	db	10
 	db	4
 	db	1
 	db	73
@@ -5715,7 +5736,7 @@ abbrev_start0:
 	db	11
 	db	0
 	db	0
-	db	11
+	db	10
 	db	40
 	db	0
 	db	3
@@ -5724,7 +5745,7 @@ abbrev_start0:
 	db	15
 	db	0
 	db	0
-	db	12
+	db	11
 	db	22
 	db	0
 	db	73
@@ -5737,21 +5758,21 @@ abbrev_start0:
 	db	11
 	db	0
 	db	0
-	db	13
+	db	12
 	db	15
 	db	0
 	db	73
 	db	19
 	db	0
 	db	0
-	db	14
+	db	13
 	db	53
 	db	0
 	db	73
 	db	19
 	db	0
 	db	0
-	db	15
+	db	14
 	db	46
 	db	1
 	db	17
@@ -5776,7 +5797,7 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	16
+	db	15
 	db	5
 	db	0
 	db	3
@@ -5789,7 +5810,7 @@ abbrev_start0:
 	db	19
 	db	0
 	db	0
-	db	17
+	db	16
 	db	5
 	db	0
 	db	2
@@ -5804,7 +5825,7 @@ abbrev_start0:
 	db	19
 	db	0
 	db	0
-	db	18
+	db	17
 	db	52
 	db	0
 	db	2
@@ -5819,7 +5840,7 @@ abbrev_start0:
 	db	19
 	db	0
 	db	0
-	db	19
+	db	18
 	db	11
 	db	1
 	db	17
@@ -5828,7 +5849,7 @@ abbrev_start0:
 	db	6
 	db	0
 	db	0
-	db	20
+	db	19
 	db	46
 	db	1
 	db	17
@@ -5851,7 +5872,7 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	21
+	db	20
 	db	72
 	db	0
 	db	127
@@ -5860,7 +5881,7 @@ abbrev_start0:
 	db	27
 	db	0
 	db	0
-	db	22
+	db	21
 	db	46
 	db	1
 	db	3
@@ -5877,16 +5898,16 @@ abbrev_start0:
 	db	25
 	db	63
 	db	25
+	db	0
+	db	0
+	db	22
+	db	5
+	db	0
+	db	73
+	db	19
 	db	0
 	db	0
 	db	23
-	db	5
-	db	0
-	db	73
-	db	19
-	db	0
-	db	0
-	db	24
 	db	46
 	db	1
 	db	3
@@ -5903,7 +5924,7 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	25
+	db	24
 	db	5
 	db	0
 	db	2
@@ -5918,14 +5939,14 @@ abbrev_start0:
 	db	19
 	db	0
 	db	0
-	db	26
+	db	25
 	db	38
 	db	0
 	db	73
 	db	19
 	db	0
 	db	0
-	db	27
+	db	26
 	db	52
 	db	0
 	db	2
@@ -5940,7 +5961,7 @@ abbrev_start0:
 	db	19
 	db	0
 	db	0
-	db	28
+	db	27
 	db	46
 	db	0
 	db	3
@@ -5959,7 +5980,7 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	29
+	db	28
 	db	52
 	db	0
 	db	2
@@ -5974,7 +5995,7 @@ abbrev_start0:
 	db	19
 	db	0
 	db	0
-	db	30
+	db	29
 	db	46
 	db	1
 	db	3
@@ -5986,35 +6007,35 @@ abbrev_start0:
 	db	39
 	db	25
 	db	60
+	db	25
+	db	63
+	db	25
+	db	0
+	db	0
+	db	30
+	db	46
+	db	1
+	db	17
+	db	27
+	db	18
+	db	6
+	db	64
+	db	24
+	db	122
+	db	25
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	5
+	db	39
 	db	25
 	db	63
 	db	25
 	db	0
 	db	0
 	db	31
-	db	46
-	db	1
-	db	17
-	db	27
-	db	18
-	db	6
-	db	64
-	db	24
-	db	122
-	db	25
-	db	3
-	db	37
-	db	58
-	db	11
-	db	59
-	db	5
-	db	39
-	db	25
-	db	63
-	db	25
-	db	0
-	db	0
-	db	32
 	db	5
 	db	0
 	db	2
@@ -6029,7 +6050,7 @@ abbrev_start0:
 	db	19
 	db	0
 	db	0
-	db	33
+	db	32
 	db	46
 	db	1
 	db	17
@@ -6054,9 +6075,24 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
+	db	33
+	db	5
+	db	0
+	db	3
+	db	37
+	db	58
+	db	11
+	db	59
+	db	5
+	db	73
+	db	19
+	db	0
+	db	0
 	db	34
 	db	5
 	db	0
+	db	2
+	db	34
 	db	3
 	db	37
 	db	58
@@ -6068,21 +6104,6 @@ abbrev_start0:
 	db	0
 	db	0
 	db	35
-	db	5
-	db	0
-	db	2
-	db	34
-	db	3
-	db	37
-	db	58
-	db	11
-	db	59
-	db	5
-	db	73
-	db	19
-	db	0
-	db	0
-	db	36
 	db	46
 	db	0
 	db	3
@@ -6101,7 +6122,7 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	37
+	db	36
 	db	46
 	db	1
 	db	17
@@ -6124,7 +6145,7 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	38
+	db	37
 	db	52
 	db	0
 	db	2
@@ -6139,7 +6160,7 @@ abbrev_start0:
 	db	19
 	db	0
 	db	0
-	db	39
+	db	38
 	db	46
 	db	1
 	db	3
@@ -6158,17 +6179,17 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	40
+	db	39
 	db	38
 	db	0
 	db	0
 	db	0
-	db	41
+	db	40
 	db	15
 	db	0
 	db	0
 	db	0
-	db	42
+	db	41
 	db	46
 	db	0
 	db	3
@@ -6185,7 +6206,7 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	43
+	db	42
 	db	46
 	db	0
 	db	3
@@ -6202,7 +6223,7 @@ abbrev_start0:
 	db	25
 	db	0
 	db	0
-	db	44
+	db	43
 	db	19
 	db	1
 	db	3
@@ -6215,7 +6236,7 @@ abbrev_start0:
 	db	11
 	db	0
 	db	0
-	db	45
+	db	44
 	db	13
 	db	0
 	db	3
@@ -6230,7 +6251,7 @@ abbrev_start0:
 	db	11
 	db	0
 	db	0
-	db	46
+	db	45
 	db	22
 	db	0
 	db	73
@@ -6261,7 +6282,7 @@ debug_info_start0:
 	dd	str_offsets_base0
 	dd	line_table_start0
 	db	2
-	db	41
+	db	45
 	dd	func_end13-func_begin0
 	dd	addr_table_base0
 	dd	loclists_table_base0
@@ -6583,28 +6604,40 @@ debug_info_start0:
 	dd	139
 	db	36
 	db	0
-	db	9
-	dd	563
+	db	8
+	dd	566
 	db	0
 	dw	335
+	db	2
+	db	161
+	db	26
 	db	5
 	dd	135
 	db	6
 	dd	139
 	db	14
 	db	0
-	db	9
+	db	8
 	dd	123
 	db	0
 	dw	336
-	db	9
+	db	2
+	db	161
+	db	27
+	db	8
 	dd	123
 	db	0
 	dw	337
-	db	9
-	dd	599
+	db	2
+	db	161
+	db	28
+	db	8
+	dd	611
 	db	0
 	dw	338
+	db	2
+	db	161
+	db	29
 	db	5
 	dd	135
 	db	6
@@ -6617,42 +6650,42 @@ debug_info_start0:
 	dw	339
 	db	2
 	db	161
-	db	26
+	db	30
 	db	8
 	dd	520
 	db	0
 	dw	343
 	db	2
 	db	161
-	db	27
+	db	31
 	db	8
 	dd	520
 	db	0
 	dw	344
 	db	2
 	db	161
-	db	28
+	db	32
 	db	8
 	dd	463
 	db	0
 	dw	345
 	db	2
 	db	161
-	db	29
+	db	33
 	db	8
 	dd	463
 	db	0
 	dw	346
 	db	2
 	db	161
-	db	30
+	db	34
 	db	8
-	dd	677
+	dd	689
 	db	0
 	dw	347
 	db	2
 	db	161
-	db	31
+	db	35
 	db	5
 	dd	135
 	db	6
@@ -6665,14 +6698,14 @@ debug_info_start0:
 	dw	348
 	db	2
 	db	161
-	db	32
+	db	36
 	db	8
-	dd	711
+	dd	723
 	db	0
 	dw	349
 	db	2
 	db	161
-	db	33
+	db	37
 	db	5
 	dd	135
 	db	6
@@ -6680,26 +6713,26 @@ debug_info_start0:
 	db	5
 	db	0
 	db	8
-	dd	563
+	dd	566
 	db	0
 	dw	370
 	db	2
 	db	161
-	db	34
+	db	38
 	db	8
 	dd	520
 	db	0
 	dw	408
 	db	2
 	db	161
-	db	35
+	db	39
 	db	8
-	dd	756
+	dd	768
 	db	0
 	dw	408
 	db	2
 	db	161
-	db	36
+	db	40
 	db	5
 	dd	135
 	db	6
@@ -6707,19 +6740,19 @@ debug_info_start0:
 	db	2
 	db	0
 	db	8
-	dd	756
+	dd	768
 	db	0
 	dw	413
 	db	2
 	db	161
-	db	37
+	db	41
 	db	8
-	dd	790
+	dd	802
 	db	0
 	dw	419
 	db	2
 	db	161
-	db	38
+	db	42
 	db	5
 	dd	135
 	db	6
@@ -6732,29 +6765,29 @@ debug_info_start0:
 	dw	445
 	db	2
 	db	161
-	db	39
+	db	43
 	db	8
-	dd	824
+	dd	836
 	db	0
 	dw	486
 	db	2
 	db	161
-	db	40
+	db	44
 	db	5
 	dd	135
 	db	6
 	dd	139
 	db	47
 	db	0
-	db	10
-	dd	851
+	db	9
+	dd	863
 	db	3
 	db	1
 	db	168
-	db	11
+	db	10
 	db	14
 	db	0
-	db	11
+	db	10
 	db	15
 	db	1
 	db	0
@@ -6762,8 +6795,8 @@ debug_info_start0:
 	db	13
 	db	7
 	db	3
-	db	12
-	dd	863
+	db	11
+	dd	875
 	db	17
 	db	2
 	db	11
@@ -6771,12 +6804,12 @@ debug_info_start0:
 	db	16
 	db	8
 	db	1
-	db	13
-	dd	872
-	db	14
-	dd	877
 	db	12
-	dd	885
+	dd	884
+	db	13
+	dd	889
+	db	11
+	dd	897
 	db	19
 	db	2
 	db	35
@@ -6784,8 +6817,8 @@ debug_info_start0:
 	db	18
 	db	7
 	db	2
-	db	12
-	dd	877
+	db	11
+	dd	889
 	db	20
 	db	3
 	db	20
@@ -6793,16 +6826,16 @@ debug_info_start0:
 	db	21
 	db	4
 	db	4
-	db	13
-	dd	135
-	db	13
-	dd	877
-	db	13
-	dd	916
-	db	14
-	dd	921
 	db	12
-	dd	929
+	dd	135
+	db	12
+	dd	889
+	db	12
+	dd	928
+	db	13
+	dd	933
+	db	11
+	dd	941
 	db	23
 	db	2
 	db	71
@@ -6810,8 +6843,8 @@ debug_info_start0:
 	db	22
 	db	7
 	db	4
-	db	15
-	db	41
+	db	14
+	db	45
 	dd	func_end0-func_begin0
 	db	1
 	db	84
@@ -6822,27 +6855,27 @@ debug_info_start0:
 
 	dd	109
 
-	db	16
+	db	15
 	db	67
 	db	0
 	db	53
-	dd	2822
-	db	17
+	dd	2838
+	db	16
 	db	2
 	db	66
 	db	0
 	db	53
 	dd	50
-	db	18
+	db	17
 	db	1
 	db	65
 	db	0
 	db	54
 	dd	109
-	db	19
-	db	42
-	dd	tmp9-tmp1
 	db	18
+	db	46
+	dd	tmp9-tmp1
+	db	17
 	db	0
 	db	64
 	db	0
@@ -6850,8 +6883,8 @@ debug_info_start0:
 	dd	50
 	db	0
 	db	0
-	db	20
-	db	43
+	db	19
+	db	47
 	dd	func_end1-func_begin1
 	db	1
 	db	84
@@ -6861,47 +6894,47 @@ debug_info_start0:
 	db	65
 
 
-	db	16
+	db	15
 	db	68
 	db	0
 	db	65
-	dd	2827
-	db	21
-	dd	1023
-	db	44
-	db	21
-	dd	1038
-	db	45
+	dd	2843
+	db	20
+	dd	1035
+	db	48
+	db	20
+	dd	1050
+	db	49
 	db	0
-	db	22
+	db	21
 	db	24
 	db	1
 	dw	707
 
-	dd	855
+	dd	867
 
 
-	db	23
-	dd	855
+	db	22
+	dd	867
 	db	0
-	db	24
+	db	23
 	db	25
 	db	1
 	dw	877
 
 
 
-	db	23
+	db	22
 	dd	50
-	db	23
+	db	22
 	dd	50
-	db	23
+	db	22
 	dd	50
-	db	23
+	db	22
 	dd	50
 	db	0
-	db	20
-	db	46
+	db	19
+	db	50
 	dd	func_end2-func_begin2
 	db	1
 	db	84
@@ -6911,21 +6944,21 @@ debug_info_start0:
 	db	70
 
 
-	db	16
+	db	15
 	db	68
 	db	0
 	db	70
-	dd	2827
-	db	25
+	dd	2843
+	db	24
 	db	1
 	db	85
 	db	75
 	db	0
 	db	70
-	dd	2878
+	dd	2894
 	db	0
-	db	15
-	db	47
+	db	14
+	db	51
 	dd	func_end3-func_begin3
 	db	1
 	db	84
@@ -6936,74 +6969,74 @@ debug_info_start0:
 
 	dd	109
 
-	db	16
+	db	15
 	db	68
 	db	0
 	db	75
-	dd	2827
-	db	17
+	dd	2843
+	db	16
 	db	3
 	db	76
 	db	0
 	db	75
-	dd	855
-	db	18
+	dd	867
+	db	17
 	db	4
 	db	77
 	db	0
 	db	76
-	dd	855
-	db	18
+	dd	867
+	db	17
 	db	5
 	db	78
 	db	0
 	db	77
-	dd	855
-	db	18
+	dd	867
+	db	17
 	db	6
 	db	79
 	db	0
 	db	78
-	dd	855
-	db	18
+	dd	867
+	db	17
 	db	7
 	db	80
 	db	0
 	db	79
-	dd	855
-	db	21
-	dd	1187
-	db	48
-	db	21
-	dd	1187
-	db	49
-	db	21
-	dd	1187
-	db	50
-	db	21
-	dd	1187
-	db	51
+	dd	867
+	db	20
+	dd	1199
+	db	52
+	db	20
+	dd	1199
+	db	53
+	db	20
+	dd	1199
+	db	54
+	db	20
+	dd	1199
+	db	55
 	db	0
-	db	22
+	db	21
 	db	26
 	db	1
 	dw	767
 
-	dd	855
+	dd	867
 
 
-	db	23
-	dd	1207
-	db	23
-	dd	855
+	db	22
+	dd	1219
+	db	22
+	dd	867
 	db	0
-	db	12
-	dd	851
+	db	11
+	dd	863
 	db	27
 	db	2
 	db	60
-	db	20
-	db	52
+	db	19
+	db	56
 	dd	func_end4-func_begin4
 	db	1
 	db	84
@@ -7013,47 +7046,47 @@ debug_info_start0:
 	db	89
 
 
-	db	17
+	db	16
 	db	8
 	db	68
 	db	0
 	db	89
-	dd	2883
-	db	19
-	db	53
-	dd	tmp121-tmp100
+	dd	2899
 	db	18
+	db	57
+	dd	tmp121-tmp100
+	db	17
 	db	9
 	db	81
 	db	0
 	db	95
 	dd	50
 	db	0
-	db	19
-	db	54
-	dd	tmp152-tmp135
 	db	18
+	db	58
+	dd	tmp152-tmp135
+	db	17
 	db	10
 	db	81
 	db	0
 	db	110
 	dd	50
 	db	0
-	db	21
-	dd	1094
-	db	55
-	db	21
-	dd	1094
-	db	56
-	db	21
-	dd	1094
-	db	57
-	db	21
-	dd	1094
-	db	58
-	db	0
 	db	20
+	dd	1106
 	db	59
+	db	20
+	dd	1106
+	db	60
+	db	20
+	dd	1106
+	db	61
+	db	20
+	dd	1106
+	db	62
+	db	0
+	db	19
+	db	63
 	dd	func_end5-func_begin5
 	db	1
 	db	84
@@ -7063,27 +7096,27 @@ debug_info_start0:
 	db	124
 
 
-	db	17
+	db	16
 	db	13
 	db	68
 	db	0
 	db	124
-	dd	2883
-	db	17
+	dd	2899
+	db	16
 	db	12
 	db	3
 	db	0
 	db	124
 	dd	50
-	db	17
+	db	16
 	db	11
 	db	5
 	db	0
 	db	124
 	dd	50
 	db	0
-	db	20
-	db	60
+	db	19
+	db	64
 	dd	func_end6-func_begin6
 	db	1
 	db	84
@@ -7093,67 +7126,67 @@ debug_info_start0:
 	db	132
 
 
-	db	16
+	db	15
 	db	68
 	db	0
 	db	132
-	dd	2827
-	db	21
-	dd	1381
-	db	61
-	db	21
-	dd	1397
-	db	62
-	db	21
-	dd	1418
-	db	63
-	db	21
-	dd	1397
-	db	64
-	db	21
-	dd	1418
+	dd	2843
+	db	20
+	dd	1393
 	db	65
+	db	20
+	dd	1409
+	db	66
+	db	20
+	dd	1430
+	db	67
+	db	20
+	dd	1409
+	db	68
+	db	20
+	dd	1430
+	db	69
 	db	0
-	db	24
+	db	23
 	db	28
 	db	1
 	dw	1232
 
 
 
-	db	23
+	db	22
 	dd	50
-	db	23
+	db	22
 	dd	50
 	db	0
-	db	24
+	db	23
 	db	29
 	db	1
 	dw	1199
 
 
 
-	db	23
-	dd	1408
+	db	22
+	dd	1420
 	db	0
-	db	13
-	dd	1413
-	db	26
+	db	12
+	dd	1425
+	db	25
 	dd	135
-	db	24
+	db	23
 	db	30
 	db	1
 	dw	1176
 
 
 
-	db	23
+	db	22
 	dd	50
-	db	23
-	dd	855
+	db	22
+	dd	867
 	db	0
-	db	20
-	db	66
+	db	19
+	db	70
 	dd	func_end7-func_begin7
 	db	1
 	db	84
@@ -7163,51 +7196,51 @@ debug_info_start0:
 	db	141
 
 
-	db	16
+	db	15
 	db	82
 	db	0
 	db	141
-	dd	2888
-	db	16
+	dd	2904
+	db	15
 	db	69
 	db	0
 	db	141
 	dd	50
-	db	16
+	db	15
 	db	70
 	db	0
 	db	141
 	dd	50
-	db	21
-	dd	1023
-	db	67
-	db	21
-	dd	1023
-	db	68
-	db	21
-	dd	1038
-	db	69
-	db	21
-	dd	1023
-	db	70
-	db	21
-	dd	1023
-	db	71
-	db	21
-	dd	1023
-	db	72
-	db	21
-	dd	1038
-	db	73
-	db	21
-	dd	1038
-	db	74
-	db	21
-	dd	1038
-	db	75
-	db	0
 	db	20
+	dd	1035
+	db	71
+	db	20
+	dd	1035
+	db	72
+	db	20
+	dd	1050
+	db	73
+	db	20
+	dd	1035
+	db	74
+	db	20
+	dd	1035
+	db	75
+	db	20
+	dd	1035
 	db	76
+	db	20
+	dd	1050
+	db	77
+	db	20
+	dd	1050
+	db	78
+	db	20
+	dd	1050
+	db	79
+	db	0
+	db	19
+	db	80
 	dd	func_end8-func_begin8
 	db	1
 	db	84
@@ -7217,117 +7250,117 @@ debug_info_start0:
 	db	199
 
 
-	db	16
+	db	15
 	db	88
 	db	0
 	db	199
-	dd	2912
-	db	16
+	dd	2928
+	db	15
 	db	3
 	db	0
 	db	199
 	dd	50
-	db	16
+	db	15
 	db	5
 	db	0
 	db	199
 	dd	50
-	db	17
+	db	16
 	db	15
 	db	6
 	db	0
 	db	199
 	dd	50
-	db	16
+	db	15
 	db	7
 	db	0
 	db	199
 	dd	50
-	db	16
+	db	15
 	db	8
 	db	0
 	db	199
 	dd	50
-	db	16
+	db	15
 	db	9
 	db	0
 	db	199
 	dd	109
-	db	19
-	db	77
-	dd	tmp281-tmp223
 	db	18
+	db	81
+	dd	tmp281-tmp223
+	db	17
 	db	14
 	db	70
 	db	0
 	db	200
 	dd	50
-	db	19
-	db	78
-	dd	tmp279-tmp227
 	db	18
+	db	82
+	dd	tmp279-tmp227
+	db	17
 	db	17
 	db	69
 	db	0
 	db	201
 	dd	50
-	db	19
-	db	79
-	dd	tmp273-tmp253
 	db	18
+	db	83
+	dd	tmp273-tmp253
+	db	17
 	db	16
 	db	87
 	db	0
 	db	212
 	dd	50
-	db	19
-	db	79
-	dd	tmp268-tmp253
 	db	18
+	db	83
+	dd	tmp268-tmp253
+	db	17
 	db	18
 	db	64
 	db	0
 	db	213
 	dd	50
-	db	19
-	db	80
+	db	18
+	db	84
 	dd	tmp268-tmp256
-	db	27
+	db	26
 	db	2
 	db	145
 	db	9
 	db	86
 	db	0
 	db	215
-	dd	855
+	dd	867
 	db	0
 	db	0
 	db	0
 	db	0
 	db	0
-	db	21
-	dd	1717
-	db	81
-	db	21
-	dd	1717
-	db	82
-	db	21
-	dd	1717
-	db	83
-	db	21
-	dd	1717
-	db	84
-	db	21
-	dd	1717
+	db	20
+	dd	1729
 	db	85
-	db	21
-	dd	1187
+	db	20
+	dd	1729
 	db	86
-	db	21
-	dd	1717
+	db	20
+	dd	1729
 	db	87
+	db	20
+	dd	1729
+	db	88
+	db	20
+	dd	1729
+	db	89
+	db	20
+	dd	1199
+	db	90
+	db	20
+	dd	1729
+	db	91
 	db	0
-	db	28
+	db	27
 	db	31
 	db	4
 	db	81
@@ -7335,8 +7368,8 @@ debug_info_start0:
 	dd	50
 
 
-	db	20
-	db	88
+	db	19
+	db	92
 	dd	func_end9-func_begin9
 	db	1
 	db	84
@@ -7346,27 +7379,27 @@ debug_info_start0:
 	db	254
 
 
-	db	25
+	db	24
 	db	2
 	db	145
 	db	16
 	db	88
 	db	0
 	db	254
-	dd	2912
-	db	17
+	dd	2928
+	db	16
 	db	21
 	db	90
 	db	0
 	db	254
 	dd	50
-	db	17
+	db	16
 	db	20
 	db	89
 	db	0
 	db	254
 	dd	50
-	db	25
+	db	24
 	db	2
 	db	145
 	db	13
@@ -7374,7 +7407,7 @@ debug_info_start0:
 	db	0
 	db	254
 	dd	50
-	db	25
+	db	24
 	db	2
 	db	145
 	db	10
@@ -7382,7 +7415,7 @@ debug_info_start0:
 	db	0
 	db	254
 	dd	50
-	db	25
+	db	24
 	db	2
 	db	145
 	db	7
@@ -7390,7 +7423,7 @@ debug_info_start0:
 	db	0
 	db	254
 	dd	50
-	db	25
+	db	24
 	db	2
 	db	145
 	db	4
@@ -7398,46 +7431,46 @@ debug_info_start0:
 	db	0
 	db	254
 	dd	50
-	db	17
+	db	16
 	db	19
 	db	8
 	db	0
 	db	254
 	dd	50
-	db	16
+	db	15
 	db	9
 	db	0
 	db	254
 	dd	109
-	db	19
-	db	89
+	db	18
+	db	93
 	dd	tmp298-tmp289
-	db	29
+	db	28
 	db	22
 	db	64
 	db	0
 	dw	256
 	dd	50
 	db	0
-	db	21
-	dd	1856
-	db	90
-	db	21
-	dd	1717
-	db	91
+	db	20
+	dd	1868
+	db	94
+	db	20
+	dd	1729
+	db	95
 	db	0
-	db	30
+	db	29
 	db	32
 	db	4
 	db	79
 
 
 
-	db	23
-	dd	851
+	db	22
+	dd	863
 	db	0
-	db	31
-	db	92
+	db	30
+	db	96
 	dd	func_end10-func_begin10
 	db	1
 	db	84
@@ -7447,27 +7480,27 @@ debug_info_start0:
 	dw	263
 
 
-	db	32
+	db	31
 	db	2
 	db	145
 	db	15
 	db	88
 	db	0
 	dw	263
-	dd	2912
-	db	19
-	db	93
+	dd	2928
+	db	18
+	db	97
 	dd	tmp317-tmp303
-	db	29
+	db	28
 	db	23
 	db	70
 	db	0
 	dw	264
 	dd	50
-	db	19
-	db	94
+	db	18
+	db	98
 	dd	tmp315-tmp308
-	db	29
+	db	28
 	db	24
 	db	69
 	db	0
@@ -7475,12 +7508,12 @@ debug_info_start0:
 	dd	50
 	db	0
 	db	0
-	db	21
-	dd	1434
-	db	95
+	db	20
+	dd	1446
+	db	99
 	db	0
-	db	33
-	db	96
+	db	32
+	db	100
 	dd	func_end11-func_begin11
 	db	1
 	db	84
@@ -7489,27 +7522,27 @@ debug_info_start0:
 	db	0
 	dw	272
 
-	dd	1408
+	dd	1420
 
-	db	34
+	db	33
 	db	93
 	db	0
 	dw	272
-	dd	2929
-	db	35
+	dd	2945
+	db	34
 	db	25
 	db	92
 	db	0
 	dw	272
-	dd	1408
-	db	34
+	dd	1420
+	db	33
 	db	91
 	db	0
 	dw	272
 	dd	50
 	db	0
-	db	33
-	db	97
+	db	32
+	db	101
 	dd	func_end12-func_begin12
 	db	1
 	db	84
@@ -7520,146 +7553,146 @@ debug_info_start0:
 
 	dd	50
 
-	db	34
+	db	33
 	db	93
 	db	0
 	dw	295
-	dd	2929
-	db	34
+	dd	2945
+	db	33
 	db	101
 	db	0
 	dw	295
-	dd	1408
-	db	35
+	dd	1420
+	db	34
 	db	26
 	db	91
 	db	0
 	dw	295
 	dd	50
-	db	29
+	db	28
 	db	28
 	db	70
 	db	0
 	dw	369
-	dd	2999
-	db	19
-	db	98
+	dd	3015
+	db	18
+	db	102
 	dd	tmp397-tmp389
-	db	29
+	db	28
 	db	27
 	db	64
 	db	0
 	dw	363
 	dd	50
 	db	0
-	db	19
-	db	99
+	db	18
+	db	103
 	dd	tmp423-tmp405
-	db	29
+	db	28
 	db	29
 	db	64
 	db	0
 	dw	371
 	dd	50
 	db	0
-	db	21
-	dd	1023
-	db	100
-	db	21
-	dd	1038
-	db	101
-	db	21
-	dd	1023
-	db	102
-	db	21
-	dd	2179
-	db	103
-	db	21
-	dd	2205
+	db	20
+	dd	1035
 	db	104
-	db	21
-	dd	2221
+	db	20
+	dd	1050
 	db	105
-	db	21
-	dd	1381
+	db	20
+	dd	1035
 	db	106
-	db	21
-	dd	1397
+	db	20
+	dd	2191
 	db	107
-	db	21
-	dd	2205
+	db	20
+	dd	2217
 	db	108
-	db	21
-	dd	1381
+	db	20
+	dd	2233
 	db	109
-	db	21
-	dd	1397
+	db	20
+	dd	1393
 	db	110
-	db	21
-	dd	2236
+	db	20
+	dd	1409
 	db	111
-	db	21
-	dd	2245
+	db	20
+	dd	2217
 	db	112
-	db	21
-	dd	1023
+	db	20
+	dd	1393
 	db	113
-	db	21
-	dd	2221
+	db	20
+	dd	1409
 	db	114
-	db	21
-	dd	1038
+	db	20
+	dd	2248
 	db	115
-	db	21
-	dd	2245
+	db	20
+	dd	2257
 	db	116
-	db	21
-	dd	1381
+	db	20
+	dd	1035
 	db	117
-	db	21
-	dd	1397
+	db	20
+	dd	2233
 	db	118
+	db	20
+	dd	1050
+	db	119
+	db	20
+	dd	2257
+	db	120
+	db	20
+	dd	1393
+	db	121
+	db	20
+	dd	1409
+	db	122
 	db	0
-	db	24
+	db	23
 	db	33
 	db	1
 	dw	851
 
 
 
-	db	23
+	db	22
 	dd	50
-	db	23
+	db	22
 	dd	50
-	db	23
+	db	22
 	dd	50
-	db	23
+	db	22
 	dd	50
 	db	0
-	db	24
+	db	23
 	db	34
 	db	1
 	dw	1153
 
 
 
-	db	23
-	dd	855
-	db	23
-	dd	855
-	db	0
 	db	22
+	dd	867
+	db	22
+	dd	867
+	db	0
+	db	21
 	db	35
 	db	1
 	dw	1559
 
-	dd	851
+	dd	863
 
 
-	db	23
-	dd	1408
+	db	22
+	dd	1420
 	db	0
-	db	36
+	db	35
 	db	36
 	db	1
 	dw	1224
@@ -7667,19 +7700,19 @@ debug_info_start0:
 	dd	50
 
 
-	db	22
+	db	21
 	db	37
 	db	1
 	dw	1252
 
-	dd	855
+	dd	867
 
 
-	db	23
-	dd	855
+	db	22
+	dd	867
 	db	0
-	db	37
-	db	119
+	db	36
+	db	123
 	dd	func_end13-func_begin13
 	db	1
 	db	84
@@ -7689,261 +7722,261 @@ debug_info_start0:
 	dw	392
 	dd	50
 
-	db	38
+	db	37
 	db	2
 	db	145
 	db	63
 	db	88
 	db	0
 	dw	402
-	dd	3004
-	db	38
+	dd	3020
+	db	37
 	db	2
 	db	145
 	db	43
 	db	102
 	db	0
 	dw	425
-	dd	2827
-	db	38
+	dd	2843
+	db	37
 	db	2
 	db	145
 	db	27
 	db	93
 	db	0
 	dw	428
-	dd	2934
-	db	29
+	dd	2950
+	db	28
 	db	30
 	db	103
 	db	0
 	dw	406
 	dd	50
-	db	29
+	db	28
 	db	31
 	db	104
 	db	0
 	dw	403
 	dd	50
-	db	29
+	db	28
 	db	32
 	db	105
 	db	0
 	dw	408
-	dd	3022
-	db	29
+	dd	3038
+	db	28
 	db	33
 	db	91
 	db	0
 	dw	431
 	dd	50
-	db	29
+	db	28
 	db	34
 	db	92
 	db	0
 	dw	430
-	dd	1408
-	db	19
-	db	120
+	dd	1420
+	db	18
+	db	124
 	dd	tmp527-tmp455
-	db	29
+	db	28
 	db	35
 	db	107
 	db	0
 	dw	446
-	dd	2999
+	dd	3015
 	db	0
-	db	21
-	dd	2660
-	db	121
-	db	21
-	dd	2245
-	db	122
-	db	21
-	dd	1856
-	db	123
-	db	21
-	dd	2671
-	db	124
-	db	21
-	dd	2671
+	db	20
+	dd	2676
 	db	125
-	db	21
-	dd	2690
+	db	20
+	dd	2257
 	db	126
-	db	21
-	dd	2733
+	db	20
+	dd	1868
 	db	127
-	db	21
-	dd	2764
+	db	20
+	dd	2687
 	db	"Ä"
-	db	21
-	dd	1524
+	db	20
+	dd	2687
 	db	"Å"
-	db	21
-	dd	1292
+	db	20
+	dd	2706
 	db	"Ç"
-	db	21
-	dd	2778
+	db	20
+	dd	2749
 	db	"É"
-	db	21
-	dd	2782
+	db	20
+	dd	2780
 	db	"Ñ"
-	db	21
-	dd	2245
+	db	20
+	dd	1536
 	db	"Ö"
-	db	21
-	dd	1381
+	db	20
+	dd	1304
 	db	"Ü"
-	db	21
-	dd	2205
+	db	20
+	dd	2794
 	db	"á"
-	db	21
-	dd	1397
+	db	20
+	dd	2798
 	db	"à"
-	db	21
-	dd	2793
+	db	20
+	dd	2257
 	db	"â"
-	db	21
-	dd	1381
+	db	20
+	dd	1393
 	db	"ä"
-	db	21
-	dd	2205
+	db	20
+	dd	2217
 	db	"ã"
-	db	21
-	dd	1418
+	db	20
+	dd	1409
 	db	"å"
-	db	21
-	dd	2205
+	db	20
+	dd	2809
 	db	"ç"
-	db	21
-	dd	1381
+	db	20
+	dd	1393
 	db	"é"
-	db	21
-	dd	1418
+	db	20
+	dd	2217
 	db	"è"
-	db	21
-	dd	1866
+	db	20
+	dd	1430
 	db	"ê"
-	db	21
-	dd	1215
+	db	20
+	dd	2217
 	db	"ë"
-	db	21
-	dd	1094
+	db	20
+	dd	1393
 	db	"í"
-	db	21
-	dd	1292
+	db	20
+	dd	1430
 	db	"ì"
-	db	21
-	dd	991
+	db	20
+	dd	1878
 	db	"î"
-	db	21
-	dd	1331
+	db	20
+	dd	1227
 	db	"ï"
-	db	21
-	dd	1976
+	db	20
+	dd	1106
 	db	"ñ"
-	db	21
-	dd	1931
+	db	20
+	dd	1304
 	db	"ó"
-	db	21
-	dd	2802
+	db	20
+	dd	1003
 	db	"ò"
-	db	21
-	dd	2807
+	db	20
+	dd	1343
 	db	"ô"
-	db	21
-	dd	1524
+	db	20
+	dd	1988
 	db	"ö"
-	db	21
-	dd	1292
+	db	20
+	dd	1943
 	db	"õ"
-	db	21
-	dd	1524
+	db	20
+	dd	2818
 	db	"ú"
-	db	21
-	dd	1292
+	db	20
+	dd	2823
 	db	"ù"
-	db	21
-	dd	2671
+	db	20
+	dd	1536
 	db	"û"
-	db	21
-	dd	2690
+	db	20
+	dd	1304
 	db	"ü"
-	db	21
-	dd	2764
+	db	20
+	dd	1536
 	db	"†"
-	db	21
-	dd	2817
+	db	20
+	dd	1304
 	db	"°"
+	db	20
+	dd	2687
+	db	"¢"
+	db	20
+	dd	2706
+	db	"£"
+	db	20
+	dd	2780
+	db	"§"
+	db	20
+	dd	2833
+	db	"•"
 	db	0
-	db	24
+	db	23
 	db	38
 	db	1
 	dw	1043
 
 
 
-	db	23
-	dd	855
+	db	22
+	dd	867
 	db	0
-	db	39
+	db	38
 	db	39
 	db	5
 	db	122
 
-	dd	855
+	dd	867
 
 
-	db	23
-	dd	1408
-	db	23
-	dd	1408
+	db	22
+	dd	1420
+	db	22
+	dd	1420
 	db	0
-	db	39
+	db	38
 	db	40
 	db	5
 	db	254
 
-	dd	2719
+	dd	2735
 
 
-	db	23
-	dd	2727
-	db	23
-	dd	2719
-	db	23
-	dd	2719
-	db	23
-	dd	855
+	db	22
+	dd	2743
+	db	22
+	dd	2735
+	db	22
+	dd	2735
+	db	22
+	dd	867
 	db	0
-	db	12
-	dd	851
+	db	11
+	dd	863
 	db	41
 	db	6
 	db	34
-	db	13
-	dd	2732
-	db	40
-	db	22
+	db	12
+	dd	2748
+	db	39
+	db	21
 	db	42
 	db	5
 	dw	265
 
-	dd	2719
+	dd	2735
 
 
-	db	23
-	dd	2763
-	db	23
-	dd	2719
-	db	23
-	dd	2719
-	db	23
-	dd	855
+	db	22
+	dd	2779
+	db	22
+	dd	2735
+	db	22
+	dd	2735
+	db	22
+	dd	867
 	db	0
-	db	41
-	db	39
+	db	40
+	db	38
 	db	43
 	db	5
 	db	159
@@ -7951,27 +7984,27 @@ debug_info_start0:
 	dd	50
 
 
-	db	23
-	dd	855
+	db	22
+	dd	867
 	db	0
-	db	42
+	db	41
 	db	44
 	db	3
 	db	26
 
 
 
-	db	24
+	db	23
 	db	45
 	db	1
 	dw	741
 
 
 
-	db	23
-	dd	855
+	db	22
+	dd	867
 	db	0
-	db	36
+	db	35
 	db	46
 	db	1
 	dw	1219
@@ -7979,148 +8012,148 @@ debug_info_start0:
 	dd	50
 
 
-	db	43
+	db	42
 	db	47
 	db	1
 	dw	1071
 
 
 
-	db	30
+	db	29
 	db	48
 	db	7
 	db	25
 
 
 
-	db	23
-	dd	877
+	db	22
+	dd	889
 	db	0
-	db	43
+	db	42
 	db	49
 	db	1
 	dw	602
 
 
 
-	db	13
+	db	12
 	dd	109
-	db	44
+	db	43
 	db	74
 	db	17
 	db	0
 	db	28
-	db	45
+	db	44
 	db	69
-	dd	897
+	dd	909
 	db	0
 	db	29
 	db	0
-	db	45
+	db	44
 	db	70
-	dd	897
+	dd	909
 	db	0
 	db	30
 	db	4
-	db	45
+	db	44
 	db	71
-	dd	897
+	dd	909
 	db	0
 	db	31
 	db	8
-	db	45
+	db	44
 	db	72
-	dd	897
+	dd	909
 	db	0
 	db	32
 	db	12
-	db	45
+	db	44
 	db	73
 	dd	109
 	db	0
 	db	33
 	db	16
 	db	0
-	db	13
+	db	12
 	dd	50
-	db	13
-	dd	2827
-	db	44
+	db	12
+	dd	2843
+	db	43
 	db	85
 	db	6
 	db	0
 	db	36
-	db	45
+	db	44
 	db	83
 	dd	50
 	db	0
 	db	37
 	db	0
-	db	45
+	db	44
 	db	84
 	dd	50
 	db	0
 	db	38
 	db	3
 	db	0
-	db	13
-	dd	2917
+	db	12
+	dd	2933
 	db	5
-	dd	2888
+	dd	2904
 	db	6
 	dd	139
 	db	20
 	db	0
-	db	13
-	dd	2934
-	db	44
+	db	12
+	dd	2950
+	db	43
 	db	100
 	db	16
 	db	0
 	db	41
-	db	45
+	db	44
 	db	94
 	dd	109
 	db	0
 	db	42
 	db	0
-	db	45
+	db	44
 	db	95
-	dd	901
+	dd	913
 	db	0
 	db	43
 	db	1
-	db	45
+	db	44
 	db	96
 	dd	50
 	db	0
 	db	45
 	db	4
-	db	45
+	db	44
 	db	97
-	dd	2994
+	dd	3010
 	db	0
 	db	46
 	db	7
-	db	45
+	db	44
 	db	98
 	dd	50
 	db	0
 	db	48
 	db	10
-	db	45
+	db	44
 	db	99
-	dd	2994
+	dd	3010
 	db	0
 	db	49
 	db	13
 	db	0
-	db	13
-	dd	901
-	db	26
+	db	12
+	dd	913
+	db	25
 	dd	50
 	db	5
-	dd	2888
+	dd	2904
 	db	6
 	dd	139
 	db	15
@@ -8128,8 +8161,8 @@ debug_info_start0:
 	dd	139
 	db	20
 	db	0
-	db	46
-	dd	855
+	db	45
+	dd	867
 	db	106
 	db	5
 	dw	638
@@ -8611,6 +8644,10 @@ addr_table_base0:
 	dl	_.str.17
 	dl	_.str.18
 	dl	_.str.19
+	dl	_.str.20
+	dl	_.str.21
+	dl	_.str.22
+	dl	_.str.23
 	dl	_.str.24
 	dl	_.str.25
 	dl	_.str.26
@@ -8766,9 +8803,9 @@ line_table_start0:
 	extern	_gfx_PrintString
 	extern	__ishl
 	extern	__ftol
-	extern	_ti_Read
-	extern	__setflag
 	extern	_gfx_PrintInt
+	extern	__setflag
+	extern	_ti_Read
 	extern	_gfx_FillRectangle
 	extern	__iand
 	extern	__ltof
