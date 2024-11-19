@@ -17,6 +17,14 @@
 #define JUMP        -6.16
 #define SPEED       0.68
 
+// initialize map info
+int spawnX = TILE_SIZE/2 + PLAYER_SIZE/2;
+int spawnY = GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2;
+int caveHeight = 0;
+int wsChance = 65;
+int blockVariety = 75;
+bool spawnBlock = true;
+
 struct Player {
     float x;
     float y;
@@ -268,11 +276,16 @@ const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected
             dbg_printf("running option \"save\"\n");
         } else if (selected == 1) { // load
             dbg_printf("running option \"load\"\n");
-        } else if (selected == 2) { // about
-            dbg_printf("running option \"about\"\n");
+        } else if (selected == 2) { // map generation
+            dbg_printf("running option \"map generation\"\n");
+            menuMode = "MAP";
         } else if (selected == 3) { // resume
             dbg_printf("running option \"resume\"\n");
             menu->show = false;
+        }
+    } else if (!strcmp(menuMode, "MAP")) {
+        if (selected == 6) {
+            menuMode = "START";
         }
     }
 
@@ -301,21 +314,49 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
     if (!strcmp(mode, "START")) {
         menu->title = "RanGen CE";
 
-        menu->infoLen = 2;
+        menu->infoLen = 5;
         menu->infoList = malloc(menu->infoLen * sizeof(char*));
         menu->infoList[0] = "version: beta 0.4";
         menu->infoList[1] = "author: ashbit06";
         menu->infoList[2] = "";
         menu->infoList[3] = "A remake of a game I made on Scratch.";
-        menu->infoList[4] = "https://scratch.mit.edu/projects/579486353/";
+        menu->infoList[4] = "scratch.mit.edu/projects/579486353";
 
         menu->optLen = 4;
         menu->optList = malloc(menu->optLen * sizeof(char*));
         menu->optList[0] = "Save Level";
         menu->optList[1] = "Load Level";
-        menu->optList[2] = "About";
+        menu->optList[2] = "Map Generation";
         menu->optList[3] = "Resume";
-    } else if (!strcmp(mode, ""))
+    }
+    else if (!strcmp(mode, "MAP")) {
+        char buffer[45];
+        menu->title = "Map Generation";
+        menu->infoLen = 6;
+        menu->infoList = malloc(menu->infoLen * sizeof(char*));
+
+        menu->infoList[0] = "Edit the map generation parameters.";
+        sprintf(buffer, "spawn coords: (%d, %d)", spawnX, spawnY);
+        strcpy(menu->infoList[1], buffer);
+        sprintf(buffer, "spawn block: %d", (int)spawnBlock);
+        strcpy(menu->infoList[2], buffer);
+        sprintf(buffer, "cave height: %d", caveHeight);
+        strcpy(menu->infoList[3], buffer);
+        sprintf(buffer, "whitespace chance: %d", wsChance);
+        strcpy(menu->infoList[4], buffer);
+        sprintf(buffer, "block variety: %d", blockVariety);
+        strcpy(menu->infoList[5], buffer);
+
+        menu->optLen = 7;
+        menu->optList = malloc(menu->optLen * sizeof(char*));
+        menu->optList[0] = "spawnX";
+        menu->optList[1] = "spawnY";
+        menu->optList[2] = "spawnBlock";
+        menu->optList[3] = "caveHeight";
+        menu->optList[4] = "wsChance";
+        menu->optList[5] = "blockVariety";
+        menu->optList[6] = "Back";
+    }
 
     
 
@@ -334,7 +375,7 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
     }
 
     // print options
-    const int y = gfx_GetTextX();
+    const int y = gfx_GetTextY(); // + 16;
     dbg_printf("selected: %d\n", selected);
     for (int i = 0; i < menu->optLen; i++) {
         if (i == selected) {
@@ -360,20 +401,12 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
 int main() {
     gfx_Begin();
     gfx_palette[1] = gfx_RGBTo1555(0xDE, 0xDE, 0xDE); // light gray
-    gfx_palette[2] = 0xffdf; // almost white
+    gfx_palette[2] = 0xffdf; // almost white)
 
     gfx_SetDrawBuffer();
     gfx_SetTextFGColor(2); // white
     
     srand(rtc_Time());
-
-    // initialize map info
-    int spawnX = TILE_SIZE/2 + PLAYER_SIZE/2;
-    int spawnY = GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2;
-    int caveHeight = 0;
-    int wsChance = 65;
-    int blockVariety = 75;
-    bool spawnBlock = true;
 
     struct Tile map[15][20];
     int currentLevel = 1;
@@ -469,8 +502,10 @@ int main() {
             // handle key presses
             selected = drawMenu(&menu, menuMode, selected);
 
-            if (kb_IsDown(kb_KeyEnter))
+            if (kb_IsDown(kb_KeyEnter)) {
                 menuMode = handleMenuMode(&menu, menuMode, selected);
+                selected = 0;
+            }
         }
 
         gfx_SwapDraw();
