@@ -17,13 +17,20 @@
 #define JUMP        -6.16
 #define SPEED       0.68
 
+#define DEFAULT_SPAWNX        TILE_SIZE/2 + PLAYER_SIZE/2
+#define DEFAULT_SPAWNY        GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2
+#define DEFAULT_SPAWN_BLOCK   1
+#define DEFAULT_CAVE_HEIGHT   0
+#define DEFAULT_WS_CHANCE     65
+#define DEFAULT_BLOCK_VARIETY 75
+
 // initialize map info
-int spawnX = TILE_SIZE/2 + PLAYER_SIZE/2;
-int spawnY = GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2;
-int caveHeight = 0;
-int wsChance = 65;
-int blockVariety = 75;
-bool spawnBlock = true;
+int spawnX = DEFAULT_SPAWNX;
+int spawnY = DEFAULT_SPAWNY;
+int spawnBlock = DEFAULT_SPAWN_BLOCK;
+int caveHeight = DEFAULT_CAVE_HEIGHT;
+int wsChance = DEFAULT_WS_CHANCE;
+int blockVariety = DEFAULT_BLOCK_VARIETY;
 
 struct Player {
     float x;
@@ -61,6 +68,11 @@ bool any(bool array[], int size) {
     return res;
 }
 
+int adjustParam(int param, int mod) {
+    int adj = (int)kb_IsDown(kb_KeyRight) - (int)kb_IsDown(kb_KeyLeft);
+    dbg_printf("adjusting by %d", adj);
+    return (param + adj) % mod;
+}
 
 void drawPlayer(struct Player p) {
     gfx_SetColor(0xA0);
@@ -196,12 +208,12 @@ void drawTile(struct Tile t, int x, int y) {
     }
 }
 
-void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, bool spawnBlock) {
+void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock) {
     for (int y = 0; y < 15; y++) {
         for (int x = 0; x < 20; x++) {
             map[y][x].rotation = 0;
             if (((rand() % ((int)log(y*TILE_SIZE) * 170 + 170 + abs(caveHeight-500))) + 1) > (wsChance * 6) || ((x*TILE_SIZE == spawnX) && (y*TILE_SIZE == spawnY - TILE_SIZE))) {
-                if (rand() % 100 + 1 < blockVariety ) {
+                if (rand() % 100 + 1 < blockVariety) {
                     map[y][x].type = rand() % 7 + 1;
                     if (map[y][x].type == 2 || map[y][x].type == 3 || map[y][x].type == 4 || map[y][x].type == 6) // stairs, slabs, slopes, quater blocks
                         map[y][x].rotation = rand() % 4;
@@ -251,7 +263,7 @@ void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight
 /*
 take the seed and an integer that is the amount of iterations it took for that specific level to generate
 */
-void loadMap(struct Tile map[15][20], int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, bool spawnBlock) {
+void loadRNGMap(struct Tile map[15][20], int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock) {
     srand(seed);
     for (int i = 0; i < iterations; i++) {
         rand();
@@ -272,20 +284,41 @@ void drawMap(struct Tile map[15][20]) {
 const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected) {
     dbg_printf("user selected a menu option. selected option %d.\n", selected);
     if (!strcmp(menuMode, "START")) {
-        if (selected == 0) { // save
+        switch (selected)
+        {
+        case 0: // save
             dbg_printf("running option \"save\"\n");
-        } else if (selected == 1) { // load
+            break;
+        case 1: // load
             dbg_printf("running option \"load\"\n");
-        } else if (selected == 2) { // map generation
+            break;
+        case 2: // map gegneration
             dbg_printf("running option \"map generation\"\n");
             menuMode = "MAP";
-        } else if (selected == 3) { // resume
+            break;
+        case 3: // resume
+        default:
             dbg_printf("running option \"resume\"\n");
             menu->show = false;
+            break;
         }
     } else if (!strcmp(menuMode, "MAP")) {
-        if (selected == 6) {
+        switch (selected)
+        {
+        case 6: // reset to defaults
+            dbg_printf("running option \"reset to defaults\"\n");
+            spawnX = DEFAULT_SPAWNX;
+            spawnY = DEFAULT_SPAWNY;
+            spawnBlock = DEFAULT_SPAWN_BLOCK;
+            caveHeight = DEFAULT_CAVE_HEIGHT;
+            wsChance = DEFAULT_WS_CHANCE;
+            blockVariety = DEFAULT_BLOCK_VARIETY;
+            break;
+        case 7: // back      
+        default:
+            dbg_printf("running option \"back\"\n");
             menuMode = "START";
+            break;
         }
     }
 
@@ -328,9 +361,9 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
     }
     else if (!strcmp(mode, "MAP")) {
         menu->title = "Map Generation";
+
         menu->infoLen = 6;
         menu->infoList = malloc(menu->infoLen * sizeof(char*));
-
         menu->infoList[0] = "Edit the map generation parameters.";
         menu->infoList[1] = "spawn coords:";
         menu->infoList[2] = "spawn block:";
@@ -338,7 +371,7 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
         menu->infoList[4] = "whitespace chance:";
         menu->infoList[5] = "block variety:";
 
-        menu->optLen = 7;
+        menu->optLen = 8;
         menu->optList = malloc(menu->optLen * sizeof(char*));
         menu->optList[0] = "spawnX";
         menu->optList[1] = "spawnY";
@@ -346,7 +379,22 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
         menu->optList[3] = "caveHeight";
         menu->optList[4] = "wsChance";
         menu->optList[5] = "blockVariety";
-        menu->optList[6] = "Back";
+        menu->optList[6] = "Reset to defaults";
+        menu->optList[7] = "Back";
+
+        // print values
+        gfx_SetTextXY(160, 78);
+        gfx_PrintInt(spawnX, 3);
+        gfx_PrintString(", ");
+        gfx_PrintInt(spawnY, 3);
+        gfx_SetTextXY(160, gfx_GetTextY() + 10);
+        gfx_PrintInt(spawnBlock, 1);
+        gfx_SetTextXY(160, gfx_GetTextY() + 10);
+        gfx_PrintInt(caveHeight, 3);
+        gfx_SetTextXY(160, gfx_GetTextY() + 10);
+        gfx_PrintInt(wsChance, 3);
+        gfx_SetTextXY(160, gfx_GetTextY() + 10);
+        gfx_PrintInt(blockVariety, 3);
     }
 
     
@@ -367,6 +415,7 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
 
     // print options
     const int y = gfx_GetTextY(); // + 16;
+    // dbg_printf("text y: %d", y);
     dbg_printf("selected: %d\n", selected);
     for (int i = 0; i < menu->optLen; i++) {
         if (i == selected) {
@@ -493,7 +542,28 @@ int main() {
             // handle key presses
             selected = drawMenu(&menu, menuMode, selected);
 
-            if (kb_IsDown(kb_KeyEnter)) {
+            if (!strcmp(menuMode, "MAP") && selected < 6) {
+                switch (selected) {
+                case 0:
+                    spawnX = adjustParam(spawnX, GFX_LCD_WIDTH + 1);
+                    break;
+                case 1:
+                    spawnY = adjustParam(spawnY, GFX_LCD_HEIGHT + 1);
+                    break;
+                case 2:
+                    spawnBlock = adjustParam(spawnBlock, 2);
+                    break;
+                case 3:
+                    caveHeight = adjustParam(caveHeight, 101);
+                    break;
+                case 4:
+                    wsChance = adjustParam(wsChance, 101);
+                    break;
+                case 5:
+                    blockVariety = adjustParam(blockVariety, 101);
+                    break;
+                }
+            } else if (kb_IsDown(kb_KeyEnter)) {
                 menuMode = handleMenuMode(&menu, menuMode, selected);
                 selected = 0;
             }
