@@ -69,7 +69,7 @@ bool any(bool array[], int size) {
 }
 
 int adjustParam(int param, int mod) {
-    int adj = (int)kb_IsDown(kb_KeyRight) - (int)kb_IsDown(kb_KeyLeft);
+    int adj = (int)kb_IsDown(kb_KeyRight)/4 - (int)kb_IsDown(kb_KeyLeft)/2;
     dbg_printf("adjusting by %d", adj);
     return (param + adj) % mod;
 }
@@ -115,7 +115,7 @@ void playerMovement(struct Player *p) {
     }
 
     // handle horizontal movement
-    p->dx = FRICTION * (p->dx + SPEED*kb_IsDown(kb_KeyRight) - SPEED*kb_IsDown(kb_KeyLeft));
+    p->dx = FRICTION * (p->dx + SPEED*kb_IsDown(kb_KeyRight) - SPEED*kb_IsDown(kb_KeyLeft)*2);
     p->x += p->dx;
     if (playerTouchingColor(*p, 0x00)) {
         // wall collision
@@ -567,6 +567,8 @@ int main() {
                 menuMode = handleMenuMode(&menu, menuMode, selected);
                 selected = 0;
             }
+        } else {
+            player.canMove = true; // temp fix
         }
 
         gfx_SwapDraw();
