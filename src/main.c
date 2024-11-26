@@ -68,10 +68,13 @@ bool any(bool array[], int size) {
     return res;
 }
 
-int adjustParam(int param, int mod) {
+int adjustParam(int param, int min, int max) {
     int adj = (int)kb_IsDown(kb_KeyRight)/4 - (int)kb_IsDown(kb_KeyLeft)/2;
     dbg_printf("adjusting by %d", adj);
-    return (param + adj) % mod;
+    int new = param + adj;
+
+    if (new < min || new > max) return param;
+    else return new;
 }
 
 void drawPlayer(struct Player p) {
@@ -280,6 +283,18 @@ void drawMap(struct Tile map[15][20]) {
     }
 }
 
+void drawSlider(int x, int y, int value, int padding, int min, int max, bool showArrows) {
+    gfx_SetTextXY(x, y);
+
+    if (value > min && showArrows) gfx_PrintChar('<');
+    else gfx_PrintChar(' ');
+
+    gfx_PrintInt(value, padding);
+
+    if (value < max && showArrows) gfx_PrintChar('>');
+    else gfx_PrintChar(' ');
+}
+
 
 const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected) {
     dbg_printf("user selected a menu option. selected option %d.\n", selected);
@@ -383,18 +398,15 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
         menu->optList[7] = "Back";
 
         // print values
-        gfx_SetTextXY(160, 78);
-        gfx_PrintInt(spawnX, 3);
+        gfx_SetMonospaceFont(8);
+        drawSlider(160, 78, spawnX, 3, 0, GFX_LCD_WIDTH, (selected == 0));
         gfx_PrintString(", ");
-        gfx_PrintInt(spawnY, 3);
-        gfx_SetTextXY(160, gfx_GetTextY() + 10);
-        gfx_PrintInt(spawnBlock, 1);
-        gfx_SetTextXY(160, gfx_GetTextY() + 10);
-        gfx_PrintInt(caveHeight, 3);
-        gfx_SetTextXY(160, gfx_GetTextY() + 10);
-        gfx_PrintInt(wsChance, 3);
-        gfx_SetTextXY(160, gfx_GetTextY() + 10);
-        gfx_PrintInt(blockVariety, 3);
+        drawSlider(gfx_GetTextX(), 78, spawnY, 3, 0, GFX_LCD_HEIGHT, (selected == 1));
+        drawSlider(160, gfx_GetTextY() + 10, spawnBlock, 1, 0, 1, (selected == 2));
+        drawSlider(160, gfx_GetTextY() + 10, caveHeight, 3, -99, 999, (selected == 3));
+        drawSlider(160, gfx_GetTextY() + 10, wsChance, 3, 0, 100, (selected == 4));
+        drawSlider(160, gfx_GetTextY() + 10, blockVariety, 3, 0, 100, (selected == 5));
+        gfx_SetMonospaceFont(0);
     }
 
     
@@ -545,22 +557,22 @@ int main() {
             if (!strcmp(menuMode, "MAP") && selected < 6) {
                 switch (selected) {
                 case 0:
-                    spawnX = adjustParam(spawnX, GFX_LCD_WIDTH + 1);
+                    spawnX = adjustParam(spawnX, 0, GFX_LCD_WIDTH);
                     break;
                 case 1:
-                    spawnY = adjustParam(spawnY, GFX_LCD_HEIGHT + 1);
+                    spawnY = adjustParam(spawnY, 0, GFX_LCD_HEIGHT);
                     break;
                 case 2:
-                    spawnBlock = adjustParam(spawnBlock, 2);
+                    spawnBlock = adjustParam(spawnBlock, 0, 1);
                     break;
                 case 3:
-                    caveHeight = adjustParam(caveHeight, 101);
+                    caveHeight = adjustParam(caveHeight, -99, 999);
                     break;
                 case 4:
-                    wsChance = adjustParam(wsChance, 101);
+                    wsChance = adjustParam(wsChance, 0, 100);
                     break;
                 case 5:
-                    blockVariety = adjustParam(blockVariety, 101);
+                    blockVariety = adjustParam(blockVariety, 0, 100);
                     break;
                 }
             } else if (kb_IsDown(kb_KeyEnter)) {
