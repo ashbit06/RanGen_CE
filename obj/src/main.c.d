@@ -1,4 +1,4 @@
-obj/src/main.c.src: src/main.c /Users/ashton/CEdev/include/graphx.h \
+obj/src/main.c.bc: src/main.c /Users/ashton/CEdev/include/graphx.h \
   /Users/ashton/CEdev/include/stdint.h \
   /Users/ashton/CEdev/include/cdefs.h \
   /Users/ashton/CEdev/include/stdlib.h \
