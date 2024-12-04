@@ -1,3 +1,4 @@
+#include <gfx/gfx.h>
 #include <graphx.h>
 #include <keypadc.h>
 #include <fileioc.h>
@@ -17,12 +18,13 @@
 #define JUMP        -6.16
 #define SPEED       0.68
 
-#define DEFAULT_SPAWNX        TILE_SIZE/2 + PLAYER_SIZE/2
-#define DEFAULT_SPAWNY        GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2
-#define DEFAULT_SPAWN_BLOCK   1
-#define DEFAULT_CAVE_HEIGHT   0
-#define DEFAULT_WS_CHANCE     65
-#define DEFAULT_BLOCK_VARIETY 75
+#define DEFAULT_SPAWNX          TILE_SIZE/2 + PLAYER_SIZE/2
+#define DEFAULT_SPAWNY          GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2
+#define DEFAULT_SPAWN_BLOCK     1
+#define DEFAULT_CAVE_HEIGHT     0
+#define DEFAULT_WS_CHANCE       65
+#define DEFAULT_BLOCK_VARIETY   75
+#define DEFAULT_SHOW_TEST_TILES false
 
 // initialize map info
 int spawnX = DEFAULT_SPAWNX;
@@ -31,6 +33,8 @@ int spawnBlock = DEFAULT_SPAWN_BLOCK;
 int caveHeight = DEFAULT_CAVE_HEIGHT;
 int wsChance = DEFAULT_WS_CHANCE;
 int blockVariety = DEFAULT_BLOCK_VARIETY;
+
+bool showTestTiles = DEFAULT_SHOW_TEST_TILES;
 
 struct Player {
     float x;
@@ -52,6 +56,7 @@ struct Menu {
     int infoLen;
     char** infoList;
 
+    int showOpts; // display the first x options, this wont disable any though
     int optLen;
     char** optList;
 };
@@ -197,10 +202,11 @@ void drawTile(struct Tile t, int x, int y) {
             }
             break;
         case 4: // slope
-            // break;
+            gfx_RotatedTransparentSprite_NoClip(slope, x, y, 64*t.rotation);
+            break;
         case 5: // spike
-            // gfx_SetColor(0xE0);
-            // break;
+            gfx_RotatedTransparentSprite_NoClip(spike, x, y, 64*t.rotation);
+            break;
         case 1: // full block
             gfx_SetColor(0x00); // black
             gfx_FillRectangle(x, y, TILE_SIZE, TILE_SIZE);
@@ -320,7 +326,7 @@ const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected
     } else if (!strcmp(menuMode, "MAP")) {
         switch (selected)
         {
-        case 6: // reset to defaults
+        case 0: // reset to defaults
             dbg_printf("running option \"reset to defaults\"\n");
             spawnX = DEFAULT_SPAWNX;
             spawnY = DEFAULT_SPAWNY;
@@ -328,8 +334,9 @@ const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected
             caveHeight = DEFAULT_CAVE_HEIGHT;
             wsChance = DEFAULT_WS_CHANCE;
             blockVariety = DEFAULT_BLOCK_VARIETY;
+            showTestTiles = DEFAULT_SHOW_TEST_TILES;
             break;
-        case 7: // back      
+        case 1: // back      
         default:
             dbg_printf("running option \"back\"\n");
             menuMode = "START";
@@ -346,18 +353,19 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
     else if (kb_IsDown(kb_KeyDown)) selected++;
     
     // handle rollover
-    if (selected < 0) selected = 0;
-    if (selected >= menu->optLen) selected = menu->optLen - 1;
+    if (selected < 0) selected = menu->optLen-1;
+    if (selected >= menu->optLen) selected = 0;
     
     // draw menu window
     gfx_SetColor(0x00); // black
     gfx_FillRectangle(20, 20, 280, 200);
-    gfx_SetColor(2); // white border
+    gfx_SetColor(3); // white border
     gfx_Rectangle(21, 21, 278, 198);
 
     // title, information, options
     if (!strcmp(mode, "START")) {
         menu->title = "RanGen CE";
+        menu->showOpts = true;
 
         menu->infoLen = 5;
         menu->infoList = malloc(menu->infoLen * sizeof(char*));
@@ -368,6 +376,7 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
         menu->infoList[4] = "scratch.mit.edu/projects/579486353";
 
         menu->optLen = 4;
+        menu->showOpts = menu->optLen;
         menu->optList = malloc(menu->optLen * sizeof(char*));
         menu->optList[0] = "Save Level";
         menu->optList[1] = "Load Level";
@@ -377,7 +386,7 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
     else if (!strcmp(mode, "MAP")) {
         menu->title = "Map Generation";
 
-        menu->infoLen = 6;
+        menu->infoLen = 7;
         menu->infoList = malloc(menu->infoLen * sizeof(char*));
         menu->infoList[0] = "Edit the map generation parameters.";
         menu->infoList[1] = "spawn coords:";
@@ -385,27 +394,31 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
         menu->infoList[3] = "cave height:";
         menu->infoList[4] = "whitespace chance:";
         menu->infoList[5] = "block variety:";
+        menu->infoList[6] = "show test tiles:";
 
-        menu->optLen = 8;
+        menu->optLen = 9;
+        menu->showOpts = 2;
         menu->optList = malloc(menu->optLen * sizeof(char*));
-        menu->optList[0] = "spawnX";
-        menu->optList[1] = "spawnY";
-        menu->optList[2] = "spawnBlock";
-        menu->optList[3] = "caveHeight";
-        menu->optList[4] = "wsChance";
-        menu->optList[5] = "blockVariety";
-        menu->optList[6] = "Reset to defaults";
-        menu->optList[7] = "Back";
+        menu->optList[0] = "Reset to defaults";
+        menu->optList[1] = "Back";
+        menu->optList[2] = "spawnX";
+        menu->optList[3] = "spawnY";
+        menu->optList[4] = "spawnBlock";
+        menu->optList[5] = "caveHeight";
+        menu->optList[6] = "wsChance";
+        menu->optList[7] = "blockVariety";
+        menu->optList[8] = "showTestTiles";
 
         // print values
         gfx_SetMonospaceFont(8);
-        drawSlider(160, 78, spawnX, 3, 0, GFX_LCD_WIDTH, (selected == 0));
+        drawSlider(160, 78, spawnX, 3, 0, GFX_LCD_WIDTH, (selected == 2));
         gfx_PrintString(", ");
-        drawSlider(gfx_GetTextX(), 78, spawnY, 3, 0, GFX_LCD_HEIGHT, (selected == 1));
-        drawSlider(160, gfx_GetTextY() + 10, spawnBlock, 1, 0, 1, (selected == 2));
-        drawSlider(160, gfx_GetTextY() + 10, caveHeight, 3, -99, 999, (selected == 3));
-        drawSlider(160, gfx_GetTextY() + 10, wsChance, 3, 0, 100, (selected == 4));
-        drawSlider(160, gfx_GetTextY() + 10, blockVariety, 3, 0, 100, (selected == 5));
+        drawSlider(gfx_GetTextX(), 78, spawnY, 3, 0, GFX_LCD_HEIGHT, (selected == 3));
+        drawSlider(160, gfx_GetTextY() + 10, spawnBlock, 1, 0, 1, (selected == 4));
+        drawSlider(160, gfx_GetTextY() + 10, caveHeight, 3, -99, 999, (selected == 5));
+        drawSlider(160, gfx_GetTextY() + 10, wsChance, 3, 0, 100, (selected == 6));
+        drawSlider(160, gfx_GetTextY() + 10, blockVariety, 3, 0, 100, (selected == 7));
+        drawSlider(160, gfx_GetTextY() + 10, showTestTiles, 1, 0, 1, (selected == 8));
         gfx_SetMonospaceFont(0);
     }
 
@@ -429,10 +442,10 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
     const int y = gfx_GetTextY(); // + 16;
     // dbg_printf("text y: %d", y);
     dbg_printf("selected: %d\n", selected);
-    for (int i = 0; i < menu->optLen; i++) {
+    for (int i = 0; i < menu->optLen && i < menu->showOpts; i++) {
         if (i == selected) {
             gfx_SetTextFGColor(0x00); // black
-            gfx_SetColor(2);
+            gfx_SetColor(3);
             gfx_FillRectangle(28, i*10 + y+24, gfx_GetStringWidth(menu->optList[i]), 8);
         } else {
             gfx_SetTextFGColor(2); //white
@@ -452,8 +465,8 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
 
 int main() {
     gfx_Begin();
-    gfx_palette[1] = gfx_RGBTo1555(0xDE, 0xDE, 0xDE); // light gray
-    gfx_palette[2] = 0xffdf; // almost white)
+    gfx_SetPalette(global_palette, sizeof_global_palette, 0);
+    gfx_SetTransparentColor(3);
 
     gfx_SetDrawBuffer();
     gfx_SetTextFGColor(2); // white
@@ -500,7 +513,7 @@ int main() {
         gfx_FillScreen(1); // the classic gray background :)
 
         // display level information behind the level
-        gfx_SetTextFGColor(2); // white
+        gfx_SetTextFGColor(3); // white
         gfx_SetTextXY(32, 120);
         gfx_SetTextScale(2, 2);
         gfx_PrintString("LEVEL");
@@ -533,7 +546,7 @@ int main() {
                 continue;            
             }
 
-            if (player.y > GFX_LCD_HEIGHT || playerTouchingColor(player, 0xE0) || kb_IsDown(kb_Key2nd)) {
+            if (player.y > GFX_LCD_HEIGHT || playerTouchingColor(player, 4) || kb_IsDown(kb_Key2nd)) {
                 resetPlayer(&player, spawnX, spawnY);
             }
         }
@@ -554,26 +567,28 @@ int main() {
             // handle key presses
             selected = drawMenu(&menu, menuMode, selected);
 
-            if (!strcmp(menuMode, "MAP") && selected < 6) {
+            if (!strcmp(menuMode, "MAP") && selected >= 2) {
                 switch (selected) {
-                case 0:
+                case 2:
                     spawnX = adjustParam(spawnX, 0, GFX_LCD_WIDTH);
                     break;
-                case 1:
+                case 3:
                     spawnY = adjustParam(spawnY, 0, GFX_LCD_HEIGHT);
                     break;
-                case 2:
+                case 4:
                     spawnBlock = adjustParam(spawnBlock, 0, 1);
                     break;
-                case 3:
+                case 5:
                     caveHeight = adjustParam(caveHeight, -99, 999);
                     break;
-                case 4:
+                case 6:
                     wsChance = adjustParam(wsChance, 0, 100);
                     break;
-                case 5:
+                case 7:
                     blockVariety = adjustParam(blockVariety, 0, 100);
                     break;
+                case 8:
+                    showTestTiles = adjustParam(showTestTiles, 0, 1);
                 }
             } else if (kb_IsDown(kb_KeyEnter)) {
                 menuMode = handleMenuMode(&menu, menuMode, selected);

@@ -3249,6 +3249,17 @@ JTI15_0:
 	dl	BB15_31
 
 	section	.data,"aw",@progbits
+	public	_global_palette
+_global_palette:
+	db	0, 0, "ÿÿ"
+
+	section	.data,"aw",@progbits
+	public	_slope_data
+_slope_data:
+	db	"", 0, "", 0, 0, "", 0, 0, 0, "", 0, 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""
+	db	31 dup 0
+
+	section	.data,"aw",@progbits
 	public	_spawnX
 _spawnX:
 	dl	10
@@ -3438,6 +3449,8 @@ _.str.30:
 _.str.31:
 	db	"LEVEL", 0
 
+	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
+	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
 	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
 	extern	_fabsf
 	extern	__Unwind_SjLj_Register
