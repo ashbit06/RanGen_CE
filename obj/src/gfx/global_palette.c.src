@@ -1,10 +1,10 @@
 	section	.text,"ax",@progbits
 	assume	adl = 1
-	file	0 "/Users/ashton/Documents/RanGen_CE" "src/gfx/global_palette.c" md5 0xfa6c346e7bfb3e50b83a84a44d931f47
+	file	0 "/Users/ashton/Documents/RanGen_CE" "src/gfx/global_palette.c" md5 0xa265b6c784fe7309f4b084762132f889
 	section	.data,"aw",@progbits
 	public	_global_palette
 _global_palette:
-	db	0, 0, "{ïÿÿÿ", 0, "||"
+	db	0, 0, "{ïÿÿÿ", 0, "|"
 
 	section	.debug_abbrev,"",@progbits
 	private	abbrev_start0
@@ -115,7 +115,7 @@ debug_info_start0:
 	dd	53
 	db	4
 	dd	57
-	db	12
+	db	10
 	db	0
 	db	5
 	db	4

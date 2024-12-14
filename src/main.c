@@ -24,7 +24,7 @@
 #define DEFAULT_CAVE_HEIGHT     0
 #define DEFAULT_WS_CHANCE       65
 #define DEFAULT_BLOCK_VARIETY   75
-#define DEFAULT_SHOW_TEST_TILES false
+#define DEFAULT_SHOW_TEST_TILES 0
 
 // initialize map info
 int spawnX = DEFAULT_SPAWNX;
@@ -34,7 +34,7 @@ int caveHeight = DEFAULT_CAVE_HEIGHT;
 int wsChance = DEFAULT_WS_CHANCE;
 int blockVariety = DEFAULT_BLOCK_VARIETY;
 
-bool showTestTiles = DEFAULT_SHOW_TEST_TILES;
+int showTestTiles = DEFAULT_SHOW_TEST_TILES;
 
 struct Player {
     float x;
@@ -201,11 +201,23 @@ void drawTile(struct Tile t, int x, int y) {
                 gfx_FillRectangle(x, y + TILE_SIZE/2, TILE_SIZE/2, TILE_SIZE/2);
             }
             break;
-        case 4: // slope
-            gfx_RotatedTransparentSprite_NoClip(slope, x, y, 64*t.rotation);
+        case 4: { // slope
+            gfx_SetColor(0x00);
+
+            if (t.rotation == 0) gfx_FillTriangle(x+TILE_SIZE, y, x+TILE_SIZE, y+TILE_SIZE, x, y+TILE_SIZE);
+            if (t.rotation == 1) gfx_FillTriangle(x, y, x+TILE_SIZE, y+TILE_SIZE, x, y+TILE_SIZE);
+            if (t.rotation == 2) gfx_FillTriangle(x, y, x+TILE_SIZE, y, x, y+TILE_SIZE);
+            if (t.rotation == 3) gfx_FillTriangle(x, y, x+TILE_SIZE, y, x+TILE_SIZE, y+TILE_SIZE);
+
             break;
+        }
         case 5: // spike
-            gfx_RotatedTransparentSprite_NoClip(spike, x, y, 64*t.rotation);
+            gfx_SetColor(4);
+
+            if (t.rotation == 0) gfx_FillTriangle(x, y+TILE_SIZE, x+TILE_SIZE, y+TILE_SIZE, x+TILE_SIZE/2, y);
+            if (t.rotation == 1) gfx_FillTriangle(x+TILE_SIZE, y+TILE_SIZE, x+TILE_SIZE, y, x, y+TILE_SIZE/2);
+            if (t.rotation == 2) gfx_FillTriangle(x, y, x, y+TILE_SIZE, x+TILE_SIZE/2, y);
+            if (t.rotation == 3) gfx_FillTriangle(x, y, x, y+TILE_SIZE, x+TILE_SIZE, y+TILE_SIZE/2);
             break;
         case 1: // full block
             gfx_SetColor(0x00); // black
@@ -224,6 +236,12 @@ void generateMap(struct Tile map[15][20], int spawnX, int spawnY, int caveHeight
             if (((rand() % ((int)log(y*TILE_SIZE) * 170 + 170 + abs(caveHeight-500))) + 1) > (wsChance * 6) || ((x*TILE_SIZE == spawnX) && (y*TILE_SIZE == spawnY - TILE_SIZE))) {
                 if (rand() % 100 + 1 < blockVariety) {
                     map[y][x].type = rand() % 7 + 1;
+
+                    if (!showTestTiles && (map[y][x].type == 5 || map[y][x].type == 4)) {
+                        map[y][x].type = 1;
+                        continue;
+                    }
+
                     if (map[y][x].type == 2 || map[y][x].type == 3 || map[y][x].type == 4 || map[y][x].type == 6) // stairs, slabs, slopes, quater blocks
                         map[y][x].rotation = rand() % 4;
                     else if (map[y][x].type == 7) // diagonal slabs
@@ -293,11 +311,13 @@ void drawSlider(int x, int y, int value, int padding, int min, int max, bool sho
     gfx_SetTextXY(x, y);
 
     if (value > min && showArrows) gfx_PrintChar('<');
+    else if (min == max && showArrows) gfx_PrintChar('[');
     else gfx_PrintChar(' ');
 
     gfx_PrintInt(value, padding);
 
     if (value < max && showArrows) gfx_PrintChar('>');
+    else if (min == max && showArrows) gfx_PrintChar(']');
     else gfx_PrintChar(' ');
 }
 
@@ -418,7 +438,7 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
         drawSlider(160, gfx_GetTextY() + 10, caveHeight, 3, -99, 999, (selected == 5));
         drawSlider(160, gfx_GetTextY() + 10, wsChance, 3, 0, 100, (selected == 6));
         drawSlider(160, gfx_GetTextY() + 10, blockVariety, 3, 0, 100, (selected == 7));
-        drawSlider(160, gfx_GetTextY() + 10, showTestTiles, 1, 0, 1, (selected == 8));
+        drawSlider(160, gfx_GetTextY() + 10, showTestTiles, 1, 0, 0, (selected == 8));
         gfx_SetMonospaceFont(0);
     }
 
@@ -448,7 +468,7 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
             gfx_SetColor(3);
             gfx_FillRectangle(28, i*10 + y+24, gfx_GetStringWidth(menu->optList[i]), 8);
         } else {
-            gfx_SetTextFGColor(2); //white
+            gfx_SetTextFGColor(3); // white
         }
 
         gfx_SetTextXY(28, i*10 + y+24);
@@ -473,7 +493,7 @@ int main() {
     
     srand(rtc_Time());
 
-    struct Tile map[15][20];
+    static struct Tile map[15][20];
     int currentLevel = 1;
 
     // get file somehow
@@ -588,7 +608,8 @@ int main() {
                     blockVariety = adjustParam(blockVariety, 0, 100);
                     break;
                 case 8:
-                    showTestTiles = adjustParam(showTestTiles, 0, 1);
+                    showTestTiles = adjustParam(showTestTiles, 0, 0);
+                    break;
                 }
             } else if (kb_IsDown(kb_KeyEnter)) {
                 menuMode = handleMenuMode(&menu, menuMode, selected);
