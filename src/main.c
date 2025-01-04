@@ -1,4 +1,3 @@
-#include <gfx/gfx.h>
 #include <graphx.h>
 #include <keypadc.h>
 #include <fileioc.h>
@@ -202,18 +201,19 @@ void drawTile(struct Tile t, int x, int y) {
             }
             break;
         case 4: { // slope
-            gfx_SetColor(0x00);
+            if (!showTestTiles) break;
 
+            gfx_SetColor(0x00);
             if (t.rotation == 0) gfx_FillTriangle(x+TILE_SIZE, y, x+TILE_SIZE, y+TILE_SIZE, x, y+TILE_SIZE);
             if (t.rotation == 1) gfx_FillTriangle(x, y, x+TILE_SIZE, y+TILE_SIZE, x, y+TILE_SIZE);
             if (t.rotation == 2) gfx_FillTriangle(x, y, x+TILE_SIZE, y, x, y+TILE_SIZE);
             if (t.rotation == 3) gfx_FillTriangle(x, y, x+TILE_SIZE, y, x+TILE_SIZE, y+TILE_SIZE);
-
             break;
         }
         case 5: // spike
-            gfx_SetColor(4);
+            if (!showTestTiles) break;
 
+            gfx_SetColor(4);
             if (t.rotation == 0) gfx_FillTriangle(x, y+TILE_SIZE, x+TILE_SIZE, y+TILE_SIZE, x+TILE_SIZE/2, y);
             if (t.rotation == 1) gfx_FillTriangle(x+TILE_SIZE, y+TILE_SIZE, x+TILE_SIZE, y, x, y+TILE_SIZE/2);
             if (t.rotation == 2) gfx_FillTriangle(x, y, x, y+TILE_SIZE, x+TILE_SIZE/2, y);
@@ -485,7 +485,11 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
 
 int main() {
     gfx_Begin();
-    gfx_SetPalette(global_palette, sizeof_global_palette, 0);
+
+    gfx_palette[1] = gfx_RGBTo1555(222, 222, 222);
+    gfx_palette[2] = gfx_RGBTo1555(255, 223, 255);
+    gfx_palette[3] = gfx_RGBTo1555(255, 255, 255);
+    gfx_palette[4] = gfx_RGBTo1555(255, 0, 0);
     gfx_SetTransparentColor(3);
 
     gfx_SetDrawBuffer();

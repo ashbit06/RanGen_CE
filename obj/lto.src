@@ -851,7 +851,7 @@ _drawTile:
 	pop	hl
 	or	a, a
 	sbc	hl, bc
-	jp	nc, BB8_28
+	jp	nc, BB8_51
 	ld	(ix - 3), iy
 	ld	hl, JTI8_0
 	add	hl, de
@@ -871,7 +871,7 @@ BB8_3:
 BB8_4:
 	push	hl
 	ld	hl, (ix + 15)
-	jp	BB8_22
+	jp	BB8_28
 BB8_5:
 	or	a, a
 	sbc	hl, hl
@@ -884,8 +884,8 @@ BB8_5:
 	pop	hl
 	or	a, a
 	sbc	hl, de
-	jp	nc, BB8_28
-	ld	hl, JTI8_3
+	jp	nc, BB8_51
+	ld	hl, JTI8_5
 	add	hl, bc
 	add	hl, bc
 	add	hl, bc
@@ -912,7 +912,7 @@ BB8_7:
 	push	de
 	push	de
 	ld	hl, (ix + 15)
-	jp	BB8_26
+	jp	BB8_32
 BB8_8:
 	or	a, a
 	sbc	hl, hl
@@ -925,8 +925,8 @@ BB8_8:
 	pop	hl
 	or	a, a
 	sbc	hl, de
-	jp	nc, BB8_28
-	ld	hl, JTI8_2
+	jp	nc, BB8_51
+	ld	hl, JTI8_4
 	add	hl, bc
 	add	hl, bc
 	add	hl, bc
@@ -938,7 +938,7 @@ BB8_10:
 	add	hl, de
 	push	de
 	ld	de, 16
-	jp	BB8_21
+	jp	BB8_27
 BB8_11:
 	or	a, a
 	sbc	hl, hl
@@ -951,20 +951,94 @@ BB8_11:
 	pop	hl
 	or	a, a
 	sbc	hl, de
-	jp	nc, BB8_28
-	ld	hl, JTI8_1
+	jp	nc, BB8_51
+	ld	hl, JTI8_2
 	add	hl, bc
 	add	hl, bc
 	add	hl, bc
 	ld	hl, (hl)
 	jp	(hl)
 BB8_13:
+	ld	de, (ix + 12)
+	push	de
+	pop	iy
+	ld	de, 16
+	add	iy, de
+	ld	bc, (ix + 15)
+	push	bc
+	pop	hl
+	add	hl, de
+	push	hl
+	ld	de, (ix + 12)
+	push	de
+	push	hl
+	push	iy
+	push	bc
+	jp	BB8_44
+BB8_14:
+	ld	hl, 4
+	push	hl
+	call	_gfx_SetColor
+	pop	hl
+	ld	de, 4
+	ld	bc, (ix - 3)
+	push	bc
+	pop	hl
+	or	a, a
+	sbc	hl, de
+	jp	nc, BB8_51
+	ld	hl, JTI8_1
+	add	hl, bc
+	add	hl, bc
+	add	hl, bc
+	ld	hl, (hl)
+	jp	(hl)
+BB8_16:
+	ld	iy, (ix + 15)
+	ld	de, 16
+	add	iy, de
+	ld	bc, (ix + 12)
+	push	bc
+	pop	hl
+	add	hl, de
+	ex	de, hl
+	push	bc
+	pop	hl
+	ld	bc, 8
+	add	hl, bc
+	ld	bc, (ix + 15)
+	push	bc
+	push	hl
+	push	iy
+	push	de
+	push	iy
+	jp	BB8_41
+BB8_17:
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	call	_gfx_SetColor
+	pop	hl
+	ld	de, 4
+	ld	bc, (ix - 3)
+	push	bc
+	pop	hl
+	or	a, a
+	sbc	hl, de
+	jp	nc, BB8_51
+	ld	hl, JTI8_3
+	add	hl, bc
+	add	hl, bc
+	add	hl, bc
+	ld	hl, (hl)
+	jp	(hl)
+BB8_19:
 	ld	hl, (ix + 12)
 	ld	de, 8
 	add	hl, de
 	push	de
-	jp	BB8_32
-BB8_14:
+	jp	BB8_37
+BB8_20:
 	or	a, a
 	sbc	hl, hl
 	push	hl
@@ -974,11 +1048,11 @@ BB8_14:
 	ld	bc, 1
 	call	__iand
 	bit	0, l
-	jr	nz, BB8_16
+	jr	nz, BB8_22
 	ld	hl, 8
 	push	hl
-	jr	BB8_25
-BB8_16:
+	jr	BB8_31
+BB8_22:
 	ld	hl, (ix + 12)
 	ld	de, 8
 	add	hl, de
@@ -986,13 +1060,13 @@ BB8_16:
 	push	de
 	ld	de, (ix + 15)
 	push	de
-	jr	BB8_19
-BB8_17:
+	jr	BB8_25
+BB8_23:
 	ld	hl, 16
 	push	hl
 	ld	hl, 8
-	jr	BB8_25
-BB8_18:
+	jr	BB8_31
+BB8_24:
 	ld	hl, 8
 	push	hl
 	ld	hl, 16
@@ -1000,7 +1074,7 @@ BB8_18:
 	ld	hl, (ix + 15)
 	push	hl
 	ld	hl, (ix + 12)
-BB8_19:
+BB8_25:
 	push	hl
 	call	_gfx_FillRectangle
 	pop	hl
@@ -1009,22 +1083,22 @@ BB8_19:
 	pop	hl
 	ld	de, 8
 	ld	hl, (ix + 15)
-BB8_20:
+BB8_26:
 	add	hl, de
 	push	de
-BB8_21:
+BB8_27:
 	push	de
-BB8_22:
+BB8_28:
 	push	hl
 	ld	hl, (ix + 12)
-BB8_23:
+BB8_29:
 	push	hl
-	jr	BB8_27
-BB8_24:
+	jr	BB8_33
+BB8_30:
 	ld	hl, 8
 	push	hl
 	ld	hl, 16
-BB8_25:
+BB8_31:
 	push	hl
 	ld	hl, (ix + 15)
 	push	hl
@@ -1042,41 +1116,172 @@ BB8_25:
 	add	hl, de
 	push	de
 	push	de
-BB8_26:
+BB8_32:
 	push	hl
 	push	iy
-BB8_27:
+BB8_33:
 	call	_gfx_FillRectangle
-	pop	hl
-	pop	hl
-	pop	hl
-	pop	hl
-BB8_28:
-	pop	hl
-	pop	ix
-	ret
-BB8_29:
+	jp	BB8_50
+BB8_34:
 	ld	hl, 16
 	push	hl
 	ld	hl, 8
 	jp	BB8_4
-BB8_30:
+BB8_35:
 	ld	hl, 8
 	push	hl
 	ld	hl, 16
 	jp	BB8_4
-BB8_31:
+BB8_36:
 	ld	hl, (ix + 12)
 	ld	de, 8
 	add	hl, de
 	ld	bc, 16
 	push	bc
-BB8_32:
+BB8_37:
 	push	de
 	ld	de, (ix + 15)
 	push	de
-	jr	BB8_23
-BB8_33:
+	jr	BB8_29
+BB8_38:
+	ld	de, (ix + 12)
+	push	de
+	pop	iy
+	ld	hl, 16
+	push	hl
+	pop	bc
+	add	iy, bc
+	ld	bc, (ix + 15)
+	push	bc
+	pop	hl
+	ld	bc, 16
+	add	hl, bc
+	push	hl
+	push	de
+	push	hl
+	push	iy
+	jp	BB8_47
+BB8_39:
+	ld	de, (ix + 12)
+	push	de
+	pop	iy
+	ld	hl, 16
+	push	hl
+	pop	bc
+	add	iy, bc
+	ld	bc, (ix + 15)
+	push	bc
+	pop	hl
+	ld	de, 16
+	add	hl, de
+	push	hl
+	ld	hl, (ix + 12)
+	push	hl
+	push	bc
+	push	iy
+	push	bc
+	jr	BB8_42
+BB8_40:
+	ld	de, (ix + 12)
+	ex	de, hl
+	ld	de, 16
+	add	hl, de
+	ld	bc, (ix + 15)
+	push	bc
+	pop	iy
+	add	iy, de
+	push	iy
+	push	hl
+	push	bc
+	push	hl
+	push	bc
+BB8_41:
+	ld	hl, (ix + 12)
+BB8_42:
+	push	hl
+	jr	BB8_49
+BB8_43:
+	ld	iy, (ix + 12)
+	ld	hl, 16
+	ex	de, hl
+	add	iy, de
+	ld	hl, (ix + 15)
+	push	hl
+	pop	bc
+	add	hl, de
+	ld	(ix - 3), hl
+	push	bc
+	pop	hl
+	ld	de, 8
+	add	hl, de
+	push	hl
+	ld	hl, (ix + 12)
+	push	hl
+	push	bc
+	push	iy
+	ld	hl, (ix - 3)
+	push	hl
+BB8_44:
+	push	iy
+	jr	BB8_49
+BB8_45:
+	ld	bc, (ix + 15)
+	push	bc
+	pop	iy
+	ld	de, 16
+	add	iy, de
+	ld	de, (ix + 12)
+	push	de
+	pop	hl
+	ld	bc, 8
+	add	hl, bc
+	ld	bc, (ix + 15)
+	push	bc
+	push	hl
+	push	iy
+	push	de
+	push	bc
+	jr	BB8_48
+BB8_46:
+	ld	bc, (ix + 15)
+	push	bc
+	pop	iy
+	ld	hl, 16
+	push	hl
+	pop	bc
+	add	iy, bc
+	ld	(ix - 3), iy
+	ld	de, (ix + 12)
+	push	de
+	pop	iy
+	add	iy, bc
+	ld	hl, (ix + 15)
+	ld	bc, 8
+	add	hl, bc
+	push	hl
+	push	iy
+	ld	hl, (ix - 3)
+	push	hl
+	push	de
+BB8_47:
+	ld	hl, (ix + 15)
+	push	hl
+BB8_48:
+	push	de
+BB8_49:
+	call	_gfx_FillTriangle
+	pop	hl
+	pop	hl
+BB8_50:
+	pop	hl
+	pop	hl
+	pop	hl
+	pop	hl
+BB8_51:
+	pop	hl
+	pop	ix
+	ret
+BB8_52:
 	ld	hl, (ix + 12)
 	push	hl
 	pop	iy
@@ -1089,12 +1294,12 @@ BB8_33:
 	add	hl, bc
 	push	bc
 	push	bc
-	jr	BB8_26
-BB8_34:
+	jp	BB8_32
+BB8_53:
 	ld	hl, (ix + 15)
 	ld	de, 8
-	jp	BB8_20
-BB8_35:
+	jp	BB8_26
+BB8_54:
 	ld	hl, 8
 	jp	BB8_3
 	section	.text,"ax",@progbits
@@ -1104,28 +1309,40 @@ JTI8_0:
 	dl	BB8_2
 	dl	BB8_5
 	dl	BB8_8
-	dl	BB8_2
-	dl	BB8_2
 	dl	BB8_11
 	dl	BB8_14
+	dl	BB8_17
+	dl	BB8_20
 	private	JTI8_1
 JTI8_1:
-	dl	BB8_13
-	dl	BB8_33
-	dl	BB8_34
-	dl	BB8_35
+	dl	BB8_16
+	dl	BB8_43
+	dl	BB8_45
+	dl	BB8_46
 	private	JTI8_2
 JTI8_2:
-	dl	BB8_10
-	dl	BB8_29
-	dl	BB8_30
-	dl	BB8_31
+	dl	BB8_13
+	dl	BB8_38
+	dl	BB8_39
+	dl	BB8_40
 	private	JTI8_3
 JTI8_3:
+	dl	BB8_19
+	dl	BB8_52
+	dl	BB8_53
+	dl	BB8_54
+	private	JTI8_4
+JTI8_4:
+	dl	BB8_10
+	dl	BB8_34
+	dl	BB8_35
+	dl	BB8_36
+	private	JTI8_5
+JTI8_5:
 	dl	BB8_7
-	dl	BB8_17
-	dl	BB8_18
+	dl	BB8_23
 	dl	BB8_24
+	dl	BB8_30
 
 	section	.text,"ax",@progbits
 	public	_generateMap
@@ -1164,13 +1381,14 @@ BB9_2:
 	add	hl, de
 	ld	(ix - 27), hl
 	ld	bc, 15
-	ld	de, 0
+	ld	iy, 0
+	lea	de, iy
 BB9_3:
 	push	de
 	pop	hl
 	or	a, a
 	sbc	hl, bc
-	jp	z, BB9_32
+	jp	z, BB9_36
 	push	de
 	pop	hl
 	ld	c, 4
@@ -1180,6 +1398,7 @@ BB9_3:
 	push	bc
 	pop	iy
 	add	iy, iy
+	ld	iy, 0
 	sbc	hl, hl
 	ld	(ix - 30), bc
 	ld	a, l
@@ -1200,13 +1419,12 @@ BB9_3:
 	add	a, 17
 	ld	l, a
 	ld	(ix - 39), hl
-	ld	iy, 0
 BB9_5:
 	lea	hl, iy
 	ld	de, 20
 	or	a, a
 	sbc	hl, de
-	jp	z, BB9_31
+	jp	z, BB9_35
 	ld	hl, (ix - 3)
 	ld	bc, 120
 	call	__imulu
@@ -1278,7 +1496,7 @@ BB9_9:
 	or	a, a
 	sbc	hl, de
 	call	pe, __setflag
-	jp	p, BB9_29
+	jp	p, BB9_14
 	call	_rand
 	ld	bc, 7
 	call	__irems
@@ -1287,52 +1505,78 @@ BB9_9:
 	inc	hl
 	ld	iy, (ix - 24)
 	ld	(iy), hl
+	ld	hl, (_showTestTiles)
+	push	de
+	pop	bc
+	push	de
+	pop	iy
+	ld	de, -3
+	add	iy, de
+	add	hl, bc
+	or	a, a
+	sbc	hl, bc
+	jr	nz, BB9_16
+	lea	hl, iy
+	ld	de, 2
+	or	a, a
+	sbc	hl, de
+	jr	nc, BB9_16
+	ld	hl, 1
+	ld	iy, (ix - 24)
+	ld	(iy), hl
+	jr	BB9_14
+BB9_13:
+	ld	de, 0
+	ld	hl, (ix - 24)
+	ld	(hl), de
+BB9_14:
+	ld	bc, 15
+BB9_15:
+	ld	iy, (ix - 6)
+	inc	iy
+	jp	BB9_5
+BB9_16:
+	push	bc
+	pop	de
 	dec	de
 	push	de
 	pop	hl
-	dec	bc
+	ld	bc, 6
 	or	a, a
 	sbc	hl, bc
-	jp	nc, BB9_29
+	ld	bc, 15
+	jr	nc, BB9_15
 	ld	hl, JTI9_0
 	add	hl, de
 	add	hl, de
 	add	hl, de
 	ld	hl, (hl)
 	jp	(hl)
-BB9_12:
+BB9_18:
 	call	_rand
 	ld	bc, 4
-	jp	BB9_28
-BB9_13:
-	ld	de, 0
-	ld	hl, (ix - 24)
-	ld	(hl), de
-	jp	BB9_29
-BB9_14:
-	ld	bc, (ix - 6)
-	push	bc
-	pop	hl
+	jp	BB9_33
+BB9_19:
+	ld	hl, (ix - 6)
+	push	hl
+	pop	iy
 	ld	de, 17
-	add	hl, de
-	ld	(ix - 49), hl
-	push	bc
-	pop	hl
+	add	iy, de
+	ld	(ix - 49), iy
+	push	hl
+	pop	iy
 	ld	de, 8
-	add	hl, de
-	ld	(ix - 46), hl
-	push	bc
-	pop	hl
+	add	iy, de
+	ld	(ix - 46), iy
 	dec	hl
 	ld	(ix - 52), hl
 	ld	hl, 11
-	ld	bc, 15
-BB9_15:
+BB9_20:
 	dec	hl
 	add	hl, bc
 	or	a, a
 	sbc	hl, bc
-	jr	z, BB9_26
+	jr	z, BB9_31
 	ld	(ix - 21), hl
 	call	_rand
 	ld	bc, 4
@@ -1341,7 +1585,7 @@ BB9_15:
 	ld	de, 4
 	or	a, a
 	sbc	hl, de
-	jr	nc, BB9_24
+	jr	nc, BB9_29
 	ld	hl, JTI9_1
 	ld	de, (ix - 42)
 	add	hl, de
@@ -1349,67 +1593,63 @@ BB9_15:
 	add	hl, de
 	ld	hl, (hl)
 	jp	(hl)
-BB9_18:
+BB9_23:
 	ld	hl, (ix - 39)
-	jr	BB9_21
-BB9_19:
+	jr	BB9_26
+BB9_24:
 	ld	hl, (ix - 33)
 	push	hl
 	ld	hl, (ix - 52)
-	jr	BB9_23
-BB9_20:
+	jr	BB9_28
+BB9_25:
 	ld	hl, (ix - 36)
-BB9_21:
+BB9_26:
 	push	hl
 	ld	hl, (ix - 46)
-	jr	BB9_23
-BB9_22:
+	jr	BB9_28
+BB9_27:
 	ld	hl, (ix - 33)
 	push	hl
 	ld	hl, (ix - 49)
-BB9_23:
+BB9_28:
 	push	hl
 	call	_gfx_GetPixel
 	ld	(ix - 43), a
 	pop	hl
 	pop	hl
-BB9_24:
+BB9_29:
 	ld	a, (ix - 43)
 	or	a, a
 	ld	bc, 15
 	ld	hl, (ix - 21)
-	jr	nz, BB9_15
+	jr	nz, BB9_20
 	xor	a, a
 	ld	(ix - 43), a
-BB9_26:
+BB9_31:
 	ld	hl, (ix - 42)
-	ld	iy, (ix - 24)
-	ld	(iy + 3), hl
-	jr	BB9_30
-BB9_27:
+	jr	BB9_34
+BB9_32:
 	call	_rand
 	ld	bc, 2
-BB9_28:
+BB9_33:
 	call	__irems
+	ld	bc, 15
+BB9_34:
 	ld	iy, (ix - 24)
 	ld	(iy + 3), hl
-BB9_29:
-	ld	bc, 15
-BB9_30:
-	ld	iy, (ix - 6)
-	inc	iy
-	jp	BB9_5
-BB9_31:
+	jp	BB9_15
+BB9_35:
 	ld	de, (ix - 3)
 	inc	de
+	ld	iy, 0
 	jp	BB9_3
-BB9_32:
+BB9_36:
 	ld	hl, (ix + 24)
 	add	hl, bc
 	or	a, a
 	sbc	hl, bc
-	jr	z, BB9_34
-	ld	bc, 0
+	jr	z, BB9_38
+	lea	bc, iy
 	ld	de, 720
 	ld	iy, (ix + 6)
 	lea	hl, iy
@@ -1423,7 +1663,7 @@ BB9_32:
 	add	iy, de
 	ld	hl, 1
 	ld	(iy), hl
-BB9_34:
+BB9_38:
 	ld	sp, ix
 	pop	ix
 	ret
@@ -1431,18 +1671,18 @@ BB9_34:
 	section	.rodata,"a",@progbits
 	private	JTI9_0
 JTI9_0:
-	dl	BB9_12
-	dl	BB9_12
-	dl	BB9_12
-	dl	BB9_14
-	dl	BB9_12
-	dl	BB9_27
-	private	JTI9_1
-JTI9_1:
+	dl	BB9_18
+	dl	BB9_18
 	dl	BB9_18
 	dl	BB9_19
-	dl	BB9_20
-	dl	BB9_22
+	dl	BB9_18
+	dl	BB9_32
+	private	JTI9_1
+JTI9_1:
+	dl	BB9_23
+	dl	BB9_24
+	dl	BB9_25
+	dl	BB9_27
 
 	section	.text,"ax",@progbits
 	public	_loadRNGMap
@@ -1594,7 +1834,7 @@ _drawSlider:
 	ld	hl, (ix + 6)
 	ld	de, (ix + 9)
 	ld	bc, (ix + 12)
-	ld	(ix - 3), bc
+	ld	(ix - 4), bc
 	ld	a, (ix + 15)
 	ld	(ix - 8), a
 	ld	bc, (ix + 18)
@@ -1602,58 +1842,79 @@ _drawSlider:
 	ld	bc, (ix + 21)
 	ld	(ix - 7), bc
 	ld	a, (ix + 24)
-	ld	(ix - 4), a
+	ld	(ix - 1), a
 	push	de
 	push	hl
 	call	_gfx_SetTextXY
+	ld	de, (ix - 11)
 	pop	hl
 	pop	hl
-	ld	hl, (ix - 11)
-	ld	de, (ix - 3)
+	push	de
+	pop	hl
+	ld	bc, (ix - 4)
+	or	a, a
+	sbc	hl, bc
+	call	pe, __setflag
+	ld	c, -1
+	ld	iyl, 0
+	ld	a, c
+	jp	m, BB12_2
+	ld	a, iyl
+BB12_2:
+	and	a, (ix - 1)
+	ld	b, a
+	ex	de, hl
+	ld	de, (ix - 7)
 	or	a, a
 	sbc	hl, de
-	call	pe, __setflag
-	jp	m, BB12_2
-	ld	a, 0
-	jr	BB12_3
-BB12_2:
-	ld	a, -1
-BB12_3:
+	jr	z, BB12_4
+	ld	c, iyl
+BB12_4:
 	ld	l, 32
-	and	a, (ix - 4)
+	ld	a, c
+	and	a, (ix - 1)
+	ld	(ix - 11), a
 	bit	0, a
-	jp	nz, BB12_5
-	jr	BB12_6
-BB12_5:
-	ld	l, 60
+	jp	nz, BB12_6
+	jr	BB12_7
 BB12_6:
+	ld	l, 91
+BB12_7:
+	bit	0, b
+	jr	z, BB12_9
+	ld	l, 60
+BB12_9:
 	push	hl
 	call	_gfx_PrintChar
 	pop	hl
 	ld	l, (ix - 8)
 	push	hl
-	ld	hl, (ix - 3)
+	ld	hl, (ix - 4)
 	push	hl
 	call	_gfx_PrintInt
 	pop	hl
 	pop	hl
-	ld	hl, (ix - 3)
+	ld	hl, (ix - 4)
 	ld	de, (ix - 7)
 	or	a, a
 	sbc	hl, de
 	call	pe, __setflag
-	jp	m, BB12_8
+	jp	m, BB12_11
 	ld	a, 0
-	jr	BB12_9
-BB12_8:
-	ld	a, -1
-BB12_9:
-	ld	l, 32
-	and	a, (ix - 4)
-	bit	0, a
-	jr	z, BB12_11
-	ld	l, 62
+	jr	BB12_12
 BB12_11:
+	ld	a, -1
+BB12_12:
+	ld	l, 32
+	and	a, (ix - 1)
+	bit	0, (ix - 11)
+	jr	z, BB12_14
+	ld	l, 93
+BB12_14:
+	bit	0, a
+	jr	z, BB12_16
+	ld	l, 62
+BB12_16:
 	ld	(ix + 6), l
 	ld	sp, ix
 	pop	ix
@@ -1704,10 +1965,10 @@ BB13_4:
 	sbc	hl, bc
 	jr	nz, BB13_8
 	ld	iy, (ix + 9)
-	ld	de, 6
 	ld	hl, (ix + 12)
+	add	hl, bc
 	or	a, a
-	sbc	hl, de
+	sbc	hl, bc
 	ld	hl, _.str.2
 	jr	nz, BB13_9
 	ld	hl, 10
@@ -1719,10 +1980,11 @@ BB13_4:
 	or	a, a
 	sbc	hl, hl
 	ld	(_caveHeight), hl
-	ld	hl, 65
-	ld	(_wsChance), hl
-	ld	hl, 75
-	ld	(_blockVariety), hl
+	ld	de, 65
+	ld	(_wsChance), de
+	ld	de, 75
+	ld	(_blockVariety), de
+	ld	(_showTestTiles), hl
 BB13_7:
 	lea	hl, iy
 	jr	BB13_9
@@ -1738,27 +2000,19 @@ BB13_9:
 _drawMenu:
 	ld	hl, -15
 	call	__frameset
-	ld	bc, (ix + 12)
-	ld	hl, -720866
+	ld	hl, (ix + 12)
+	ld	iy, -720866
 	ld	de, 0
-	ld	(ix - 6), de
-	ld	e, (hl)
-	inc	hl
-	ld	d, (hl)
-	dec	hl
+	ld	(ix - 15), de
+	ld	e, (iy)
+	ld	d, (iy + 1)
 	ld	a, e
 	bit	3, a
 	jr	nz, BB14_2
-	push	bc
-	pop	de
+	ex	de, hl
 	ld.sis	bc, 1
-	push	de
-	ld	e, (hl)
-	inc	hl
-	ld	d, (hl)
-	ld	l, e
-	ld	h, d
-	pop	de
+	ld	l, (iy)
+	ld	h, (iy + 1)
 	call	__sand
 	ld	iy, 0
 	ex	de, hl
@@ -1766,33 +2020,32 @@ _drawMenu:
 	ld	iyh, d
 	ex	de, hl
 	add	iy, de
-	lea	bc, iy
+	lea	hl, iy
 	jr	BB14_3
 BB14_2:
-	dec	bc
+	dec	hl
 BB14_3:
-	ld	de, 1
-	push	bc
-	pop	hl
+	ld	iy, (ix + 6)
+	ld	de, (iy + 13)
+	ld	bc, 0
+	push	hl
+	pop	iy
 	or	a, a
-	sbc	hl, de
+	sbc	hl, bc
 	call	pe, __setflag
 	jp	p, BB14_5
-	ld	bc, 0
+	push	de
+	pop	iy
+	dec	iy
 BB14_5:
-	ld	iy, (ix + 6)
-	ld	de, (iy + 10)
-	push	bc
-	pop	hl
+	lea	hl, iy
 	or	a, a
 	sbc	hl, de
 	call	pe, __setflag
 	jp	m, BB14_7
-	dec	de
-	push	de
-	pop	bc
+	ld	iy, 0
 BB14_7:
-	ld	(ix - 3), bc
+	ld	(ix - 3), iy
 	or	a, a
 	sbc	hl, hl
 	push	hl
@@ -1810,7 +2063,7 @@ BB14_7:
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	hl, 2
+	ld	hl, 3
 	push	hl
 	call	_gfx_SetColor
 	pop	hl
@@ -1868,6 +2121,7 @@ BB14_7:
 	ld	(iy + 12), hl
 	ld	hl, 4
 	ld	iy, (ix + 6)
+	ld	(iy + 13), hl
 	ld	(iy + 10), hl
 	ld	hl, 12
 	push	hl
@@ -1878,7 +2132,7 @@ BB14_7:
 	push	de
 	pop	hl
 	ld	iy, (ix + 6)
-	ld	(iy + 13), hl
+	ld	(iy + 16), hl
 	ld	hl, _.str.10
 	push	de
 	pop	iy
@@ -1889,7 +2143,7 @@ BB14_7:
 	ld	(iy + 6), hl
 	ld	hl, _.str.13
 	ld	(iy + 9), hl
-	jp	BB14_23
+	jp	BB14_25
 BB14_9:
 	ld	hl, _.str.3
 	push	hl
@@ -1901,15 +2155,15 @@ BB14_9:
 	add	hl, bc
 	or	a, a
 	sbc	hl, bc
-	jp	nz, BB14_23
-	ld	de, 6
-	ld	hl, 18
-	ld	bc, (ix + 6)
-	push	bc
+	jp	nz, BB14_25
+	ld	hl, 7
+	ld	de, (ix + 6)
+	push	de
 	pop	iy
-	ld	bc, _.str.12
-	ld	(iy + 1), bc
-	ld	(iy + 4), de
+	ld	de, _.str.12
+	ld	(iy + 1), de
+	ld	(iy + 4), hl
+	ld	hl, 21
 	push	hl
 	call	_malloc
 	push	hl
@@ -1933,10 +2187,14 @@ BB14_9:
 	ld	(iy + 12), hl
 	ld	hl, _.str.19
 	ld	(iy + 15), hl
-	ld	hl, 8
+	ld	hl, _.str.20
+	ld	(iy + 18), hl
+	ld	hl, 9
 	ld	iy, (ix + 6)
+	ld	(iy + 13), hl
+	ld	hl, 2
 	ld	(iy + 10), hl
-	ld	hl, 24
+	ld	hl, 27
 	push	hl
 	call	_malloc
 	push	hl
@@ -1945,36 +2203,38 @@ BB14_9:
 	push	de
 	pop	hl
 	ld	iy, (ix + 6)
-	ld	(iy + 13), hl
-	ld	hl, _.str.20
+	ld	(iy + 16), hl
+	ld	hl, _.str.21
 	push	de
 	pop	iy
 	ld	(iy), hl
-	ld	hl, _.str.21
-	ld	(iy + 3), hl
 	ld	hl, _.str.22
-	ld	(iy + 6), hl
+	ld	(iy + 3), hl
 	ld	hl, _.str.23
-	ld	(iy + 9), hl
+	ld	(iy + 6), hl
 	ld	hl, _.str.24
-	ld	(iy + 12), hl
+	ld	(iy + 9), hl
 	ld	hl, _.str.25
-	ld	(iy + 15), hl
+	ld	(iy + 12), hl
 	ld	hl, _.str.26
-	ld	(iy + 18), hl
+	ld	(iy + 15), hl
 	ld	hl, _.str.27
+	ld	(iy + 18), hl
+	ld	hl, _.str.28
 	ld	(iy + 21), hl
+	ld	hl, _.str.29
+	ld	(iy + 24), hl
 	ld	hl, 8
 	push	hl
 	call	_gfx_SetMonospaceFont
 	pop	hl
 	ld	de, (_spawnX)
+	ld	bc, 2
 	ld	hl, (ix - 3)
-	add	hl, bc
 	or	a, a
 	sbc	hl, bc
 	ld	hl, -1
-	ld	(ix - 9), hl
+	ld	(ix - 6), hl
 	jr	z, BB14_12
 	ld	hl, 0
 BB14_12:
@@ -2003,8 +2263,8 @@ BB14_12:
 	push	hl
 	pop	iy
 	ld	bc, (_spawnY)
+	ld	de, 3
 	ld	hl, (ix - 3)
-	ld	de, 1
 	or	a, a
 	sbc	hl, de
 	ld	hl, -1
@@ -2033,7 +2293,7 @@ BB14_14:
 	ld	de, 10
 	add	iy, de
 	ld	de, (_spawnBlock)
-	ld	bc, 2
+	ld	bc, 4
 	ld	hl, (ix - 3)
 	or	a, a
 	sbc	hl, bc
@@ -2063,7 +2323,7 @@ BB14_16:
 	ld	de, 10
 	add	iy, de
 	ld	de, (_caveHeight)
-	ld	bc, 3
+	ld	bc, 5
 	ld	hl, (ix - 3)
 	or	a, a
 	sbc	hl, bc
@@ -2092,7 +2352,7 @@ BB14_18:
 	ld	de, 10
 	add	iy, de
 	ld	de, (_wsChance)
-	ld	bc, 4
+	ld	bc, 6
 	ld	hl, (ix - 3)
 	or	a, a
 	sbc	hl, bc
@@ -2122,15 +2382,14 @@ BB14_20:
 	ld	de, 10
 	add	iy, de
 	ld	de, (_blockVariety)
-	ld	bc, 5
+	ld	bc, 7
 	ld	hl, (ix - 3)
 	or	a, a
 	sbc	hl, bc
+	ld	hl, -1
 	jr	z, BB14_22
 	ld	hl, 0
-	ld	(ix - 9), hl
 BB14_22:
-	ld	hl, (ix - 9)
 	push	hl
 	ld	hl, 100
 	push	hl
@@ -2147,14 +2406,44 @@ BB14_22:
 	ld	hl, 21
 	add	hl, sp
 	ld	sp, hl
+	call	_gfx_GetTextY
+	push	hl
+	pop	iy
+	ld	de, 10
+	add	iy, de
+	ld	de, (_showTestTiles)
+	ld	bc, 8
+	ld	hl, (ix - 3)
+	or	a, a
+	sbc	hl, bc
+	jr	z, BB14_24
+	ld	hl, 0
+	ld	(ix - 6), hl
+BB14_24:
+	ld	hl, (ix - 6)
+	push	hl
+	or	a, a
+	sbc	hl, hl
+	push	hl
+	push	hl
+	inc	hl
+	push	hl
+	push	de
+	push	iy
+	ld	hl, 160
+	push	hl
+	call	_drawSlider
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
 	or	a, a
 	sbc	hl, hl
 	push	hl
 	call	_gfx_SetMonospaceFont
 	pop	hl
-BB14_23:
+BB14_25:
 	ld	hl, 68
-	ld	(ix - 9), hl
+	ld	(ix - 6), hl
 	ld	hl, 2
 	push	hl
 	push	hl
@@ -2193,8 +2482,8 @@ BB14_23:
 	pop	hl
 	pop	hl
 	ld	bc, 0
-	ld	(ix - 12), bc
-BB14_24:
+	ld	(ix - 9), bc
+BB14_26:
 	ld	iy, (ix + 6)
 	ld	de, (iy + 4)
 	push	bc
@@ -2202,35 +2491,35 @@ BB14_24:
 	or	a, a
 	sbc	hl, de
 	call	pe, __setflag
-	jp	p, BB14_26
-	ld	hl, (ix - 9)
+	jp	p, BB14_28
+	ld	hl, (ix - 6)
 	push	hl
 	ld	hl, 28
 	push	hl
-	ld	(ix - 15), bc
+	ld	(ix - 12), bc
 	call	_gfx_SetTextXY
 	pop	hl
 	pop	hl
 	ld	iy, (ix + 6)
 	ld	hl, (iy + 7)
-	ld	de, (ix - 12)
+	ld	de, (ix - 9)
 	add	hl, de
 	ld	hl, (hl)
 	push	hl
 	call	_gfx_PrintString
-	ld	bc, (ix - 15)
+	ld	bc, (ix - 12)
 	pop	hl
 	inc	bc
 	ld	de, 10
+	ld	hl, (ix - 6)
+	add	hl, de
+	ld	(ix - 6), hl
+	ld	de, 3
 	ld	hl, (ix - 9)
 	add	hl, de
 	ld	(ix - 9), hl
-	ld	de, 3
-	ld	hl, (ix - 12)
-	add	hl, de
-	ld	(ix - 12), hl
-	jr	BB14_24
-BB14_26:
+	jr	BB14_26
+BB14_28:
 	call	_gfx_GetTextY
 	push	hl
 	pop	iy
@@ -2243,39 +2532,41 @@ BB14_26:
 	pop	de
 	ld	(ix - 9), iy
 	add	iy, de
-	ld	(ix - 15), iy
+	ld	(ix - 12), iy
 	or	a, a
 	sbc	hl, hl
-	push	hl
-	pop	bc
-BB14_27:
+	ld	(ix - 6), hl
+	ld	bc, 3
+BB14_29:
 	ld	iy, (ix + 6)
-	ld	de, (iy + 10)
-	push	bc
-	pop	hl
+	ld	de, (iy + 13)
+	ld	hl, (ix - 6)
 	or	a, a
 	sbc	hl, de
 	call	pe, __setflag
-	jp	p, BB14_32
-	ld	de, (ix - 3)
-	ex	de, hl
-	ld	(ix - 12), bc
+	jp	p, BB14_35
+	ld	de, (iy + 10)
+	ld	hl, (ix - 6)
 	or	a, a
-	sbc	hl, bc
-	jr	nz, BB14_30
+	sbc	hl, de
+	call	pe, __setflag
+	jp	p, BB14_35
+	ld	hl, (ix - 3)
+	ld	de, (ix - 6)
+	or	a, a
+	sbc	hl, de
+	jr	nz, BB14_33
 	or	a, a
 	sbc	hl, hl
 	push	hl
 	call	_gfx_SetTextFGColor
 	pop	hl
-	ld	hl, 2
+	ld	hl, 3
 	push	hl
 	call	_gfx_SetColor
 	pop	hl
-	ld	hl, (ix + 6)
-	push	hl
-	pop	iy
-	ld	iy, (iy + 13)
+	ld	iy, (ix + 6)
+	ld	iy, (iy + 16)
 	ld	hl, (ix - 3)
 	ld	bc, 3
 	call	__imulu
@@ -2289,57 +2580,54 @@ BB14_27:
 	ld	de, 8
 	push	de
 	push	hl
-	ld	hl, (ix - 15)
+	ld	hl, (ix - 12)
 	push	hl
 	ld	hl, 28
 	push	hl
 	call	_gfx_FillRectangle
-	ld	de, 28
 	pop	hl
 	pop	hl
 	pop	hl
-	pop	hl
-	jr	BB14_31
-BB14_30:
-	ld	hl, 2
-	push	hl
+	jr	BB14_34
+BB14_33:
+	push	bc
 	call	_gfx_SetTextFGColor
+BB14_34:
 	pop	hl
 	ld	hl, 28
-	ex	de, hl
-BB14_31:
-	ld	hl, (ix - 9)
-	push	hl
+	ld	de, (ix - 9)
 	push	de
+	push	hl
 	call	_gfx_SetTextXY
 	pop	hl
 	pop	hl
 	ld	iy, (ix + 6)
-	ld	hl, (iy + 13)
-	ld	de, (ix - 6)
+	ld	hl, (iy + 16)
+	ld	de, (ix - 15)
 	add	hl, de
 	ld	hl, (hl)
 	push	hl
 	call	_gfx_PrintString
 	pop	hl
-	ld	bc, (ix - 12)
-	inc	bc
+	ld	hl, (ix - 6)
+	inc	hl
+	ld	(ix - 6), hl
 	ld	de, 10
 	ld	hl, (ix - 9)
 	add	hl, de
 	ld	(ix - 9), hl
-	ld	de, 3
-	ld	hl, (ix - 6)
-	add	hl, de
-	ld	(ix - 6), hl
-	jp	BB14_27
-BB14_32:
+	ld	bc, 3
+	ld	hl, (ix - 15)
+	add	hl, bc
+	ld	(ix - 15), hl
+	jp	BB14_29
+BB14_35:
 	ld	hl, (iy + 7)
 	push	hl
 	call	_free
 	pop	hl
 	ld	iy, (ix + 6)
-	ld	hl, (iy + 13)
+	ld	hl, (iy + 16)
 	push	hl
 	call	_free
 	pop	hl
@@ -2352,41 +2640,33 @@ BB14_32:
 	section	.text,"ax",@progbits
 	public	_main
 _main:
-	ld	hl, -1869
+	ld	hl, -60
 	call	__frameset
-	ld	bc, -1842
-	lea	iy, ix
-	add	iy, bc
-	ld	bc, -1845
-	lea	hl, ix
-	add	hl, bc
-	ld	(hl), iy
-	lea	hl, iy + 36
-	push	ix
-	ld	bc, -1854
-	add	ix, bc
-	ld	(ix), hl
-	pop	ix
-	lea	hl, iy + 33
-	push	ix
-	ld	bc, -1857
-	add	ix, bc
-	ld	(ix), hl
-	pop	ix
-	lea	hl, iy + 16
-	ld	bc, -1848
-	lea	iy, ix
-	add	iy, bc
-	ld	(iy), hl
+	lea	hl, ix - 3
+	ld	(ix - 51), hl
+	lea	hl, ix - 20
+	ld	(ix - 42), hl
 	call	_gfx_Begin
 	ld.sis	hl, 28539
 	ld	iy, -1900030
 	ld	(iy), l
 	ld	(iy + 1), h
-	ld.sis	hl, -33
+	ld.sis	hl, 32639
 	ld	iy, -1900028
 	ld	(iy), l
 	ld	(iy + 1), h
+	ld.sis	hl, 32767
+	ld	iy, -1900026
+	ld	(iy), l
+	ld	(iy + 1), h
+	ld.sis	hl, 31744
+	ld	iy, -1900024
+	ld	(iy), l
+	ld	(iy + 1), h
+	ld	hl, 3
+	push	hl
+	call	_gfx_SetTransparentColor
+	pop	hl
 	ld	hl, 1
 	push	hl
 	call	_gfx_SetDraw
@@ -2402,14 +2682,10 @@ _main:
 	pop	hl
 	or	a, a
 	sbc	hl, hl
-	ld	bc, -1845
-	lea	iy, ix
-	add	iy, bc
-	ld	iy, (iy)
-	ld	(iy + 33), hl
-	ld	hl, _.str.29
+	ld	(ix - 3), hl
+	ld	hl, _.str.31
 	push	hl
-	ld	hl, _.str.28
+	ld	hl, _.str.30
 	push	hl
 	call	_ti_Open
 	ld	e, a
@@ -2417,9 +2693,9 @@ _main:
 	pop	hl
 	or	a, a
 	jr	nz, BB15_3
-	ld	hl, _.str.30
+	ld	hl, _.str.32
 	push	hl
-	ld	hl, _.str.28
+	ld	hl, _.str.30
 	push	hl
 	call	_ti_Open
 	ld	e, a
@@ -2427,77 +2703,44 @@ _main:
 	pop	hl
 	or	a, a
 	jr	z, BB15_5
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	(hl), de
 	push	de
 	ld	hl, 1
 	push	hl
 	ld	hl, 3
 	push	hl
-	ld	bc, -1857
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 51)
 	push	hl
+	ld	(ix - 45), de
 	call	_ti_Write
 	jr	BB15_4
 BB15_3:
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	(hl), de
 	push	de
 	ld	hl, 1
 	push	hl
 	ld	hl, 3
 	push	hl
-	ld	bc, -1857
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 51)
 	push	hl
+	ld	(ix - 45), de
 	call	_ti_Read
 BB15_4:
+	ld	de, (ix - 45)
 	pop	hl
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	push	hl
+	push	de
 	call	_ti_Close
 	pop	hl
 BB15_5:
 	ld	hl, _.str.2
-	ld	de, -1866
-	lea	iy, ix
-	add	iy, de
-	ld	(iy), hl
-	ld	de, -1845
-	lea	hl, ix
-	add	hl, de
-	ld	iy, (hl)
-	lea	hl, iy
-	ld	de, -1869
-	lea	iy, ix
-	add	iy, de
-	ld	(iy), hl
+	ld	(ix - 57), hl
+	lea	hl, ix - 39
+	ld	(ix - 60), hl
 	ld	hl, (_spawnX)
-	push	ix
-	ld	de, -1851
-	add	ix, de
-	ld	(ix), hl
-	pop	ix
+	ld	(ix - 45), hl
 	ld	hl, (_spawnY)
-	push	ix
-	ld	de, -1860
-	add	ix, de
-	ld	(ix), hl
-	pop	ix
+	ld	(ix - 48), hl
 	ld	iy, (_caveHeight)
 	ld	bc, (_wsChance)
 	ld	de, (_blockVariety)
@@ -2506,20 +2749,11 @@ BB15_5:
 	push	de
 	push	bc
 	push	iy
-	ld	bc, -1860
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 48)
 	push	hl
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 45)
 	push	hl
-	ld	bc, -1854
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, _main.map
 	push	hl
 	call	_generateMap
 	ld	hl, 21
@@ -2529,33 +2763,20 @@ BB15_5:
 	ld	de, (_spawnY)
 	push	de
 	push	hl
-	ld	bc, -1848
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 42)
 	push	hl
 	call	_resetPlayer
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	bc, -1845
-	lea	hl, ix
-	add	hl, bc
-	ld	iy, (hl)
-	ld	(iy), 0
+	ld	(ix - 39), 0
 	ld	hl, 1
-	ld	bc, -1860
-	lea	iy, ix
-	add	iy, bc
-	ld	(iy), hl
+	ld	(ix - 48), hl
 BB15_6:
 	or	a, a
 	sbc	hl, hl
+	ld	(ix - 45), hl
 BB15_7:
-	ld	bc, -1851
-	lea	iy, ix
-	add	iy, bc
-	ld	(iy), hl
 	call	_kb_Scan
 	ld	hl, -720868
 	push	de
@@ -2567,12 +2788,12 @@ BB15_7:
 	pop	de
 	ld	a, l
 	bit	6, a
-	jp	nz, BB15_36
+	jp	nz, BB15_37
 	ld	hl, 1
 	push	hl
 	call	_gfx_FillScreen
 	pop	hl
-	ld	hl, 2
+	ld	hl, 3
 	push	hl
 	call	_gfx_SetTextFGColor
 	pop	hl
@@ -2589,17 +2810,14 @@ BB15_7:
 	call	_gfx_SetTextScale
 	pop	hl
 	pop	hl
-	ld	hl, _.str.31
+	ld	hl, _.str.33
 	push	hl
 	call	_gfx_PrintString
 	pop	hl
 	call	_gfx_GetTextX
 	push	hl
 	pop	de
-	ld	bc, -1863
-	lea	iy, ix
-	add	iy, bc
-	ld	(iy), de
+	ld	(ix - 54), de
 	ld	hl, 104
 	push	hl
 	push	de
@@ -2614,10 +2832,7 @@ BB15_7:
 	pop	hl
 	ld	hl, 1
 	push	hl
-	ld	bc, -1860
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 48)
 	push	hl
 	call	_gfx_PrintInt
 	pop	hl
@@ -2630,43 +2845,23 @@ BB15_7:
 	pop	hl
 	ld	hl, 136
 	push	hl
-	ld	bc, -1863
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 54)
 	push	hl
 	call	_gfx_SetTextXY
 	pop	hl
 	pop	hl
-	ld	bc, -1845
-	lea	hl, ix
-	add	hl, bc
-	ld	iy, (hl)
-	ld	hl, (iy + 33)
+	ld	hl, (ix - 3)
 	ld	de, 1
 	push	de
 	push	hl
 	call	_gfx_PrintInt
 	pop	hl
 	pop	hl
-	ld	bc, -1854
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, _main.map
 	push	hl
 	call	_drawMap
-	ld	de, -1845
-	lea	hl, ix
-	add	hl, de
-	ld	iy, (hl)
 	pop	hl
-	bit	0, (iy + 32)
-	ld	de, -1848
-	lea	hl, ix
-	push	af
-	add	hl, de
-	pop	af
-	ld	bc, (hl)
+	bit	0, (ix - 4)
 	jr	nz, BB15_11
 BB15_9:
 	ld	hl, -720878
@@ -2678,16 +2873,15 @@ BB15_9:
 	ld	h, d
 	pop	de
 	ld	a, l
-	ld	l, (iy)
+	ld	l, (ix - 39)
 	bit	6, a
+	ld	bc, (ix - 42)
 	jp	nz, BB15_17
-	ld	de, -1863
-	lea	iy, ix
-	add	iy, de
-	ld	(iy), l
+	ld	(ix - 54), l
 	jp	BB15_18
 BB15_11:
-	push	bc
+	ld	hl, (ix - 42)
+	push	hl
 	call	_playerMovement
 	pop	hl
 	ld	hl, -720876
@@ -2700,29 +2894,17 @@ BB15_11:
 	pop	de
 	ld	a, l
 	bit	7, a
-	jp	nz, BB15_34
-	ld	de, -1845
-	lea	hl, ix
-	add	hl, de
-	ld	iy, (hl)
-	ld	bc, (iy + 16)
+	jp	nz, BB15_35
+	ld	bc, (ix - 20)
 	ld	hl, -6291456
 	ld	e, 67
-	ld	a, (iy + 19)
+	ld	a, (ix - 17)
 	call	__fcmp
-	jp	m, BB15_35
-	ld	bc, (iy + 20)
+	jp	m, BB15_36
+	ld	bc, (ix - 16)
 	ld	hl, 7340032
-	ld	a, (iy + 23)
+	ld	a, (ix - 13)
 	call	__fcmp
-	ld	(ix - 3), de
-	ld	de, -1848
-	lea	iy, ix
-	push	af
-	add	iy, de
-	pop	af
-	ld	bc, (iy)
-	ld	de, (ix - 3)
 	jp	m, BB15_16
 	ld	hl, -21
 	add	hl, sp
@@ -2730,20 +2912,11 @@ BB15_11:
 	ld	iy, 0
 	add	iy, sp
 	lea	de, iy
-	push	bc
-	pop	hl
+	ld	hl, (ix - 42)
 	ld	bc, 17
 	ldir
-	ld	(iy + 18), -32
+	ld	(iy + 18), 4
 	call	_playerTouchingColor
-	ld	de, -1848
-	lea	hl, ix
-	add	hl, de
-	ld	bc, (hl)
-	ld	de, -1845
-	lea	iy, ix
-	add	iy, de
-	ld	iy, (iy)
 	ld	hl, 21
 	add	hl, sp
 	ld	sp, hl
@@ -2760,56 +2933,32 @@ BB15_11:
 	ld	a, l
 	bit	5, a
 	ld	hl, 0
-	push	ix
-	ld	de, -1851
-	push	af
-	add	ix, de
-	pop	af
-	ld	(ix), hl
-	pop	ix
+	ld	(ix - 45), hl
 	jp	z, BB15_9
 BB15_16:
 	ld	hl, (_spawnX)
 	ld	de, (_spawnY)
 	push	de
 	push	hl
-	push	bc
+	ld	hl, (ix - 42)
+	push	hl
 	call	_resetPlayer
-	ld	de, -1848
-	lea	hl, ix
-	add	hl, de
-	ld	bc, (hl)
-	ld	de, -1845
-	lea	iy, ix
-	add	iy, de
-	ld	iy, (iy)
 	pop	hl
 	pop	hl
 	pop	hl
 	or	a, a
 	sbc	hl, hl
-	push	ix
-	ld	de, -1851
-	add	ix, de
-	ld	(ix), hl
-	pop	ix
+	ld	(ix - 45), hl
 	jp	BB15_9
 BB15_17:
 	ld	a, l
 	xor	a, 1
-	push	ix
-	ld	de, -1863
-	add	ix, de
-	ld	(ix), a
-	pop	ix
-	ld	(iy), a
-	ld	(iy + 32), l
+	ld	(ix - 54), a
+	ld	(ix - 39), a
+	ld	(ix - 4), l
 	or	a, a
 	sbc	hl, hl
-	ld	de, -1851
-	lea	iy, ix
-	add	iy, de
-	ld	(iy), hl
+	ld	(ix - 45), hl
 BB15_18:
 	push	hl
 	push	hl
@@ -2842,10 +2991,7 @@ BB15_18:
 	ld	hl, 0
 	add	hl, sp
 	ex	de, hl
-	ld	bc, -1848
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 42)
 	ld	bc, 17
 	ldir
 	call	_debugPlayerPosition
@@ -2855,77 +3001,54 @@ BB15_18:
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	bc, -1863
-	lea	hl, ix
-	add	hl, bc
-	ld	a, (hl)
+	ld	a, (ix - 54)
 	or	a, a
 	jr	nz, BB15_20
-	ld	bc, -1845
-	lea	hl, ix
-	add	hl, bc
-	ld	iy, (hl)
-	ld	(iy + 32), 1
-	jp	BB15_33
+	ld	(ix - 4), 1
+	jp	BB15_28
 BB15_20:
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 45)
 	push	hl
-	ld	bc, -1866
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 57)
 	push	hl
-	ld	bc, -1869
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 60)
 	push	hl
 	call	_drawMenu
-	ld	bc, -1851
-	lea	iy, ix
-	add	iy, bc
-	ld	(iy), hl
+	ld	(ix - 45), hl
 	pop	hl
 	pop	hl
 	pop	hl
 	ld	hl, _.str.3
 	push	hl
-	ld	bc, -1866
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 57)
 	push	hl
 	call	_strcmp
-	ld	de, -1851
-	lea	iy, ix
-	add	iy, de
-	ld	bc, (iy)
+	ld	iy, (ix - 45)
 	pop	de
 	pop	de
 	add	hl, bc
 	or	a, a
 	sbc	hl, bc
 	jr	nz, BB15_25
-	push	bc
-	pop	hl
-	ld	de, 6
+	lea	hl, iy
+	ld	de, 2
 	or	a, a
 	sbc	hl, de
 	call	pe, __setflag
-	jp	p, BB15_25
-	push	bc
+	jp	m, BB15_25
+	ld	de, -2
+	add	iy, de
+	lea	de, iy
+	push	de
 	pop	hl
-	ld	de, 6
+	ld	bc, 7
 	or	a, a
-	sbc	hl, de
-	jp	nc, BB15_33
+	sbc	hl, bc
+	jr	nc, BB15_28
 	ld	hl, JTI15_0
-	add	hl, bc
-	add	hl, bc
-	add	hl, bc
+	add	hl, de
+	add	hl, de
+	add	hl, de
 	ld	hl, (hl)
 	jp	(hl)
 BB15_24:
@@ -2940,9 +3063,8 @@ BB15_24:
 	pop	de
 	pop	de
 	ld	(_spawnX), hl
-	or	a, a
-	sbc	hl, hl
-	jp	BB15_32
+	ld	hl, 2
+	jr	BB15_27
 BB15_25:
 	ld	hl, -720868
 	push	de
@@ -2955,39 +3077,29 @@ BB15_25:
 	ld.sis	bc, 1
 	call	__sand
 	bit	0, l
-	jp	z, BB15_33
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	jr	z, BB15_28
+	push	iy
+	ld	hl, (ix - 57)
 	push	hl
-	ld	bc, -1866
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	push	hl
-	ld	bc, -1869
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 60)
 	push	hl
 	call	_handleMenuMode
-	ld	bc, -1866
-	lea	iy, ix
-	add	iy, bc
-	ld	(iy), hl
+	ld	(ix - 57), hl
 	pop	hl
 	pop	hl
 	pop	hl
 	or	a, a
 	sbc	hl, hl
-	push	ix
-	ld	bc, -1851
-	add	ix, bc
-	ld	(ix), hl
-	pop	ix
-	jp	BB15_33
 BB15_27:
+	ld	(ix - 45), hl
+BB15_28:
+	call	_gfx_SwapDraw
+	ld	hl, 50
+	push	hl
+	call	_delay
+	pop	hl
+	jp	BB15_7
+BB15_29:
 	ld	hl, (_spawnY)
 	ld	de, 240
 	push	de
@@ -2999,9 +3111,9 @@ BB15_27:
 	pop	de
 	pop	de
 	ld	(_spawnY), hl
-	ld	hl, 1
-	jr	BB15_32
-BB15_28:
+	ld	hl, 3
+	jr	BB15_27
+BB15_30:
 	ld	hl, (_spawnBlock)
 	ld	de, 1
 	push	de
@@ -3013,9 +3125,9 @@ BB15_28:
 	pop	de
 	pop	de
 	ld	(_spawnBlock), hl
-	ld	hl, 2
-	jr	BB15_32
-BB15_29:
+	ld	hl, 4
+	jr	BB15_27
+BB15_31:
 	ld	hl, (_caveHeight)
 	ld	de, 999
 	push	de
@@ -3027,9 +3139,9 @@ BB15_29:
 	pop	de
 	pop	de
 	ld	(_caveHeight), hl
-	ld	hl, 3
-	jr	BB15_32
-BB15_30:
+	ld	hl, 5
+	jr	BB15_27
+BB15_32:
 	ld	hl, (_wsChance)
 	ld	de, 100
 	push	de
@@ -3041,9 +3153,9 @@ BB15_30:
 	pop	de
 	pop	de
 	ld	(_wsChance), hl
-	ld	hl, 4
-	jr	BB15_32
-BB15_31:
+	ld	hl, 6
+	jp	BB15_27
+BB15_33:
 	ld	hl, (_blockVariety)
 	ld	de, 100
 	push	de
@@ -3055,88 +3167,26 @@ BB15_31:
 	pop	de
 	pop	de
 	ld	(_blockVariety), hl
-	ld	hl, 5
-BB15_32:
-	ld	bc, -1851
-	lea	iy, ix
-	add	iy, bc
-	ld	(iy), hl
-BB15_33:
-	call	_gfx_SwapDraw
-	ld	hl, 50
-	push	hl
-	call	_delay
-	pop	hl
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	jp	BB15_7
+	ld	hl, 7
+	jp	BB15_27
 BB15_34:
-	ld	hl, (_spawnX)
-	ld	de, -1851
-	lea	iy, ix
-	add	iy, de
-	ld	(iy), hl
-	ld	hl, (_spawnY)
-	push	ix
-	ld	de, -1863
-	add	ix, de
-	ld	(ix), hl
-	pop	ix
-	ld	iy, (_caveHeight)
-	ld	bc, (_wsChance)
-	ld	de, (_blockVariety)
-	ld	hl, (_spawnBlock)
-	push	hl
+	ld	hl, (_showTestTiles)
+	ld	de, 0
 	push	de
-	push	bc
-	push	iy
-	ld	bc, -1863
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	push	hl
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	push	hl
-	ld	bc, -1854
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	push	hl
-	call	_generateMap
-	ld	hl, 21
-	add	hl, sp
-	ld	sp, hl
-	ld	hl, (_spawnX)
-	ld	de, (_spawnY)
 	push	de
 	push	hl
-	ld	bc, -1848
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	push	hl
-	call	_resetPlayer
-	pop	hl
-	pop	hl
-	pop	hl
-	jp	BB15_6
+	call	_adjustParam
+	pop	de
+	pop	de
+	pop	de
+	ld	(_showTestTiles), hl
+	ld	hl, 8
+	jp	BB15_27
 BB15_35:
 	ld	hl, (_spawnX)
-	ld	de, -1851
-	lea	iy, ix
-	add	iy, de
-	ld	(iy), hl
+	ld	(ix - 45), hl
 	ld	hl, (_spawnY)
-	push	ix
-	ld	de, -1863
-	add	ix, de
-	ld	(ix), hl
-	pop	ix
+	ld	(ix - 54), hl
 	ld	iy, (_caveHeight)
 	ld	bc, (_wsChance)
 	ld	de, (_blockVariety)
@@ -3145,20 +3195,11 @@ BB15_35:
 	push	de
 	push	bc
 	push	iy
-	ld	bc, -1863
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 54)
 	push	hl
-	ld	bc, -1851
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 45)
 	push	hl
-	ld	bc, -1854
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, _main.map
 	push	hl
 	call	_generateMap
 	ld	hl, 21
@@ -3168,69 +3209,82 @@ BB15_35:
 	ld	de, (_spawnY)
 	push	de
 	push	hl
-	ld	bc, -1848
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 42)
 	push	hl
 	call	_resetPlayer
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	bc, -1860
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
-	inc	hl
-	lea	iy, ix
-	add	iy, bc
-	ld	(iy), hl
-	ld	bc, -1845
-	lea	hl, ix
-	add	hl, bc
-	ld	iy, (hl)
-	ld	hl, (iy + 33)
-	inc	hl
-	ld	(iy + 33), hl
 	jp	BB15_6
 BB15_36:
-	ld	hl, _.str.30
+	ld	hl, (_spawnX)
+	ld	(ix - 45), hl
+	ld	hl, (_spawnY)
+	ld	(ix - 54), hl
+	ld	iy, (_caveHeight)
+	ld	bc, (_wsChance)
+	ld	de, (_blockVariety)
+	ld	hl, (_spawnBlock)
 	push	hl
-	ld	hl, _.str.28
+	push	de
+	push	bc
+	push	iy
+	ld	hl, (ix - 54)
+	push	hl
+	ld	hl, (ix - 45)
+	push	hl
+	ld	hl, _main.map
+	push	hl
+	call	_generateMap
+	ld	hl, 21
+	add	hl, sp
+	ld	sp, hl
+	ld	hl, (_spawnX)
+	ld	de, (_spawnY)
+	push	de
+	push	hl
+	ld	hl, (ix - 42)
+	push	hl
+	call	_resetPlayer
+	pop	hl
+	pop	hl
+	pop	hl
+	ld	hl, (ix - 48)
+	inc	hl
+	ld	(ix - 48), hl
+	ld	hl, (ix - 3)
+	inc	hl
+	ld	(ix - 3), hl
+	jp	BB15_6
+BB15_37:
+	ld	hl, _.str.32
+	push	hl
+	ld	hl, _.str.30
 	push	hl
 	call	_ti_Open
 	ld	e, a
 	pop	hl
 	pop	hl
 	or	a, a
-	jr	z, BB15_38
+	jr	z, BB15_39
 	push	de
 	ld	hl, 1
 	push	hl
 	ld	hl, 3
 	push	hl
-	ld	bc, -1857
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 51)
 	push	hl
-	ld	bc, -1845
-	lea	hl, ix
-	add	hl, bc
-	ld	(hl), de
+	ld	(ix - 42), de
 	call	_ti_Write
 	pop	hl
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	bc, -1845
-	lea	hl, ix
-	add	hl, bc
-	ld	hl, (hl)
+	ld	hl, (ix - 42)
 	push	hl
 	call	_ti_Close
 	pop	hl
-BB15_38:
+BB15_39:
 	call	_gfx_End
 	or	a, a
 	sbc	hl, hl
@@ -3242,22 +3296,12 @@ BB15_38:
 	private	JTI15_0
 JTI15_0:
 	dl	BB15_24
-	dl	BB15_27
-	dl	BB15_28
 	dl	BB15_29
 	dl	BB15_30
 	dl	BB15_31
-
-	section	.data,"aw",@progbits
-	public	_global_palette
-_global_palette:
-	db	0, 0, "ÿÿ"
-
-	section	.data,"aw",@progbits
-	public	_slope_data
-_slope_data:
-	db	"", 0, "", 0, 0, "", 0, 0, 0, "", 0, 0, 0, 0, "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""
-	db	31 dup 0
+	dl	BB15_32
+	dl	BB15_33
+	dl	BB15_34
 
 	section	.data,"aw",@progbits
 	public	_spawnX
@@ -3288,6 +3332,11 @@ _wsChance:
 	public	_blockVariety
 _blockVariety:
 	dl	75
+
+	section	.bss,"aw",@nobits
+	public	_showTestTiles
+_showTestTiles:
+	rb	3
 
 	section	.rodata,"a",@progbits
 	private	_.str
@@ -3392,65 +3441,78 @@ _.str.19:
 	section	.rodata,"a",@progbits
 	private	_.str.20
 _.str.20:
-	db	"spawnX", 0
+	db	"show test tiles:", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.21
 _.str.21:
-	db	"spawnY", 0
+	db	"Reset to defaults", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.22
 _.str.22:
-	db	"spawnBlock", 0
+	db	"Back", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.23
 _.str.23:
-	db	"caveHeight", 0
+	db	"spawnX", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.24
 _.str.24:
-	db	"wsChance", 0
+	db	"spawnY", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.25
 _.str.25:
-	db	"blockVariety", 0
+	db	"spawnBlock", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.26
 _.str.26:
-	db	"Reset to defaults", 0
+	db	"caveHeight", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.27
 _.str.27:
-	db	"Back", 0
+	db	"wsChance", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.28
 _.str.28:
-	db	"RanGen", 0
+	db	"blockVariety", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.29
 _.str.29:
-	db	"r", 0
+	db	"showTestTiles", 0
+
+	section	.bss,"aw",@nobits
+	private	_main.map
+_main.map:
+	rb	1800
 
 	section	.rodata,"a",@progbits
 	private	_.str.30
 _.str.30:
-	db	"w", 0
+	db	"RanGen", 0
 
 	section	.rodata,"a",@progbits
 	private	_.str.31
 _.str.31:
+	db	"r", 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.32
+_.str.32:
+	db	"w", 0
+
+	section	.rodata,"a",@progbits
+	private	_.str.33
+_.str.33:
 	db	"LEVEL", 0
 
-	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
-	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
 	ident	"clang version 15.0.0 (https://github.com/jacobly0/llvm-project 5f8512f22751066573aa48ac848a6d2195838ac3)"
 	extern	_fabsf
 	extern	__Unwind_SjLj_Register
@@ -3470,21 +3532,23 @@ _.str.31:
 	extern	__sshru
 	extern	__ftol
 	extern	_gfx_PrintInt
+	extern	_gfx_FillTriangle
 	extern	__setflag
-	extern	__iand
 	extern	_ti_Read
+	extern	__iand
 	extern	_gfx_FillRectangle
 	extern	_ti_Open
 	extern	__ltof
 	extern	_delay
-	extern	_free
 	extern	__fsub
+	extern	_free
 	extern	__frameset
 	extern	_gfx_GetPixel
-	extern	_kb_Scan
-	extern	_strcmp
-	extern	_gfx_GetStringWidth
 	extern	_ti_Write
+	extern	_gfx_GetStringWidth
+	extern	_gfx_SetTransparentColor
+	extern	_strcmp
+	extern	_kb_Scan
 	extern	__ultof
 	extern	__ishru
 	extern	_gfx_SwapDraw
