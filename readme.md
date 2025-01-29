@@ -1,5 +1,7 @@
 # RanGen CE
 
+original game can be found [here](https://scratch.mit.edu/projects/579486353/)
+
 idk what im doing, but it seems to be working rn.
 - use the arrow keys to move
 - use alpha to generate a new level
