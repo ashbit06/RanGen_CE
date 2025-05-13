@@ -615,7 +615,7 @@ int main() {
                     showTestTiles = adjustParam(showTestTiles, 0, 0);
                     break;
                 }
-            } else if (kb_IsDown(kb_KeyEnter)) {
+            } else if (kb_IsDown(kb_Key2nd)) {
                 menuMode = handleMenuMode(&menu, menuMode, selected);
                 selected = 0;
             }

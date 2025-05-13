@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../CEdev/include"
+		}
+	],
+	"settings": {
+		"discord.enabled": false
+	}
+}
