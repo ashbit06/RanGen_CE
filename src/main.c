@@ -531,7 +531,11 @@ int main() {
     while (1) {
         kb_Scan();
         if (kb_IsDown(kb_KeyClear)) {
-            break;
+            if (menu.show) {
+                menu.show = false;
+            } else {
+                break;
+            }
         }
 
         gfx_FillScreen(1); // the classic gray background :)

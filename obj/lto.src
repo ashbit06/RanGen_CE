@@ -2652,12 +2652,12 @@ BB14_35:
 	section	.text,"ax",@progbits
 	public	_main
 _main:
-	ld	hl, -60
+	ld	hl, -63
 	call	__frameset
 	lea	hl, ix - 3
-	ld	(ix - 51), hl
+	ld	(ix - 63), hl
 	lea	hl, ix - 20
-	ld	(ix - 42), hl
+	ld	(ix - 45), hl
 	call	_gfx_Begin
 	ld.sis	hl, 28539
 	ld	iy, -1900030
@@ -2720,9 +2720,9 @@ _main:
 	push	hl
 	ld	hl, 3
 	push	hl
-	ld	hl, (ix - 51)
+	ld	hl, (ix - 63)
 	push	hl
-	ld	(ix - 45), de
+	ld	(ix - 42), de
 	call	_ti_Write
 	jr	BB15_4
 BB15_3:
@@ -2731,12 +2731,12 @@ BB15_3:
 	push	hl
 	ld	hl, 3
 	push	hl
-	ld	hl, (ix - 51)
+	ld	hl, (ix - 63)
 	push	hl
-	ld	(ix - 45), de
+	ld	(ix - 42), de
 	call	_ti_Read
 BB15_4:
-	ld	de, (ix - 45)
+	ld	de, (ix - 42)
 	pop	hl
 	pop	hl
 	pop	hl
@@ -2750,7 +2750,7 @@ BB15_5:
 	lea	hl, ix - 39
 	ld	(ix - 60), hl
 	ld	hl, (_spawnX)
-	ld	(ix - 45), hl
+	ld	(ix - 42), hl
 	ld	hl, (_spawnY)
 	ld	(ix - 48), hl
 	ld	iy, (_caveHeight)
@@ -2763,7 +2763,7 @@ BB15_5:
 	push	iy
 	ld	hl, (ix - 48)
 	push	hl
-	ld	hl, (ix - 45)
+	ld	hl, (ix - 42)
 	push	hl
 	ld	hl, _main.map
 	push	hl
@@ -2775,19 +2775,20 @@ BB15_5:
 	ld	de, (_spawnY)
 	push	de
 	push	hl
-	ld	hl, (ix - 42)
+	ld	hl, (ix - 45)
 	push	hl
 	call	_resetPlayer
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	(ix - 39), 0
+	xor	a, a
+	ld	(ix - 42), a
 	ld	hl, 1
-	ld	(ix - 48), hl
+	ld	(ix - 54), hl
 BB15_6:
 	or	a, a
 	sbc	hl, hl
-	ld	(ix - 45), hl
+	ld	(ix - 48), hl
 BB15_7:
 	call	_kb_Scan
 	ld	hl, -720868
@@ -2800,7 +2801,13 @@ BB15_7:
 	pop	de
 	ld	a, l
 	bit	6, a
-	jp	nz, BB15_37
+	jr	z, BB15_9
+	ld	a, (ix - 42)
+	or	a, a
+	ld	a, 0
+	ld	(ix - 42), a
+	jp	z, BB15_39
+BB15_9:
 	ld	hl, 1
 	push	hl
 	call	_gfx_FillScreen
@@ -2829,7 +2836,7 @@ BB15_7:
 	call	_gfx_GetTextX
 	push	hl
 	pop	de
-	ld	(ix - 54), de
+	ld	(ix - 51), de
 	ld	hl, 104
 	push	hl
 	push	de
@@ -2844,7 +2851,7 @@ BB15_7:
 	pop	hl
 	ld	hl, 1
 	push	hl
-	ld	hl, (ix - 48)
+	ld	hl, (ix - 54)
 	push	hl
 	call	_gfx_PrintInt
 	pop	hl
@@ -2857,7 +2864,7 @@ BB15_7:
 	pop	hl
 	ld	hl, 136
 	push	hl
-	ld	hl, (ix - 54)
+	ld	hl, (ix - 51)
 	push	hl
 	call	_gfx_SetTextXY
 	pop	hl
@@ -2874,8 +2881,11 @@ BB15_7:
 	call	_drawMap
 	pop	hl
 	bit	0, (ix - 4)
-	jr	nz, BB15_11
-BB15_9:
+	jr	nz, BB15_13
+	ld	a, (ix - 42)
+	ld	(ix - 39), a
+	ld	de, (ix - 48)
+BB15_11:
 	ld	hl, -720878
 	push	de
 	ld	e, (hl)
@@ -2885,14 +2895,14 @@ BB15_9:
 	ld	h, d
 	pop	de
 	ld	a, l
-	ld	l, (ix - 39)
 	bit	6, a
-	ld	bc, (ix - 42)
-	jp	nz, BB15_17
-	ld	(ix - 54), l
-	jp	BB15_18
-BB15_11:
-	ld	hl, (ix - 42)
+	jp	nz, BB15_19
+	ld	(ix - 48), de
+	ld	a, (ix - 42)
+	ld	(ix - 51), a
+	jp	BB15_20
+BB15_13:
+	ld	hl, (ix - 45)
 	push	hl
 	call	_playerMovement
 	pop	hl
@@ -2906,25 +2916,27 @@ BB15_11:
 	pop	de
 	ld	a, l
 	bit	7, a
-	jp	nz, BB15_35
+	jp	nz, BB15_37
+	ld	a, (ix - 42)
+	ld	(ix - 39), a
 	ld	bc, (ix - 20)
 	ld	hl, -6291456
 	ld	e, 67
 	ld	a, (ix - 17)
 	call	__fcmp
-	jp	m, BB15_36
+	jp	m, BB15_38
 	ld	bc, (ix - 16)
 	ld	hl, 7340032
 	ld	a, (ix - 13)
 	call	__fcmp
-	jp	m, BB15_16
+	jp	m, BB15_18
 	ld	hl, -21
 	add	hl, sp
 	ld	sp, hl
 	ld	iy, 0
 	add	iy, sp
 	lea	de, iy
-	ld	hl, (ix - 42)
+	ld	hl, (ix - 45)
 	ld	bc, 17
 	ldir
 	ld	(iy + 18), 4
@@ -2933,7 +2945,7 @@ BB15_11:
 	add	hl, sp
 	ld	sp, hl
 	bit	0, a
-	jr	nz, BB15_16
+	jr	nz, BB15_18
 	ld	hl, -720878
 	push	de
 	ld	e, (hl)
@@ -2945,14 +2957,14 @@ BB15_11:
 	ld	a, l
 	bit	5, a
 	ld	hl, 0
-	ld	(ix - 45), hl
-	jp	z, BB15_9
-BB15_16:
+	ex	de, hl
+	jp	z, BB15_11
+BB15_18:
 	ld	hl, (_spawnX)
 	ld	de, (_spawnY)
 	push	de
 	push	hl
-	ld	hl, (ix - 42)
+	ld	hl, (ix - 45)
 	push	hl
 	call	_resetPlayer
 	pop	hl
@@ -2960,30 +2972,30 @@ BB15_16:
 	pop	hl
 	or	a, a
 	sbc	hl, hl
-	ld	(ix - 45), hl
-	jp	BB15_9
-BB15_17:
+	ex	de, hl
+	jp	BB15_11
+BB15_19:
+	ld	l, (ix - 42)
 	ld	a, l
 	xor	a, 1
-	ld	(ix - 54), a
+	ld	(ix - 51), a
 	ld	(ix - 39), a
 	ld	(ix - 4), l
 	or	a, a
 	sbc	hl, hl
-	ld	(ix - 45), hl
-BB15_18:
-	push	hl
-	push	hl
-	push	hl
-	push	hl
-	push	hl
-	push	hl
+	ld	(ix - 48), hl
+BB15_20:
+	ld	hl, (ix - 45)
+	push	de
+	push	de
+	push	de
+	push	de
+	push	de
+	push	de
 	ex	de, hl
 	ld	hl, 0
 	add	hl, sp
 	ex	de, hl
-	push	bc
-	pop	hl
 	ld	bc, 17
 	ldir
 	call	_drawPlayer
@@ -3003,7 +3015,7 @@ BB15_18:
 	ld	hl, 0
 	add	hl, sp
 	ex	de, hl
-	ld	hl, (ix - 42)
+	ld	hl, (ix - 45)
 	ld	bc, 17
 	ldir
 	call	_debugPlayerPosition
@@ -3013,20 +3025,20 @@ BB15_18:
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	a, (ix - 54)
+	ld	a, (ix - 51)
 	or	a, a
-	jr	nz, BB15_20
+	jr	nz, BB15_22
 	ld	(ix - 4), 1
-	jp	BB15_28
-BB15_20:
-	ld	hl, (ix - 45)
+	jp	BB15_30
+BB15_22:
+	ld	hl, (ix - 48)
 	push	hl
 	ld	hl, (ix - 57)
 	push	hl
 	ld	hl, (ix - 60)
 	push	hl
 	call	_drawMenu
-	ld	(ix - 45), hl
+	ld	(ix - 48), hl
 	pop	hl
 	pop	hl
 	pop	hl
@@ -3035,20 +3047,20 @@ BB15_20:
 	ld	hl, (ix - 57)
 	push	hl
 	call	_strcmp
-	ld	bc, (ix - 45)
+	ld	bc, (ix - 48)
 	pop	de
 	pop	de
 	add	hl, bc
 	or	a, a
 	sbc	hl, bc
-	jr	nz, BB15_25
+	jr	nz, BB15_27
 	push	bc
 	pop	hl
 	ld	de, 2
 	or	a, a
 	sbc	hl, de
 	call	pe, __setflag
-	jp	m, BB15_25
+	jp	m, BB15_27
 	push	bc
 	pop	hl
 	ld	de, -2
@@ -3058,14 +3070,14 @@ BB15_20:
 	ld	bc, 7
 	or	a, a
 	sbc	hl, bc
-	jr	nc, BB15_28
+	jr	nc, BB15_30
 	ld	hl, JTI15_0
 	add	hl, de
 	add	hl, de
 	add	hl, de
 	ld	hl, (hl)
 	jp	(hl)
-BB15_24:
+BB15_26:
 	ld	hl, (_spawnX)
 	ld	de, 320
 	push	de
@@ -3078,8 +3090,8 @@ BB15_24:
 	pop	de
 	ld	(_spawnX), hl
 	ld	hl, 2
-	jr	BB15_27
-BB15_25:
+	jr	BB15_29
+BB15_27:
 	ld	hl, -720878
 	push	de
 	ld	e, (hl)
@@ -3090,7 +3102,7 @@ BB15_25:
 	pop	de
 	ld	a, l
 	bit	5, a
-	jr	z, BB15_28
+	jr	z, BB15_30
 	push	bc
 	ld	hl, (ix - 57)
 	push	hl
@@ -3103,16 +3115,18 @@ BB15_25:
 	pop	hl
 	or	a, a
 	sbc	hl, hl
-BB15_27:
-	ld	(ix - 45), hl
-BB15_28:
+BB15_29:
+	ld	(ix - 48), hl
+BB15_30:
 	call	_gfx_SwapDraw
 	ld	hl, 50
 	push	hl
 	call	_delay
 	pop	hl
+	ld	a, (ix - 39)
+	ld	(ix - 42), a
 	jp	BB15_7
-BB15_29:
+BB15_31:
 	ld	hl, (_spawnY)
 	ld	de, 240
 	push	de
@@ -3125,8 +3139,8 @@ BB15_29:
 	pop	de
 	ld	(_spawnY), hl
 	ld	hl, 3
-	jr	BB15_27
-BB15_30:
+	jr	BB15_29
+BB15_32:
 	ld	hl, (_spawnBlock)
 	ld	de, 1
 	push	de
@@ -3139,8 +3153,8 @@ BB15_30:
 	pop	de
 	ld	(_spawnBlock), hl
 	ld	hl, 4
-	jr	BB15_27
-BB15_31:
+	jr	BB15_29
+BB15_33:
 	ld	hl, (_caveHeight)
 	ld	de, 999
 	push	de
@@ -3153,8 +3167,8 @@ BB15_31:
 	pop	de
 	ld	(_caveHeight), hl
 	ld	hl, 5
-	jr	BB15_27
-BB15_32:
+	jr	BB15_29
+BB15_34:
 	ld	hl, (_wsChance)
 	ld	de, 100
 	push	de
@@ -3167,8 +3181,8 @@ BB15_32:
 	pop	de
 	ld	(_wsChance), hl
 	ld	hl, 6
-	jp	BB15_27
-BB15_33:
+	jp	BB15_29
+BB15_35:
 	ld	hl, (_blockVariety)
 	ld	de, 100
 	push	de
@@ -3181,8 +3195,8 @@ BB15_33:
 	pop	de
 	ld	(_blockVariety), hl
 	ld	hl, 7
-	jp	BB15_27
-BB15_34:
+	jp	BB15_29
+BB15_36:
 	ld	hl, (_showTestTiles)
 	ld	de, 0
 	push	de
@@ -3194,12 +3208,12 @@ BB15_34:
 	pop	de
 	ld	(_showTestTiles), hl
 	ld	hl, 8
-	jp	BB15_27
-BB15_35:
+	jp	BB15_29
+BB15_37:
 	ld	hl, (_spawnX)
-	ld	(ix - 45), hl
+	ld	(ix - 48), hl
 	ld	hl, (_spawnY)
-	ld	(ix - 54), hl
+	ld	(ix - 51), hl
 	ld	iy, (_caveHeight)
 	ld	bc, (_wsChance)
 	ld	de, (_blockVariety)
@@ -3208,9 +3222,9 @@ BB15_35:
 	push	de
 	push	bc
 	push	iy
-	ld	hl, (ix - 54)
+	ld	hl, (ix - 51)
 	push	hl
-	ld	hl, (ix - 45)
+	ld	hl, (ix - 48)
 	push	hl
 	ld	hl, _main.map
 	push	hl
@@ -3222,18 +3236,18 @@ BB15_35:
 	ld	de, (_spawnY)
 	push	de
 	push	hl
-	ld	hl, (ix - 42)
+	ld	hl, (ix - 45)
 	push	hl
 	call	_resetPlayer
 	pop	hl
 	pop	hl
 	pop	hl
 	jp	BB15_6
-BB15_36:
+BB15_38:
 	ld	hl, (_spawnX)
-	ld	(ix - 45), hl
+	ld	(ix - 48), hl
 	ld	hl, (_spawnY)
-	ld	(ix - 54), hl
+	ld	(ix - 51), hl
 	ld	iy, (_caveHeight)
 	ld	bc, (_wsChance)
 	ld	de, (_blockVariety)
@@ -3242,9 +3256,9 @@ BB15_36:
 	push	de
 	push	bc
 	push	iy
-	ld	hl, (ix - 54)
+	ld	hl, (ix - 51)
 	push	hl
-	ld	hl, (ix - 45)
+	ld	hl, (ix - 48)
 	push	hl
 	ld	hl, _main.map
 	push	hl
@@ -3256,20 +3270,20 @@ BB15_36:
 	ld	de, (_spawnY)
 	push	de
 	push	hl
-	ld	hl, (ix - 42)
+	ld	hl, (ix - 45)
 	push	hl
 	call	_resetPlayer
 	pop	hl
 	pop	hl
 	pop	hl
-	ld	hl, (ix - 48)
+	ld	hl, (ix - 54)
 	inc	hl
-	ld	(ix - 48), hl
+	ld	(ix - 54), hl
 	ld	hl, (ix - 3)
 	inc	hl
 	ld	(ix - 3), hl
 	jp	BB15_6
-BB15_37:
+BB15_39:
 	ld	hl, _.str.32
 	push	hl
 	ld	hl, _.str.30
@@ -3279,13 +3293,13 @@ BB15_37:
 	pop	hl
 	pop	hl
 	or	a, a
-	jr	z, BB15_39
+	jr	z, BB15_41
 	push	de
 	ld	hl, 1
 	push	hl
 	ld	hl, 3
 	push	hl
-	ld	hl, (ix - 51)
+	ld	hl, (ix - 63)
 	push	hl
 	ld	(ix - 42), de
 	call	_ti_Write
@@ -3297,7 +3311,7 @@ BB15_37:
 	push	hl
 	call	_ti_Close
 	pop	hl
-BB15_39:
+BB15_41:
 	call	_gfx_End
 	or	a, a
 	sbc	hl, hl
@@ -3308,13 +3322,13 @@ BB15_39:
 	section	.rodata,"a",@progbits
 	private	JTI15_0
 JTI15_0:
-	dl	BB15_24
-	dl	BB15_29
-	dl	BB15_30
+	dl	BB15_26
 	dl	BB15_31
 	dl	BB15_32
 	dl	BB15_33
 	dl	BB15_34
+	dl	BB15_35
+	dl	BB15_36
 
 	section	.data,"aw",@progbits
 	public	_spawnX
