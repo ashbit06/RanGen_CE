@@ -1,28 +1,31 @@
-#include <graphx.h>
-#include <keypadc.h>
-#include <fileioc.h>
-#include <tice.h>
-#include <debug.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
 
-#define TILE_SIZE   16
+#include <graphx.h>
+#include <keypadc.h>
+#include <fileioc.h>
+#include <tice.h>
+#include <debug.h>
+
+#include "appvar_utils.h"
+
+#define TILE_SIZE  16
 #define BG_COLOR    1
 #define PLAYER_SIZE 5
-#define GRAVITY     -0.64
+#define GRAVITY    -0.64
 #define FRICTION    0.64
-#define JUMP        -6.16
+#define JUMP       -6.16
 #define SPEED       0.68
 
-#define DEFAULT_SPAWNX          TILE_SIZE/2 + PLAYER_SIZE/2
-#define DEFAULT_SPAWNY          GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2
+#define DEFAULT_SPAWNX (int)(TILE_SIZE/2 + PLAYER_SIZE/2)
+#define DEFAULT_SPAWNY (int)(GFX_LCD_HEIGHT/2 - PLAYER_SIZE/2) - 1
 #define DEFAULT_SPAWN_BLOCK     1
 #define DEFAULT_CAVE_HEIGHT     0
-#define DEFAULT_WS_CHANCE       65
-#define DEFAULT_BLOCK_VARIETY   75
+#define DEFAULT_WS_CHANCE      65
+#define DEFAULT_BLOCK_VARIETY  75
 #define DEFAULT_SHOW_TEST_TILES 0
 
 // initialize map info
@@ -32,8 +35,18 @@ int spawnBlock = DEFAULT_SPAWN_BLOCK;
 int caveHeight = DEFAULT_CAVE_HEIGHT;
 int wsChance = DEFAULT_WS_CHANCE;
 int blockVariety = DEFAULT_BLOCK_VARIETY;
-
 int showTestTiles = DEFAULT_SHOW_TEST_TILES;
+int allTimeCompleted = 0;
+
+// initialize stored settings
+char stored_SpawnX[4];
+char stored_SpawnY[4];
+char stored_SpawnBlock[4];
+char stored_CaveHeight[4];
+char stored_WsChance[4];
+char stored_BlockVariety[4];
+char stored_ShowTestTiles[2];
+char stored_AllTimeCompleted[16];
 
 struct Player {
     float x;
@@ -72,9 +85,25 @@ bool any(bool array[], int size) {
     return res;
 }
 
+bool all(bool array[], int size) {
+    bool res = true;
+    for (int i = 0; i < size; i++) {
+        if (!array[i]) {
+            res = false;
+            break;
+        }
+    }
+    return res;
+}
+
+bool startsWith(const char *str, const char *prefix) {
+    return strncmp(str, prefix, strlen(prefix)) == 0;
+}
+
+
 int adjustParam(int param, int min, int max) {
     int adj = (int)kb_IsDown(kb_KeyRight)/4 - (int)kb_IsDown(kb_KeyLeft)/2;
-    dbg_printf("adjusting by %d", adj);
+    if (kb_IsDown(kb_KeyLeft) || kb_IsDown(kb_KeyRight)) dbg_printf("adjusting by %d\n", adj);
     int new = param + adj;
 
     if (new < min || new > max) return param;
@@ -307,20 +336,6 @@ void drawMap(struct Tile map[15][20]) {
     }
 }
 
-void drawSlider(int x, int y, int value, int padding, int min, int max, bool showArrows) {
-    gfx_SetTextXY(x, y);
-
-    if (value > min && showArrows) gfx_PrintChar('<');
-    else if (min == max && showArrows) gfx_PrintChar('[');
-    else gfx_PrintChar(' ');
-
-    gfx_PrintInt(value, padding);
-
-    if (value < max && showArrows) gfx_PrintChar('>');
-    else if (min == max && showArrows) gfx_PrintChar(']');
-    else gfx_PrintChar(' ');
-}
-
 
 const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected) {
     dbg_printf("user selected a menu option. selected option %d.\n", selected);
@@ -344,9 +359,56 @@ const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected
             break;
         }
     } else if (!strcmp(menuMode, "MAP")) {
-        switch (selected)
-        {
-        case 0: // reset to defaults
+        switch (selected) {
+        case 0: // save options
+            dbg_printf("running option \"save options\"\n");
+
+            gfx_SetColor(0xFF); // white
+            gfx_Rectangle(60, 60, 60, 60);
+            gfx_SetColor(0x00); // black
+            gfx_FillRectangle(61, 61, 59, 59);
+            gfx_SetTextFGColor(0xFF); // white
+            gfx_PrintStringXY(
+                "Saving options...", 60, 60
+                // (int)(GFX_LCD_WIDTH/2 - gfx_GetStringWidth("Saving options...")/2),
+                // GFX_LCD_HEIGHT/2 - 8
+            );
+
+            sprintf(stored_SpawnX, "%d", spawnX);
+            sprintf(stored_SpawnY, "%d", spawnY);
+            sprintf(stored_SpawnBlock, "%d", spawnBlock);
+            sprintf(stored_CaveHeight, "%d", caveHeight);
+            sprintf(stored_WsChance, "%d", wsChance);
+            sprintf(stored_BlockVariety, "%d", blockVariety);
+            sprintf(stored_ShowTestTiles, "%d", showTestTiles);
+            
+            bool passed[7] = {true, true, true, true, true, true, true};
+            if (!writeKeyValue("RanGen", "spawnX", stored_SpawnX))
+                {dbg_printf("failed to write spawnX\n"); passed[0] = false;}
+            if (!writeKeyValue("RanGen", "spawnY", stored_SpawnY))
+                {dbg_printf("failed to write spawnX\n"); passed[0] = false;}
+            if (!writeKeyValue("RanGen", "spawnBlock", stored_SpawnBlock))
+                {dbg_printf("failed to write spawnX\n"); passed[0] = false;}
+            if (!writeKeyValue("RanGen", "caveHeight", stored_CaveHeight))
+                {dbg_printf("failed to write spawnX\n"); passed[0] = false;}
+            if (!writeKeyValue("RanGen", "wsChance", stored_WsChance))
+                {dbg_printf("failed to write spawnX\n"); passed[0] = false;}
+            if (!writeKeyValue("RanGen", "blockVariety", stored_BlockVariety))
+                {dbg_printf("failed to write spawnX\n"); passed[0] = false;}
+            if (!writeKeyValue("RanGen", "showTestTiles", stored_ShowTestTiles))
+                {dbg_printf("failed to write spawnX\n"); passed[0] = false;}
+
+            if (!all(passed, 7)) {
+                gfx_FillRectangle(61, 61, 59, 59);
+                gfx_PrintStringXY(
+                    "Failed to save some options.",
+                    (int)(GFX_LCD_WIDTH/2 - gfx_GetStringWidth("Failed to save some options.")/2),
+                    GFX_LCD_HEIGHT/2 - 8
+                );
+            }
+            
+            break;
+        case 1: // reset to defaults
             dbg_printf("running option \"reset to defaults\"\n");
             spawnX = DEFAULT_SPAWNX;
             spawnY = DEFAULT_SPAWNY;
@@ -356,7 +418,7 @@ const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected
             blockVariety = DEFAULT_BLOCK_VARIETY;
             showTestTiles = DEFAULT_SHOW_TEST_TILES;
             break;
-        case 1: // back      
+        case 2: // back      
         default:
             dbg_printf("running option \"back\"\n");
             menuMode = "START";
@@ -365,6 +427,20 @@ const char* handleMenuMode(struct Menu *menu, const char *menuMode, int selected
     }
 
     return menuMode;
+}
+
+void drawSlider(int x, int y, int value, int padding, int min, int max, bool showArrows) {
+    gfx_SetTextXY(x, y);
+
+    if (value > min && showArrows) gfx_PrintChar('<');
+    else if (min == max && showArrows) gfx_PrintChar('[');
+    else gfx_PrintChar(' ');
+
+    gfx_PrintInt(value, padding);
+
+    if (value < max && showArrows) gfx_PrintChar('>');
+    else if (min == max && showArrows) gfx_PrintChar(']');
+    else gfx_PrintChar(' ');
 }
 
 int drawMenu(struct Menu *menu, const char *mode, int selected) {
@@ -416,33 +492,33 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
         menu->infoList[5] = "block variety:";
         menu->infoList[6] = "show test tiles:";
 
-        menu->optLen = 9;
-        menu->showOpts = 2;
+        menu->optLen = 10;
+        menu->showOpts = 3;
         menu->optList = malloc(menu->optLen * sizeof(char*));
-        menu->optList[0] = "Reset to defaults";
-        menu->optList[1] = "Back";
-        menu->optList[2] = "spawnX";
-        menu->optList[3] = "spawnY";
-        menu->optList[4] = "spawnBlock";
-        menu->optList[5] = "caveHeight";
-        menu->optList[6] = "wsChance";
-        menu->optList[7] = "blockVariety";
-        menu->optList[8] = "showTestTiles";
+        menu->optList[0] = "Save options";
+        menu->optList[1] = "Reset to defaults";
+        menu->optList[2] = "Back";
+        menu->optList[3] = "spawnX";
+        menu->optList[4] = "spawnY";
+        menu->optList[5] = "spawnBlock";
+        menu->optList[6] = "caveHeight";
+        menu->optList[7] = "wsChance";
+        menu->optList[8] = "blockVariety";
+        menu->optList[9] = "showTestTiles";
 
         // print values
         gfx_SetMonospaceFont(8);
-        drawSlider(160, 78, spawnX, 3, 0, GFX_LCD_WIDTH, (selected == 2));
+        drawSlider(160, 78, spawnX, 3, 0, GFX_LCD_WIDTH, (selected == 3));
         gfx_PrintString(", ");
-        drawSlider(gfx_GetTextX(), 78, spawnY, 3, 0, GFX_LCD_HEIGHT, (selected == 3));
-        drawSlider(160, gfx_GetTextY() + 10, spawnBlock, 1, 0, 1, (selected == 4));
-        drawSlider(160, gfx_GetTextY() + 10, caveHeight, 3, -99, 999, (selected == 5));
-        drawSlider(160, gfx_GetTextY() + 10, wsChance, 3, 0, 100, (selected == 6));
-        drawSlider(160, gfx_GetTextY() + 10, blockVariety, 3, 0, 100, (selected == 7));
-        drawSlider(160, gfx_GetTextY() + 10, showTestTiles, 1, 0, 0, (selected == 8));
+        drawSlider(gfx_GetTextX(), 78, spawnY, 3, 0, GFX_LCD_HEIGHT, (selected == 4));
+        drawSlider(160, gfx_GetTextY() + 10, spawnBlock, 1, 0, 1, (selected == 5));
+        drawSlider(160, gfx_GetTextY() + 10, caveHeight, 3, -99, 999, (selected == 6));
+        drawSlider(160, gfx_GetTextY() + 10, wsChance, 3, 0, 100, (selected == 7));
+        drawSlider(160, gfx_GetTextY() + 10, blockVariety, 3, 0, 100, (selected == 8));
+        drawSlider(160, gfx_GetTextY() + 10, showTestTiles, 1, 0, 0, (selected == 9));
         gfx_SetMonospaceFont(0);
     }
 
-    
 
     // print title with center alignment
     gfx_SetTextScale(2, 2);
@@ -461,7 +537,7 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
     // print options
     const int y = gfx_GetTextY(); // + 16;
     // dbg_printf("text y: %d", y);
-    dbg_printf("selected: %d\n", selected);
+    if (kb_IsDown(kb_KeyUp) || kb_IsDown(kb_KeyDown)) dbg_printf("selected: %d\n", selected);
     for (int i = 0; i < menu->optLen && i < menu->showOpts; i++) {
         if (i == selected) {
             gfx_SetTextFGColor(0x00); // black
@@ -484,12 +560,13 @@ int drawMenu(struct Menu *menu, const char *mode, int selected) {
 
 
 int main() {
+    int extendDelay = 0; // use to extend the frame delay
     gfx_Begin();
 
-    gfx_palette[1] = gfx_RGBTo1555(222, 222, 222);
-    gfx_palette[2] = gfx_RGBTo1555(255, 223, 255);
-    gfx_palette[3] = gfx_RGBTo1555(255, 255, 255);
-    gfx_palette[4] = gfx_RGBTo1555(255, 0, 0);
+    gfx_palette[1] = gfx_RGBTo1555(222, 222, 222); // background
+    gfx_palette[2] = gfx_RGBTo1555(255, 223, 255); 
+    gfx_palette[3] = gfx_RGBTo1555(255, 255, 255); // white
+    gfx_palette[4] = gfx_RGBTo1555(255,   0,   0); // red
     gfx_SetTransparentColor(3);
 
     gfx_SetDrawBuffer();
@@ -501,20 +578,102 @@ int main() {
     int currentLevel = 1;
 
     // get file somehow
-    int allTimeCompleted = 0;
+    
 
-    ti_var_t file = ti_Open("RanGen", "r");
-    if (file) {
-        ti_Read(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
-        ti_Close(file);
+    // ti_var_t file = ti_Open("RanGen", "r");
+    // if (file) {
+    //     ti_Read(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
+    //     ti_Close(file);
+    // } else {
+    //     file = ti_Open("RanGen", "w");
+    //     if (file) {
+    //         ti_Write(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
+    //         ti_Close(file);
+    //     }
+    // }
+    // dbg_printf("all-time completed: %d\n", allTimeCompleted);
+
+    // load stored settings
+    if (readKeyValue("RanGen", "spawnX", stored_SpawnX, sizeof(stored_SpawnX))) {
+        spawnX = atoi(stored_SpawnX);
+        dbg_printf("stored_SpawnX: %d\n", spawnX);
     } else {
-        file = ti_Open("RanGen", "w");
-        if (file) {
-            ti_Write(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
-            ti_Close(file);
-        }
+        sprintf(stored_SpawnX, "%d", DEFAULT_SPAWNX);
+        writeKeyValue("RanGen", "spawnX", stored_SpawnX);
+        dbg_printf("reset stored_SpawnX to default\n");
     }
-    dbg_printf("all-time completed: %d\n", allTimeCompleted);
+    
+    if (readKeyValue("RanGen", "spawnY", stored_SpawnY, sizeof(stored_SpawnY))) {
+        spawnY = atoi(stored_SpawnY);
+        dbg_printf("stored_SpawnY: %d\n", spawnY);
+    } else {
+        sprintf(stored_SpawnY, "%d", DEFAULT_SPAWNY);
+        writeKeyValue("RanGen", "spawnY", stored_SpawnY);
+        dbg_printf("reset stored_SpawnY to default\n");
+    }
+    
+    if (readKeyValue("RanGen", "spawnBlock", stored_SpawnBlock, sizeof(stored_SpawnBlock))) {
+        spawnBlock = atoi(stored_SpawnBlock);
+        dbg_printf("stored_SpawnBlock: %d\n", spawnBlock);
+    } else {
+        sprintf(stored_SpawnBlock, "%d", DEFAULT_SPAWN_BLOCK);
+        writeKeyValue("RanGen", "spawnBlock", stored_SpawnBlock);
+        dbg_printf("reset stored_SpawnBlock to default\n");
+    }
+    
+    if (readKeyValue("RanGen", "caveHeight", stored_CaveHeight, sizeof(stored_CaveHeight))) {
+        caveHeight = atoi(stored_CaveHeight);
+        dbg_printf("stored_CaveHeight: %d\n", caveHeight);
+    } else {
+        sprintf(stored_CaveHeight, "%d", DEFAULT_CAVE_HEIGHT);
+        writeKeyValue("RanGen", "caveHeight", stored_CaveHeight);
+        dbg_printf("reset stored_CaveHeight to default\n");
+    }
+    
+    if (readKeyValue("RanGen", "wsChance", stored_WsChance, sizeof(stored_WsChance))) {
+        wsChance = atoi(stored_WsChance);
+        dbg_printf("stored_WsChance: %d\n", wsChance);
+    } else {
+        sprintf(stored_WsChance, "%d", DEFAULT_WS_CHANCE);
+        writeKeyValue("RanGen", "wsChance", stored_WsChance);
+        dbg_printf("reset stored_WsChance to default\n");
+    }
+    
+    if (readKeyValue("RanGen", "blockVariety", stored_BlockVariety, sizeof(stored_BlockVariety))) {
+        blockVariety = atoi(stored_BlockVariety);
+        dbg_printf("stored_BlockVariety: %d\n", blockVariety);
+    } else {
+        sprintf(stored_BlockVariety, "%d", DEFAULT_BLOCK_VARIETY);
+        writeKeyValue("RanGen", "blockVariety", stored_BlockVariety);
+        dbg_printf("reset stored_BlockVariety to default\n");
+    }
+    
+    if (readKeyValue("RanGen", "showTestTiles", stored_ShowTestTiles, sizeof(stored_ShowTestTiles))) {
+        showTestTiles = atoi(stored_ShowTestTiles);
+        dbg_printf("stored_ShowTestTiles: %d\n", showTestTiles);
+    } else {
+        sprintf(stored_ShowTestTiles, "%d", DEFAULT_SHOW_TEST_TILES);
+        writeKeyValue("RanGen", "showTestTiles", stored_ShowTestTiles);
+        dbg_printf("reset stored_ShowTestTiles to default\n");
+    }
+    
+    if (readKeyValue("RanGen", "allTimeCompleted", stored_AllTimeCompleted, sizeof(stored_AllTimeCompleted))) {
+        allTimeCompleted = atoi(stored_AllTimeCompleted);
+        dbg_printf("stored_AllTimeCompleted: %d\n", allTimeCompleted);
+    } else {
+        sprintf(stored_AllTimeCompleted, "%d", allTimeCompleted);
+        writeKeyValue("RanGen", "allTimeCompleted", stored_AllTimeCompleted);
+        dbg_printf("reset stored_AllTimeCompleted to default\n");
+    }
+
+    dbg_printf("spawnX: %d\n", spawnX);
+    dbg_printf("spawnY: %d\n", spawnY);
+    dbg_printf("spawnBlock: %d\n", spawnBlock);
+    dbg_printf("caveHeight: %d\n", caveHeight);
+    dbg_printf("wsChance: %d\n", wsChance);
+    dbg_printf("blockVariety: %d\n", blockVariety);
+    dbg_printf("showTestTiles: %d\n", showTestTiles);
+    dbg_printf("allTimeCompleted: %d\n", allTimeCompleted);
 
     // generate level first level
     generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock);
@@ -597,30 +756,31 @@ int main() {
 
             if (!strcmp(menuMode, "MAP") && selected >= 2) {
                 switch (selected) {
-                case 2:
+                case 3:
                     spawnX = adjustParam(spawnX, 0, GFX_LCD_WIDTH);
                     break;
-                case 3:
+                case 4:
                     spawnY = adjustParam(spawnY, 0, GFX_LCD_HEIGHT);
                     break;
-                case 4:
+                case 5:
                     spawnBlock = adjustParam(spawnBlock, 0, 1);
                     break;
-                case 5:
+                case 6:
                     caveHeight = adjustParam(caveHeight, -99, 999);
                     break;
-                case 6:
+                case 7:
                     wsChance = adjustParam(wsChance, 0, 100);
                     break;
-                case 7:
+                case 8:
                     blockVariety = adjustParam(blockVariety, 0, 100);
                     break;
-                case 8:
+                case 9:
                     showTestTiles = adjustParam(showTestTiles, 0, 0);
                     break;
                 }
             } else if (kb_IsDown(kb_Key2nd)) {
                 menuMode = handleMenuMode(&menu, menuMode, selected);
+                if (selected == 0) extendDelay = 500;
                 selected = 0;
             }
         } else {
@@ -628,15 +788,25 @@ int main() {
         }
 
         gfx_SwapDraw();
-        delay(50);
+        delay(50 + extendDelay);
+        extendDelay = 0;
     }
 
     // save all-time completed
-    file = ti_Open("RanGen", "w");
-    if (file) {
-        ti_Write(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
-        ti_Close(file);
-    }
+    // file = ti_Open("RanGen", "w");
+    // if (file) {
+    //     ti_Write(&allTimeCompleted, sizeof(allTimeCompleted), 1, file);
+    //     ti_Close(file);
+    // }
+    sprintf(stored_AllTimeCompleted, "%d", allTimeCompleted);
+    if (!writeKeyValue("RanGen", "allTimeCompleted", stored_AllTimeCompleted)) {
+        dbg_printf("failed to save allTimeCompleted on close\n");
+        gfx_FillScreen(0xFF);
+        gfx_PrintStringXY("failed to save allTimeCompleted on close\n", 0, 0);
+        gfx_SwapDraw();
+
+        while(!os_GetCSC()) delay(50);
+    };
 
     gfx_End();
     return 0;

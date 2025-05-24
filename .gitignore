@@ -1,0 +1,36 @@
+# Build and output directories
+obj/
+bin/
+
+# VS Code settings
+.vscode/
+RanGen CE.code-workspace
+
+# macOS system files
+.DS_Store
+
+# Compiled appvars and binaries
+*.8xv
+*.8xp
+*.bin
+*.elf
+*.o
+*.out
+*.hex
+
+# Backup files
+*~
+*.bak
+
+# Logs
+*.log
+
+# CMake and Make build files
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Other editor/project files
+*.swp
+*.swo

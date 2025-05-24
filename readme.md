@@ -8,6 +8,9 @@ idk what im doing, but it seems to be working rn.
 - use alpha to generate a new level
 - use 2nd to reset your position
 - use the mode key to open the menu
+  - press mode again or clear to close
+  - press enter to select options
+  - arrow keys to cycle through options
 
 ![demo](https://i.ibb.co/LtC1jfy/4f13ff476596.png "i know the background looks pink here, its because i accidentally changed the color right before recording")
 
