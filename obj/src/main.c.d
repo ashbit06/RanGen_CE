@@ -1,10 +1,11 @@
-obj/src/main.c.src: src/main.c /Users/ashton/CEdev/include/stdio.h \
+obj/src/main.c.bc: src/main.c /Users/ashton/CEdev/include/stdio.h \
   /Users/ashton/CEdev/include/cdefs.h \
   /Users/ashton/CEdev/include/stdarg.h \
   /Users/ashton/CEdev/include/stdlib.h \
   /Users/ashton/CEdev/include/string.h \
   /Users/ashton/CEdev/include/stdbool.h \
   /Users/ashton/CEdev/include/math.h \
+  /Users/ashton/CEdev/include/__math_def.h \
   /Users/ashton/CEdev/include/graphx.h \
   /Users/ashton/CEdev/include/stdint.h \
   /Users/ashton/CEdev/include/keypadc.h \
@@ -19,7 +20,6 @@ obj/src/main.c.src: src/main.c /Users/ashton/CEdev/include/stdio.h \
   /Users/ashton/CEdev/include/sys/rtc.h \
   /Users/ashton/CEdev/include/sys/timers.h \
   /Users/ashton/CEdev/include/sys/util.h \
-  /Users/ashton/CEdev/include/ti/debug.h \
   /Users/ashton/CEdev/include/ti/error.h \
   /Users/ashton/CEdev/include/ti/flags.h \
   /Users/ashton/CEdev/include/ti/getcsc.h \
@@ -30,4 +30,5 @@ obj/src/main.c.src: src/main.c /Users/ashton/CEdev/include/stdio.h \
   /Users/ashton/CEdev/include/ti/screen.h \
   /Users/ashton/CEdev/include/ti/ui.h \
   /Users/ashton/CEdev/include/ti/tokens.h \
-  /Users/ashton/CEdev/include/debug.h src/appvar_utils.h
+  /Users/ashton/CEdev/include/debug.h src/globals.h src/appvar_utils.h \
+  src/menu.h

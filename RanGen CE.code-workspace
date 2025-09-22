@@ -8,6 +8,10 @@
 		}
 	],
 	"settings": {
-		"discord.enabled": false
+		"discord.enabled": false,
+		"files.associations": {
+			"appvar_utils.h": "c",
+			"stdbool.h": "c"
+		}
 	}
 }
