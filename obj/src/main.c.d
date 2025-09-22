@@ -31,4 +31,4 @@ obj/src/main.c.bc: src/main.c /Users/ashton/CEdev/include/stdio.h \
   /Users/ashton/CEdev/include/ti/ui.h \
   /Users/ashton/CEdev/include/ti/tokens.h \
   /Users/ashton/CEdev/include/debug.h src/globals.h src/appvar_utils.h \
-  src/menu.h
+  src/player.h src/map.h src/menu.h
