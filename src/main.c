@@ -52,7 +52,7 @@ int main() {
     
     srand(rtc_Time());
 
-    static struct Tile map[15][20];
+    static Tile map[15][20];
     int currentLevel = 1;
     
     // load stored settings
