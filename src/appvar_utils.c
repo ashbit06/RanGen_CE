@@ -5,6 +5,7 @@
 
 #define SEPARATOR '|'
 
+
 // Function to read a value by key from an appvar
 bool readKeyValue(const char *appvarName, const char *key, char *value, size_t valueSize) {
     ti_var_t file = ti_Open(appvarName, "r");

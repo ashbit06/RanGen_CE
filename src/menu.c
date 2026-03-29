@@ -8,6 +8,7 @@
 #include "globals.h"
 #include "appvar_utils.h"
 
+
 struct Menu {
     bool show;
     char* title;

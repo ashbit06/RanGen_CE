@@ -9,6 +9,7 @@
 #include <keypadc.h>
 #include <debug.h>
 
+
 struct Menu {
     bool show;
     char* title;

@@ -16,6 +16,7 @@
 #include "map.h"
 #include "menu.h"
 
+
 int spawnX = DEFAULT_SPAWNX;
 int spawnY = DEFAULT_SPAWNY;
 int spawnBlock = DEFAULT_SPAWN_BLOCK;

@@ -2,6 +2,7 @@
 #include <graphx.h>
 #include "globals.h"
 
+
 typedef struct {
     int type;
     int rotation;

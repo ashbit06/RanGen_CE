@@ -7,6 +7,7 @@
 
 #define MAP Tile map[15][20]
 
+
 typedef struct {
     int type;
     int rotation;

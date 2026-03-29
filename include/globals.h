@@ -20,6 +20,7 @@
 #define DEFAULT_BLOCK_VARIETY  75
 #define DEFAULT_SHOW_TEST_TILES 0
 
+
 struct settings {
     char spawnX[4];
     char spawnY[4];

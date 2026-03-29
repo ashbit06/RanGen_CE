@@ -7,6 +7,7 @@
 // Define the separator for key-value pairs
 #define SEPARATOR '|'
 
+
 // Function to read a value by key from an appvar
 // Parameters:
 // - appvarName: Name of the appvar

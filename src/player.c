@@ -4,6 +4,7 @@
 #include <keypadc.h>
 #include "globals.h"
 
+
 struct Player {
     float x;
     float y;

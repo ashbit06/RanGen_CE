@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include "globals.h"
 
-struct settings storedSettings = {0};
 
 bool any(bool array[], int size) {
     bool res = false;
@@ -29,3 +28,8 @@ bool all(bool array[], int size) {
 bool startsWith(const char *str, const char *prefix) {
     return strncmp(str, prefix, strlen(prefix)) == 0;
 }
+
+
+const char version[] = "beta 0.4.1";
+
+struct settings storedSettings = {0};
