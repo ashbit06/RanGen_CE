@@ -7,4 +7,3 @@
 .DS_Store
 /src/gfx/*.c
 /src/gfx/*.h
-RanGen CE.code-workspace

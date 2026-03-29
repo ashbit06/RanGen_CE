@@ -53,7 +53,7 @@ void playerMovement(struct Player *p) {
     }
 
     // handle horizontal movement
-    p->dx = FRICTION * (p->dx + SPEED*kb_IsDown(kb_KeyRight) - SPEED*kb_IsDown(kb_KeyLeft)*2);
+    p->dx = FRICTION * (p->dx + SPEED * (kb_IsDown(kb_KeyRight) - kb_IsDown(kb_KeyLeft)));
     p->x += p->dx;
     if (playerTouchingColor(*p, 0x00)) {
         // wall collision
