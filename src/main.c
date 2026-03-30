@@ -53,7 +53,7 @@ int main() {
     
     srand(rtc_Time());
 
-    static Tile map[15][20];
+    static Tile map[MAP_HEIGHT][MAP_WIDTH];
     int currentLevel = 1;
     
     // load stored settings

@@ -80,7 +80,7 @@ void drawTile(Tile t, int x, int y, int showTestTiles) {
     }
 }
 
-void generateMap(Tile map[15][20], int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock, int showTestTiles) {
+void generateMap(Tile map[MAP_HEIGHT][MAP_WIDTH], int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock, int showTestTiles) {
     for (int y = 0; y < 15; y++) {
         for (int x = 0; x < 20; x++) {
             map[y][x].rotation = 0;
@@ -141,7 +141,7 @@ void generateMap(Tile map[15][20], int spawnX, int spawnY, int caveHeight, int w
 /*
 take the seed and an integer that is the amount of iterations it took for that specific level to generate
 */
-void loadRNGMap(Tile map[15][20], int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock, int showTestTiles) {
+void loadRNGMap(Tile map[MAP_HEIGHT][MAP_WIDTH], int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock, int showTestTiles) {
     srand(seed);
     for (int i = 0; i < iterations; i++) {
         rand();
@@ -150,7 +150,7 @@ void loadRNGMap(Tile map[15][20], int seed, int iterations, int spawnX, int spaw
     generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock, showTestTiles);
 }
 
-void drawMap(Tile map[15][20], int showTestTiles) {
+void drawMap(Tile map[MAP_HEIGHT][MAP_WIDTH], int showTestTiles) {
     for (int y = 0; y < 18; y++) {
         for (int x = 0; x < 24; x++) {
             drawTile(map[y][x], x * TILE_SIZE, y * TILE_SIZE, showTestTiles);
@@ -158,7 +158,7 @@ void drawMap(Tile map[15][20], int showTestTiles) {
     }
 }
 
-void mapSprite(gfx_sprite_t sprite, Tile map[15][20]) {
+void mapSprite(gfx_sprite_t sprite, Tile map[MAP_HEIGHT][MAP_WIDTH]) {
     // uint8_t width = 16, height = 16;
     // size_t size = sizeof(gfx_sprite_t) + width * height * sizeof(uint8_t);
     // gfx_sprite_t *sprite = malloc(size);

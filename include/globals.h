@@ -4,9 +4,12 @@
 #include <stdbool.h>
 #include <string.h>
 
+#define MAP_HEIGHT 15
+#define MAP_WIDTH  20
 #define TILE_SIZE  16
-#define BG_COLOR    1
 #define PLAYER_SIZE 5
+
+#define BG_COLOR    1
 #define GRAVITY    -0.64
 #define FRICTION    0.64
 #define JUMP       -6.16

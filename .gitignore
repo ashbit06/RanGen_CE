@@ -7,3 +7,5 @@
 .DS_Store
 /src/gfx/*.c
 /src/gfx/*.h
+
+/testing

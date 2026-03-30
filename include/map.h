@@ -5,8 +5,6 @@
 #include <graphx.h>
 #include "globals.h"
 
-#define MAP Tile map[15][20]
-
 
 typedef struct {
     int type;
@@ -14,9 +12,9 @@ typedef struct {
 } Tile;
 
 void drawTile(Tile t, int x, int y, int showTestTiles);
-void generateMap(MAP, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock, int showTestTiles);
-void loadRNGMap(MAP, int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock, int showTestTiles);
-void drawMap(MAP, int showTestTiles);
-void mapSprite(gfx_sprite_t sprite, MAP);
+void generateMap(Tile map[MAP_HEIGHT][MAP_WIDTH], int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock, int showTestTiles);
+void loadRNGMap(Tile map[MAP_HEIGHT][MAP_WIDTH], int seed, int iterations, int spawnX, int spawnY, int caveHeight, int wsChance, int blockVariety, int spawnBlock, int showTestTiles);
+void drawMap(Tile map[MAP_HEIGHT][MAP_WIDTH], int showTestTiles);
+void mapSprite(gfx_sprite_t sprite, Tile map[MAP_HEIGHT][MAP_WIDTH]);
 
 #endif // MAP_H
