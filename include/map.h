@@ -7,8 +7,8 @@
 
 
 typedef struct {
-    int type;
-    int rotation;
+    uint8_t type;
+    uint8_t rotation;
 } Tile;
 
 void drawTile(Tile t, int x, int y, int showTestTiles);
