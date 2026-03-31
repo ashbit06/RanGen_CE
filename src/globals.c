@@ -29,6 +29,12 @@ bool startsWith(const char *str, const char *prefix) {
     return strncmp(str, prefix, strlen(prefix)) == 0;
 }
 
+void rotateBits(int x, int a, size_t size) {
+    int temp = x & MASK(a);
+    x >>= a;
+    x |= (temp << (size - a));
+}
+
 
 const char version[] = "beta 0.4.1";
 

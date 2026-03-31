@@ -23,6 +23,8 @@
 #define DEFAULT_BLOCK_VARIETY  75
 #define DEFAULT_SHOW_TEST_TILES 0
 
+#define MASK(n) ((1 << (n)) - 1)
+
 
 struct settings {
     char spawnX[4];
@@ -35,10 +37,14 @@ struct settings {
     char allTimeCompleted[16];
 };
 
-extern struct settings storedSettings;
 
 bool any(bool array[], int size);
 bool all(bool array[], int size);
 bool startsWith(const char *str, const char *prefix);
+void rotateBits(int x, int a, size_t size);
+
+
+extern struct settings storedSettings;
+extern const char version[];
 
 #endif // DEFINES_H
