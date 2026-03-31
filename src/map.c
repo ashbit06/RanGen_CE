@@ -3,6 +3,8 @@
 #include "globals.h"
 
 
+typedef uint16_t TilePos;
+
 typedef struct {
     uint8_t type;
     uint8_t rotation;

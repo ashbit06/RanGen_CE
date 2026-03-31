@@ -15,6 +15,7 @@
 #include "player.h"
 #include "map.h"
 #include "menu.h"
+#include "verify.h"
 
 
 int spawnX = DEFAULT_SPAWNX;
@@ -37,6 +38,12 @@ struct MenuData makeMenuData() {
     data.showTestTiles = showTestTiles;
     return data;
 }
+
+void generate(Tile map[MAP_HEIGHT][MAP_WIDTH]) {
+    do { generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock, showTestTiles); }
+    while (!verifyMap(map));
+}
+
 
 int main() {
     int extendDelay = 0; // use to extend the frame delay
@@ -140,7 +147,7 @@ int main() {
 
     // generate level first level
     // gfx_sprite_t *sprite = malloc(sizeof(gfx_sprite_t) + pow(TILE_SIZE,2) * sizeof(uint8_t));
-    generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock, showTestTiles);
+    generate(map);
     // mapSprite(*sprite, map);
 
     // initialize the player
@@ -186,14 +193,14 @@ int main() {
 
 
             if (kb_IsDown(kb_KeyAlpha)) {
-                generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock, showTestTiles);
+                generate(map);
                 // mapSprite(*sprite, map);
                 resetPlayer(&player, spawnX, spawnY);
                 continue;
             }
 
             if (player.x > GFX_LCD_WIDTH) {
-                generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock, showTestTiles);
+                generate(map);
                 // mapSprite(*sprite, map);
                 resetPlayer(&player, spawnX, spawnY);
                 currentLevel++;

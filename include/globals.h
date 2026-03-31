@@ -41,7 +41,7 @@ struct settings {
 bool any(bool array[], int size);
 bool all(bool array[], int size);
 bool startsWith(const char *str, const char *prefix);
-void rotateBits(int x, int a, size_t size);
+int rotateBits(int x, int a, size_t size);
 
 
 extern struct settings storedSettings;

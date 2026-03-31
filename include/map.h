@@ -5,6 +5,12 @@
 #include <graphx.h>
 #include "globals.h"
 
+#define PACK_POS(x, y) ((x) | ((y) << 8))
+#define UNPACK_X(p) ((p) & 0xFF)
+#define UNPACK_Y(p) (((p) >> 8) & 0xFF)
+
+
+typedef uint16_t TilePos;
 
 typedef struct {
     uint8_t type;
