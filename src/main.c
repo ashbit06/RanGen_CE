@@ -41,7 +41,7 @@ struct MenuData makeMenuData() {
 
 void generate(Tile map[MAP_HEIGHT][MAP_WIDTH]) {
     do { generateMap(map, spawnX, spawnY, caveHeight, wsChance, blockVariety, spawnBlock, showTestTiles); }
-    while (!verifyMap(map));
+    while (!verifyMap(map, PACK_POS(0, 13)));
 }
 
 
