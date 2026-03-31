@@ -167,9 +167,12 @@ int drawMenu(struct Menu *menu, struct MenuData *data, const char *mode, int sel
         menu->title = "RanGen CE";
         menu->showOpts = true;
 
+        char v[24];
+        sprintf(v, "version: %s", version);
+
         menu->infoLen = 5;
         menu->infoList = malloc(menu->infoLen * sizeof(char*));
-        menu->infoList[0] = "version: beta 0.4";
+        menu->infoList[0] = v;
         menu->infoList[1] = "author: ashbit06";
         menu->infoList[2] = "";
         menu->infoList[3] = "A remake of a game I made on Scratch.";
